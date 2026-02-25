@@ -1,23 +1,351 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <title>Tehnici web</title>
+    <meta name="author" content="Fratila Marius">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Equip your firm with top quality merchandise, with the assurance of legality guaranteed by us and our parteners.">
+    <meta name="keywords" content="Guns of the Patriot, Guns of the Patriots, comercializare de arme, armament
+                                   Sons of the Patriots, arme, magazin, showroom, oportunitate de afacere">
+    <title>Guns of the Patriot</title>
+        <link rel="icon" type="image/png" href="./resources/images/favicon/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="./resources/images/favicon/favicon.svg" />
+        <link rel="shortcut icon" href="./resources/images/favicon/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="./resources/images/favicon/apple-touch-icon.png" />
+        <link rel="manifest" href="./resources/images/favicon/site.webmanifest" />
+		
+        <link rel="stylesheet"  href="./resources/css/general.css" type="text/css"  />
+        <link rel="stylesheet" href="./resources/css/general1000.css" type="text/css" media="screen and (max-width:1000px)"/>
+        <link rel="stylesheet" href="./resources/css/general700.css" type="text/css" media="screen and (max-width:700px)"/>
+        <link rel="stylesheet" href="./resources/css/nav.css" type="text/css" />
+        
+        <link rel="stylesheet" href="./resources/css/nav1000.css" type="text/css" media="screen and (max-width:1000px)"/>
+        
+        <link rel="stylesheet" href="./resources/css/nav700.css" type="text/css" media="screen and (max-width:700px)"/>
+        <link rel="stylesheet"  href="./resources/css/galerie-statica.css" type="text/css"  />
+        <link rel="stylesheet"  href="./resources/css/galerie-statica-500.css" type="text/css" media="screen and (max-width:500px)"  />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Eater&family=Madimi+One&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
 </head>
+
 <body>
     <header>
-        <h1>Tehnici web</h1>
-        <img src="sigla.png" alt="sigla" />
+        <h1>Guns of the Patriot</h1>
     </header>
     <main>
-        <p>Este o materie care îmi place <em>mult<em>!...</p>
-        <section>
-            <h2>Despre HTML</h2>
-            <p>Este limbajul paginilor web.</p>
+        <div id="grid-page">
+
+            <section id="welcome">
+                <hgroup>
+                    <h2>Bine ati venit</h2>
+                    <p class="subtitlu">Prezentarea cofetăriei</p>
+                </hgroup>
+
+                <p class="intro">Vă mulțumim că ne vizitați site-ul. Luați de aici niște biscuiți virtuali. Poftă bună!</p>
+                
+                <div class="intro-oferte"><div>Pateuri</div><div>Bomboane</div><div>Fursecuri</div><div>Prajituri</div><div>Torturi</div></div>
+                <p class="anunt intro">Vă puteți îngrășa atât la sediul nostru cât și la propriul dumneavoastră domiciliu, cu ajutorul ofertei noastre de livrare a produselor prin curier.</p>
+                <div id="dv-prezentare-1">
+                    <div id="dv-prezentare">
+                    <picture>
+                        <!-- il ia pe primul care se potriveste cu query-ul din media-->
+                        <source srcset="./resurse/imagini/macarons-200x200.jpg" media="(max-width:700px)"/>
+                        <source srcset="./resurse/imagini/macarons.jpg" media="(max-width:1200px)"/>
+                        <img src="./resurse/imagini/macarons-640x360.jpg" alt="text"/>
+                    </picture>
+                </div>
+            </div>
+            <hr class="prajituri"/>
+            <div id="container-video">
+                <img style="width:50%" class="farfurie" src="resurse/imagini/farfurie-flori-albastre.png" alt="farfurie" title="O farfurie cu flori">
+                <div id="centrare-video">
+                    <div id="clip-video">
+                        <div id="stil-video">
+                            <video width="320" height="240"  playsinline autoplay loop muted>
+                                <source src="resurse/video/Chocolate.mp4" type="video/mp4">
+                                <source src="resurse/video/Chocolate.ogv" type="video/ogv">
+                                <track default src="data:image/png;base64, V0VCVlRUIC0gQ2lvY29sYXTEgwoKMDA6MDAuMDAwIC0tPiAwMDowMy4wMDAgbGluZTowCkNpb2NvbGF0xIMhISEKCjAwOjAzLjAwMCAtLT4gMDA6MDcuMDAwIGxpbmU6MApNdWx0xIMgY2lvY29sYXTEgyEhISEKCjAwOjA5LjAwMCAtLT4gMDA6MTQuMDAwIGxpbmU6MApVcHMsIGFtIG11cmTEg3JpdCBtYXNhIQoKMDA6MTQuNTAwIC0tPiAwMDoxOS4wMDAgbGluZTowCk51IGNvbnRlYXrEgyEgQ2lvY29sYXTEg8SDxIPEg8SDxIMhCgo=" kind="captions" srclang="ro" label="romana">
+                                <track src="data:image/png;base64, V0VCVlRUIC0gQ2hvY29sYXRlDQoNCjAwOjAwLjAwMCAtLT4gMDA6MDMuMDAwDQpDaG9jb2xhdGUhISENCg0KMDA6MDMuMDAwIC0tPiAwMDowNy4wMDANCkxvdHMgb2YgY2hvY29sYXRlISEhIQ0KDQowMDowOS4wMDAgLS0+IDAwOjE0LjAwMA0KT3VwcywgdGFibGUgZ290IGRpcnR5IQ0KDQowMDoxNC41MDAgLS0+IDAwOjE5LjAwMA0KRG9lc24ndCBtYXR0ZXIhIENob2NvbGF0ZSEhIQ0KDQo=" kind="captions" srclang="en" label="engleza">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </section>
+            <section id="promotii">
+                <h2>Promoții și oferte</h2>
+                <article>
+                    <h3 class="titlu">Super ofertă de weekend</h3>
+                    <p><b>Cofetăria Dulcelind</b> oferă <b>reduceri de <s>10%</s> <ins>15%</ins></b> pentru toate produsele cumpărate în intervalul 10-14.</p>
+                    <p>Oferta este valabilă doar în zilele de sâmbătă și duminică la sediile <abbr title="Cofetăria Dulcelind">CD</abbr>.</p>
+                    <p>în cazul în care cumpărați mai mult de zece <b>prăjituri</b> primiți si un card de fidelitate pentru Salvare!</p>
+                </article>
+                <article>
+                    <h3>Ofertă pachet</h3>
+                    <p>Cofetăria Dulcelind oferă pachete cuprinzând:</p>
+                    <ol>
+                        <li><i lang="en">icecream</i></li>
+                        <li>Un set de 4 pateuri de sortimente diferite</li>
+                        <li>O prajitură la alegere</li>
+                        <li>Un <i>suc</i></li>
+                        <li>Gratis: o farfurioară ornata cu inițiala cofetăriei</li>
+                        <li>Gratis: o felicitare cu imaginea cofetăriei</li>
+                        <li>Gratis: un pui de pisică (am găsit niște pui de pisică abandonați lângă cofetărie și noi nu îi putem păstra. Nu ne reclamați la ANPC, <!--abreviere--> mulțumim de înțelegere!).  </li>
+                    </ol>
+                    
+                </article>
+                <article>
+                    <h3>Prajituri de Halloween</h3>
+                    <p>Noi punem suflet în prăjiturile noastre!... Literalmente!</p>
+                    <p>Chiar și dacă nu e Halloween încă, avem prajituri bântuite, de toate dimensiunile</p>
+                    <ol>
+                        <li>Când vreți să gustați o prajitura, aceasta țipă, sau, mai rău, vă spune sincer că ar cam trebui să vă mai spălați pe dinți.</li>
+                        <li>Când puneți mai multe prăjituri pe platou, vor conspira împotriva dumneavoastră... hehe... dar n-au ce să vă facă, în final sunt doar niște prăjituri</li>
+                        <li>Nu încercați să mușcați vreun fursec de Halloween, căci va mușca el înainte. Ați fost avertizați.</li>
+
+                    </ol>
+                    
+                </article>
+                <article>
+                    <h3>Prăjituri de Anul Nou</h3>
+                    <p>La începutul fiecărui an vă faceți planuri că de data asta veti trăi mai sănatos, veți mânca mai chibzuit și vă veți duce din prima zi la sală. Știm cu toții că e doar o amăgire. Luați mai bine o prăjitură, măcar să va delectați cu un gust bun și dulce în timp ce plângeți despre kilogramele în plus.</p>
+                    
+                </article>
+            </section>
+            <section id="produse">
+                <h2>Produsele noastre</h2>
+                <p>Vă oferim o multitudine de metode să câștigați cu succes kilograme în plus.</p>
+                <section>
+                    <h3>Torturi</h3>
+                    <p>În caz că nu le puteți mânca fiindcă sunteți la dietă și doar vă uitați la ele, puneți accentul pe u!</p>
+                    <p>Avem torturi cu:</p>
+                    <ul>
+                        <li>ciocolată</li>
+                        <li>frișcă</li>
+                        <li>fructe</li>
+                        <li>dulceață</li>
+                        <li>înghețată</li>
+                        <li>regrete</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Prăjituri</h3>
+                    <p>Oferim prăjiturile clasice plus câteva creations personnelles, oui!</p>
+                    <p>Prăjituri:</p>
+                    <ul>
+                        <li>savarină</li>
+                        <li>amandină</li>
+                        <li>tartă cu fructe</li>
+                        <li>doboș</li>
+                        <li>carpați (orientali, meridionali și occidentali)</li>
+                        <li>ecler</li>
+                        <li>tiramisu</li>
+                        <li>colivă</li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h3>Pateuri</h3>
+                    <p>Pateurile noastre sunt umplute cu:</p>
+                    <ul>
+                        <li>brânză</li>
+                        <li>pizza</li>
+                        <li>spanac</li>
+                        <li>ciuperci</li>
+                        <li>compoziție secretă (sincer, nici noi nu mai știm ce conține)</li>
+                    </ul>
+                </section>
+            </section>
+            <section id="orar">
+                <h2>Orar</h2>
+                <table id="tab-orar">
+                    <thead>
+
+                        <tr>
+                            <th>Cod</th>
+                            <th>Perioadă</th>
+                            <th>Zi</th>
+                            <th>Interval dimineata</th>
+                            <th>Pauza de masa</th>
+                            <th>Interval seară</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td rowspan="5">Zile<br/>Lucrătoare</td>
+                            <td>Luni</td>
+                            <td>10-12</td>
+                            <td>12-14</td>
+                            <td>14-20</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            
+                            <td>Marti</td>
+                            <td>9-12</td>
+                            <td>12-14</td>
+                            <td>14-21</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            
+                            <td>Miercuri</td>
+                            <td>9-11</td>
+                            <td>11-13</td>
+                            <td>14-21</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            
+                            <td>Joi</td>
+                            <td>9-11</td>
+                            <td>11-13</td>
+                            <td>14-21</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            
+                            <td>Vineri</td>
+                            <td>9-12</td>
+                            <td>12-14</td>
+                            <td>14-19</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td rowspan="2">Weekend</td>
+                            <td>Sambata</td>
+                            <td>10-12</td>
+                            <td>12-13</td>
+                            <td>13-16</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Duminica</td>
+                            <td>10-14</td>
+                            <td>-</td>
+                            <td>inchis</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6">Închis cu ocazia sărbătorilor legale, sau, când ne e mai lene așa.</td>
+                        </tr>
+                    </tfoot>
+                </table> 
+                <p><strong>Atentie!!!</strong> in prima zi a lunii facem inventar.</p>
+            </section>
+            <figure id="fig1" class="fg-img">
+                <img src="resurse/imagini/briose-frisca.png" alt="briose">
+                <figcaption>Briose 1</figcaption>
+            </figure>
+            <figure id="fig2" class="fg-img">
+            <img src="resurse/imagini/briose-frisca.png" alt="briose">
+            <figcaption>Briose 2</figcaption>
+            </figure>
+            <figure  id="fig3" class="fg-img">
+            <img src="resurse/imagini/briose-frisca.png" alt="briose">
+            <figcaption>Briose 3</figcaption>
+            </figure>
+            <figure  id="fig4">
+            <img src="resurse/imagini/briose-frisca.png" alt="briose">
+            <figcaption>Briose 3</figcaption>
+            </figure>
+            <section id="anunturi">
+                <h2 class="fg-img">Anunțuri</h2>
+                <p><time datetime="2025-07-20">20 iulie 2025</time>Nu avem nimic de anuntat, doar a trecut ceva vreme de la ultimul anunț și ne-am gândit să mai scriem ceva pe aici.</p>
+                <p><time datetime="2022-01-05">5 ianuarie 2022</time> <strong>No more Covid!!!!</strong></p>
+               
+                <p><time datetime="2020-03-15">15 martie 2020</time> <span>Am adăugat o prăjitură noua în meniu</span></p>
+                <p><time datetime="2020-04-05">5 aprilie 2020</time> <span>Am adăugat o prăjitură noua în meniu</span></p>
+                <p><time datetime="2020-07-05">5 iulie 2020</time> Am adăugat o prăjitură noua în meniu</p>
+                <p><time datetime="2020-09-15">15 septembrie 2020</time> Am adăugat un fursec nou în meniu</p>
+                <p><time datetime="2020-12-20">20 decembrie 2020</time> Nu avem nimic de anunțat, dar ne era dor de voi.</p>
+                <p><time datetime="2020-12-28">28 decembrie 2020</time> Am adăugat o prăjitură noua în meniu</p>
+                <p><time datetime="2021-01-01">1 ianuarie 2021</time> Un an nou fericit!</p>
+                <p><time datetime="2021-02-11">11 februarie 2021</time> Studiile au arătat că prăjiturile sunt cele mai sănătoase alimente. 
+                    E adevărat că doar studiile noastre, dar astea sunt detalii. </p>
+            </section>
+            <section id="index-intrebari">
+                <h2>Întrebări frecvente</h2>
+                <details><summary>Produsele dumneavoastră provoacă afecțiuni dentare?</summary>
+                    <p>Da!</p>
+                </details>
+                <details><summary>Produsele dumneavoastră provoacă afecțiuni ale sistemului digestiv (precum diabetul)?</summary>
+                    <p>Da!</p>
+                </details>
+                <details><summary>Produsele dumneavoastră provoacă obezitate?</summary>
+                    <p>Foarte! Da!</p>
+                </details>
+                <details><summary>Sunteți cumva asociați cu medicii dentiști, medicii gastroenterologi, companiile farmaceutice și sălile de Fitness?</summary>
+                    <p>Ne rezervăm dreptul de a nu răspunde la această întrebare; mulțumim pentru înțelegere!</p>
+                </details>
+            </section>
+
+        </div>
+        <section id="galerie-statica">
+            <h2>Galerie</h2>
+            <div id="grid-galerie">
+                <figure>
+                    <div>
+                        <img src="resurse/imagini/briose-frisca.png" alt="briose"></div>
+                
+                <figcaption>Briose</figcaption>
+                </figure>
+                <figure>
+                <img src="resurse/imagini/briose-frisca.png" alt="briose">
+                <figcaption>Briose</figcaption>
+                </figure>
+                <figure>
+                <img src="resurse/imagini/briose-frisca.png" alt="briose">
+                <figcaption>Briose</figcaption>
+                </figure>
+                <figure>
+                <img src="resurse/imagini/briose-frisca.png" alt="briose">
+                <figcaption>Briose</figcaption>
+                </figure>
+                <figure>
+                <img src="resurse/imagini/briose-frisca.png" alt="briose">
+                <figcaption>Briose</figcaption>
+                </figure>
+                <figure>
+                <img src="resurse/imagini/briose-frisca.png" alt="briose">
+                <figcaption>Briose</figcaption>
+                </figure>
+                <figure>
+                <img src="resurse/imagini/briose-frisca.png" alt="briose">
+                <figcaption>Briose</figcaption>
+                </figure>
+            
+            </div>
         </section>
+        <section id="retete">
+            <h2>Retete</h2>
+            <p>Dacă doriți să vă faceți singuri prăjiturile (dar de ce ati face asta când ne aveți pe noi???) 
+                vă recomandăm următoarele rețete simple pe care sperăm să le încercați, să vedeți cât e de <s>ușor</s> să le faceți, 
+                să vă dați în final bătuți și să veniți să cumpărați de la noi &#128512;. Mulțumim! &#128513;</p>
+            <div class="container-iframe">
+                <div class="taburi-iframe">
+                <a href="https://www.youtube.com/embed/qtlhdIfojmc?si=TqTMN4k_BY-iuvxx" target="ifr-video">Reteta tort vanilie</a>
+                <a href="https://www.youtube.com/embed/dsJtgmAhFF4" target="ifr-video" >Reteta tort ciocolata</a>
+                <a href="https://www.youtube.com/embed/Wtxbt-CpA2s" target="ifr-video" >Reteta tort căpșuni</a><br/>
+                </div>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/qtlhdIfojmc?si=TqTMN4k_BY-iuvxx" name="ifr-video" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            
+
+            </div>
+        </section>
+
+
+
     </main>
     <footer>
-        <p><small>Copyright &copy;2020 Ionel Popescu</small></p>
+        <p><small>Copyright &copy;2026 Fratila Marius</small></p>
     </footer>
 </body>
+
 </html>
