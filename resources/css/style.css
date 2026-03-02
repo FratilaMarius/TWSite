@@ -1,0 +1,26 @@
+body {
+    --culoare-fundal: white;
+    --margine-pagina: 120px;
+    background-color: var(--culoare-fundal);
+}
+
+p {
+    border: 1px solid var(--culoare-fundal);
+}
+
+margin {
+    margin-left: var(--margine-pagina);
+    margin-right: var(--margine-pagina);
+}
+
+@media screen and (max-width: 1200px) {
+    body {
+        --margine-pagina: 80px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    body {
+        --margine-pagina: 50px;
+    }
+}
