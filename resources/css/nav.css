@@ -1,0 +1,93 @@
+nav {
+    --button-width: 150px; 
+    --button-height: 40px;
+}
+
+ul.menu, ul.menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#ch-menu, #hamburger {
+    display: none;
+}
+
+ul.menu {
+    display: flex;
+    flex-direction: column;
+    width: var(--button-width);
+}
+
+ul.menu ul {
+    display: none;
+    position: absolute; 
+    z-index: 100;
+    top: 0; 
+    left: 100%;
+}
+
+ul.menu li:hover > ul {
+    display: flex;          
+    flex-direction: row;    
+    width: max-content;
+}
+
+ul.menu li {
+    display: block;
+    width: var(--button-width);
+    height: var(--button-height);
+    background-color: var(--bg-main);
+    border: 1px solid var(--accent-primary);
+    color: var(--text-main); 
+    text-align: center;
+    line-height: var(--button-height);
+    transition: all 0.3s linear; 
+    position: relative; 
+}
+
+ul.menu > li:hover, ul.menu ul li:hover {
+    background-color: var(--accent-secondary);
+    color: var(--text-main);
+}
+
+ul.menu a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width: 700px) {
+    label#hamburger {
+        display: block;
+        background-color: var(--bg-main);
+        border: 1px solid var(--accent-primary);
+        color: var(--text-main);
+        text-align: center;
+        line-height: var(--button-height);
+        width: var(--button-width);
+        cursor: pointer;
+    }
+
+    ul.menu {
+        display: none; 
+        flex-direction: column; 
+    }
+
+    #ch-menu:checked ~ ul.menu {
+        display: flex;
+    }
+
+    ul.menu ul {
+        position: static; 
+        width: 100%;
+    }
+
+    ul.menu li:hover > ul {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+}

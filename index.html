@@ -21,26 +21,31 @@
     <!-- <link rel="stylesheet" href="./resources/css/general1000.css" type="text/css" -->
     <!-- media="screen and (max-width:1000px)" /> -->
     <!-- <link rel="stylesheet" href="./resources/css/general700.css" type="text/css" media="screen and (max-width:700px)" /> -->
-    <!-- <link rel="stylesheet" href="./resources/css/nav.css" type="text/css" /> -->
+    <link rel="stylesheet" href="./resources/css/nav.css" type="text/css" />
 
     <!-- <link rel="stylesheet" href="./resources/css/nav1000.css" type="text/css" media="screen and (max-width:1000px)" /> -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Eater&family=Madimi+One&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Eater&family=Madimi+One&display=swap" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
 
 </head>
 
 <body>
     <header>
-        <h1>Guns of the Patriot</h1>
+        <h1 style="text-align: center;">Guns of the Patriot</h1>
         <nav>
-            <ul>
-                <li> Home
+            <input type="checkbox" id="ch-menu">
+            <label for="ch-menu" id="hamburger"><i class="fa-solid fa-bars"></i> Menu</label>
+            <ul class="menu">
+                <li><a href="#welcome">Menu</a>
                     <ul>
-                        <li> <a href="#welcome">Welcome</a></li>
                         <li><a href="#Sale">On Sale</a></li>
                         <li> <a href="#merchandise">Merchandise</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="#faq">FAQ</a></li>
                         <li><a href="#announcement">Announcements</a></li>
                     </ul>
                 </li>
@@ -49,71 +54,118 @@
     </header>
     <main>
         <div class="blurred-background"></div>
+        <div class="vertical-banner-right">
+            <img src="./resources/images/GameLogo.png" alt="banner">
+        </div>
 
         <div class="main-wrapper">
-            <div class="vertical-banner-right">
-                <img src="./resources/images/GameLogo.png" alt="banner">
-            </div>
 
-            <div id="grid-page">
-
-                <section id="welcome">
-                    <hgroup>
-                        <h2>Welcome</h2>
-                        <p class="subtitle">About us...</p>
-                    </hgroup>
-
-                    <div class="intro-stock">
-                        <div>Hardware</div>
-                        <div>Human resources</div>
-                        <div>Premium merchandise</div>
-                        <div>Buyback programs</div>
-                        <div>Investing</div>
+            <section id="welcome">
+                <hgroup>
+                    <h2>Welcome</h2>
+                    <p class="subtitle">About us...</p>
+                </hgroup>
+                <div class="intro-stock">
+                    <div><i class="fa-solid fa-gear fa-spin"></i> Hardware</div>
+                    <div>Human resources</div>
+                    <div><i class="fa-solid fa-shield-halved"></i> Premium merchandise</div>
+                    <div>Buyback programs</div>
+                    <div>Investing</div>
+                </div>
+                <p class="intro quip">Remote regime change is now just a click away</p>
+                <div id="dv-presentation-1">
+                    <div id="dv-presentation">
+                        <a href="./resources/images/Patriot.png">
+                            <img class="exclude-scale" src="./resources/images/Patriot.png" alt="Patriot" width="350"
+                                height="350">
+                        </a>
                     </div>
-                    <p class="intro quip">Remote regime change is now just a click away</p>
-                    <div id="dv-presentation-1">
-                        <div id="dv-presentation">
-                            <a href="./resources/images/Patriot.png">
-                                <picture>
-                                    <source srcset="./resources/images/Man.png" media="(max-width:700px)" />
-                                    <source srcset="./resources/images/Man.png" media="(max-width:1200px)" />
-                                    <img src="./resources/images/Patriot.png" alt="Patriot" width="350" height="350">
-                                </picture>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- <hr class="prajituri" />
-                    <div id="container-video">
-                        <img style="width:50%" class="farfurie" src="resurse/imagini/farfurie-flori-albastre.png"
-                            alt="farfurie" title="O farfurie cu flori">
-                        <div id="centrare-video">
-                            <div id="clip-video">
-                                <div id="stil-video">
-                                    <video width="320" height="240" playsinline autoplay loop muted>
-                                        <source src="resurse/video/Chocolate.mp4" type="video/mp4">
-                                        <source src="resurse/video/Chocolate.ogv" type="video/ogv">
-                                        <track default
-                                            src="data:image/png;base64, V0VCVlRUIC0gQ2lvY29sYXTEgwoKMDA6MDAuMDAwIC0tPiAwMDowMy4wMDAgbGluZTowCkNpb2NvbGF0xIMhISEKCjAwOjAzLjAwMCAtLT4gMDA6MDcuMDAwIGxpbmU6MApNdWx0xIMgY2lvY29sYXTEgyEhISEKCjAwOjA5LjAwMCAtLT4gMDA6MTQuMDAwIGxpbmU6MApVcHMsIGFtIG11cmTEg3JpdCBtYXNhIQoKMDA6MTQuNTAwIC0tPiAwMDoxOS4wMDAgbGluZTowCk51IGNvbnRlYXrEgyEgQ2lvY29sYXTEg8SDxIPEg8SDxIMhCgo="
-                                            kind="captions" srclang="ro" label="romana">
-                                        <track
-                                            src="data:image/png;base64, V0VCVlRUIC0gQ2hvY29sYXRlDQoNCjAwOjAwLjAwMCAtLT4gMDA6MDMuMDAwDQpDaG9jb2xhdGUhISENCg0KMDA6MDMuMDAwIC0tPiAwMDowNy4wMDANCkxvdHMgb2YgY2hvY29sYXRlISEhIQ0KDQowMDowOS4wMDAgLS0+IDAwOjE0LjAwMA0KT3VwcywgdGFibGUgZ290IGRpcnR5IQ0KDQowMDoxNC41MDAgLS0+IDAwOjE5LjAwMA0KRG9lc24ndCBtYXR0ZXIhIENob2NvbGF0ZSEhIQ0KDQo="
-                                            kind="captions" srclang="en" label="engleza">
-                                    </video>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                </section>
-                <section id="Sale">
-                    <h2>On Sale</h2>
-                    <article>
-                        <h3 class="title">Holiday special</h3>
-                        <p><b>GotP</b> is offering <b>for a limited time only <s>10%</s> <ins>15%</ins></b> off
-                            of most canned army surplus rations!</p>
-                        <p><b>aforementioned deal only available in your local <abbr
-                                    title="Guns of the Patriot">GotP</abbr> showroom.</b></p>
-                    </article>
-                </section>
+                </div>
+            </section>
+
+            <section id="Sale">
+                <h2>On Sale</h2>
+                <article>
+                    <h3 class="title">Holiday special</h3>
+                    <p><b>GotP</b> is offering <b>for a limited time only <s>10%</s> <ins>15%</ins></b> off of most
+                        canned army surplus rations!</p>
+                    <p><b>aforementioned deal only available in your local <abbr title="Guns of the Patriot">GotP</abbr>
+                            showroom.</b></p>
+                </article>
+            </section>
+
+            <section id="events">
+                <h2>Events</h2>
+                <table id="events-table">
+                    <caption>Upcoming Global Events and Summits (2026)</caption>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Theme</th>
+                            <th>Participation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1-2 Dec</td>
+                            <td rowspan="2">New York</td>
+                            <td>Summit on the current state of the world</td>
+                            <td><meter title="45000/50000" min="0" max="50000" low="10000" high="40000"
+                                    value="45000"></meter></td>
+                        </tr>
+                        <tr>
+                            <td>5-6 Dec</td>
+                            <td>Private Auction for PMCs</td>
+                            <td><meter title="57000/100000" min="0" max="100000" low="10000" high="40000"
+                                    value="57000"></meter></td>
+                        </tr>
+                        <tr>
+                            <td>10-12 Dec</td>
+                            <td>Rammstein</td>
+                            <td>Showcasing new technologies</td>
+                            <td><meter title="245235/578588" min="0" max="578588" low="100000" high="400000"
+                                    value="245235"></meter></td>
+                        </tr>
+                        <tr>
+                            <td>15-16 Dec</td>
+                            <td>Outer Heaven</td>
+                            <td>Annual Shareholder Meeting</td>
+                            <td><meter title="245876/789678" min="0" max="789678" low="100000" high="400000"
+                                    value="245876"></meter></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4"><i>* At least 1 purchase over 100000$ is a requirement for entry in any and
+                                    all events.</i></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <br>
+                <h3>Detailed event timeline</h3>
+                <ul>
+                    <li><time datetime="2026-12-01T09:00">December 1st, 09:00 AM</time>, <b>Summit on the current state
+                            of the world</b></li>
+                    <li><time datetime="2026-12-05T18:30">December 5th, 06:30 PM</time>, <b>Private Auction for PMCs</b>
+                    </li>
+                    <li><time datetime="2026-12-10T14:00">December 10th, 02:00 PM</time>, <b>Showcasing new
+                            technologies</b></li>
+                    <li><time datetime="2026-12-15T10:00">December 15th, 10:00 AM</time>, <b>Annual Shareholder
+                            Meeting</b></li>
+                </ul>
+            </section>
+
+            <section id="announcement">
+                <h2>Announcements</h2>
+                <p><time datetime="2025-07-20">July 20th 2025</time> After many complaints related to QA, the surplus
+                    stock from the collapse of the Soviet Union is no longer available.</p>
+                <p><time datetime="2022-01-05">January 5th 2022</time> <strong> Covid restrictions are mostly over,
+                        seminars will soon resume.</strong></p>
+                <blockquote>"We'll all be sons of the patriots now"</blockquote>
+            </section>
+
+            <div id="zona8">
                 <section id="merchandise">
                     <h2>Merchandise on offer</h2>
                     <section>
@@ -135,86 +187,6 @@
                         </ul>
                     </section>
                 </section>
-                <section id="events">
-                    <h2>Events</h2>
-                    <table id="events-table">
-                        <caption>Upcoming Global Events and Summits (2026)</caption>
-
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Location</th>
-                                <th>Theme</th>
-                                <th>Participation</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>1-2 Dec</td>
-                                <td rowspan="2">New York</td>
-                                <td>Summit on the current state of the world</td>
-                                <td><meter title="45000/50000" min="0" max="50000" low="10000" high="40000"
-                                        value="45000"></meter></td>
-                            </tr>
-                            <tr>
-                                <td>5-6 Dec</td>
-                                <td>Private Auction for PMCs</td>
-                                <td><meter title="57000/100000" min="0" max="100000" low="10000" high="40000"
-                                        value="57000"></meter></td>
-                            </tr>
-                            <tr>
-                                <td>10-12 Dec</td>
-                                <td>Rammstein</td>
-                                <td>Showcasing new technologies</td>
-                                <td><meter title="245235/578588" min="0" max="578588" low="100000" high="400000"
-                                        value="245235"></meter></td>
-                            </tr>
-                            <tr>
-                                <td>15-16 Dec</td>
-                                <td>Outer Heaven</td>
-                                <td>Annual Shareholder Meeting</td>
-                                <td><meter title="245876/789678" min="0" max="789678" low="100000" high="400000"
-                                        value="245876"></meter></td>
-                            </tr>
-                        </tbody>
-
-                        <tfoot>
-                            <tr>
-                                <td colspan="4"><i>* At least 1 purchase over 100000$ is a requirement for entry in any
-                                        and all events.</i></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <h3>Detailed event timeline</h3>
-                    <ul>
-                        <li>
-                            <time datetime="2026-12-01T09:00">December 1st, 09:00 AM</time>,
-                            <b>Summit on the current state of the world</b> - A critical discussion regarding global conflicts and the distribution of tactical resources.
-                        </li>
-                        <li>
-                            <time datetime="2026-12-05T18:30">December 5th, 06:30 PM</time>,
-                            <b>Private Auction for PMCs</b> - Closed-circuit auction for cutting-edge military technology. Participation requires proof of funds.
-                        </li>
-                        <li>
-                            <time datetime="2026-12-10T14:00">December 10th, 02:00 PM</time>,
-                            <b>Showcasing new technologies</b> - Live demonstrations of experimental equipment at the Rammstein testing grounds.
-                        </li>
-                        <li>
-                            <time datetime="2026-12-15T10:00">December 15th, 10:00 AM</time>,
-                            <b>Annual Shareholder Meeting</b> - Presentation of the annual report and strategic directions at Outer Heaven headquarters.
-                        </li>
-                    </ul>
-                </section>
-
-                <section id="announcement">
-                    <h2 class="fg-img">Announcements</h2>
-                    <p><time datetime="2025-07-20">July 20th 2025</time> After many complaints related to QA,
-                        the surplus stock from the collapse of the Soviet Union is no longer available.</p>
-                    <p><time datetime="2022-01-05">January 5th 2022</time> <strong> Covid restrictions are mostly over,
-                            seminars will soon resume.</strong></p>
-                    <blockquote> We'll all be sons of the patriots now</blockquote>
-                </section>
                 <section id="faq">
                     <h2>FAQ</h2>
                     <details>
@@ -226,141 +198,100 @@
                         <p>We reserve the right to ignore the question; thank you!</p>
                     </details>
                 </section>
-
+                <section id="media-resources">
+                    <h2>Resources and Documentation</h2>
+                    <br>
+                    <embed src="./resources/EULA.pdf" type="application/pdf" width="350" height="350"
+                        style="border: 1px solid; border-radius: 8px;">
+                    <br><br>
+                    <p><a href="https://en.wikipedia.org/wiki/Private_military_company" target="_blank"
+                            rel="noopener noreferrer">A brief paper on our mission</a>.</p>
+                    <p>Nerds holding our financial margins back:<br>
+                        <a
+                            href="https://en.wikipedia.org/wiki/Private_military_company#UN_mercenary_report">UN_mercenary_report</a>
+                    </p>
+                    <p><a href="./resources/images/Patriot.png" download="GotPL.jpg">Download our logo</a>.</p>
+                </section>
             </div>
-            <section id="static-gallery">
-                <h2>Gallery</h2>
-                <div id="gallery-grid">
-                    <figure>
-                        <div>
-                            <img src="resources/images/Tank.png" alt="Tank">
-                        </div>
-                        <figcaption><i>T67</i> sold in a recent auction</figcaption>
-                    </figure>
-                </div>
-            </section>
 
             <section id="Premium-systems">
                 <h2>Premium systems</h2>
                 <p>Take inspiration from the operations of some of our most reliable partners</p>
                 <div class="vid-container">
-                    <div class="vid-tab">
-                        <a href="https://www.youtube.com/embed/tqhZt6rD07A" target="vid">
-                            Werewolf PMC TV commercial
-                        </a>
-                    </div>
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/tqhZt6rD07A" name="vid"
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/tqhZt6rD07A" name="vid"
                         title="YouTube video player" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    <div>
-                        <a href="https://www.youtube.com/embed/yjyw7aW1_JE" target="vid">
-                            Raven Sword PMC commercial
-                        </a>
-                    </div>
-                    <div>
-                        <a href="https://www.youtube.com/embed/y2AB8No_WWI" target="vid">Praying Mantis Surveillance
-                        </a>
-                    </div>
-                </div>
-
-                <div class="playlist">
-                    <br>
-                    <iframe style="width: 25%; aspect-ratio: 16 / 9; border: 2px; border-radius: 8px"
-                        src="https://www.youtube.com/embed/y2AB8No_WWI?autoplay=1&loop=1&mute=1&controls=1&playlist=tqhZt6rD07A,yjyw7aW1_JE,y2AB8No_WWI"
-                        title="MGS4 PMC Commercials"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                    <p>Browse our catalogue of contractors</p>
                 </div>
             </section>
 
-            <section id="media-resources">
-                <h2>Resources and Documentation</h2>
-                <section id="drebin-algorithm">
-                    <h2>Drebin Points (DP) Pricing Algorithm</h2>
-                    <p>
-                        "Eye Have You." Laundering biometric ID guns isn't cheap.
-                        The network calculates the DP cost using this decryption equation:
-                    </p>
+            <section id="drebin-algorithm">
+                <h2>Drebin Points (DP) Pricing</h2>
+                <p>"Eye Have You." Laundering biometric ID guns isn't cheap. The network calculates the DP cost using
+                    this decryption equation:</p>
 
-                    <math xmlns="http://www.w3.org/1998/Math/MathML" display="block"
-                        style="font-size: 1.6em; margin: 30px 0; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px;">
-
-                        <msub>
-                            <mi>Cost</mi>
-                            <mrow>
-                                <mi>D</mi>
-                                <mi>P</mi>
-                            </mrow>
-                        </msub>
-                        <mo>=</mo>
-
-                        <mfrac>
-                            <mrow>
-                                <munderover>
-                                    <mo>&sum;</mo>
-                                    <mrow>
-                                        <mi>i</mi>
-                                        <mo>=</mo>
-                                        <mn>1</mn>
-                                    </mrow>
-                                    <mi>n</mi>
-                                </munderover>
-                                <mo>(</mo>
-                                <msub>
-                                    <mi>Sec</mi>
+                <math xmlns="http://www.w3.org/1998/Math/MathML" display="block"
+                    style="font-size: 1.2em; margin: 15px 0; background: rgba(0,0,0,0.5); padding: 15px; border-radius: 10px;">
+                    <msub>
+                        <mi>Cost</mi>
+                        <mrow>
+                            <mi>D</mi>
+                            <mi>P</mi>
+                        </mrow>
+                    </msub>
+                    <mo>=</mo>
+                    <mfrac>
+                        <mrow>
+                            <munderover>
+                                <mo>∑</mo>
+                                <mrow>
                                     <mi>i</mi>
-                                </msub>
-                                <mo>&times;</mo>
-                                <mi>&alpha;</mi>
-                                <mo>)</mo>
-                            </mrow>
-
-                            <msqrt>
-                                <msup>
-                                    <mi>T</mi>
-                                    <mn>2</mn>
-                                </msup>
-                                <mo>+</mo>
-                                <msup>
-                                    <mi>D</mi>
-                                    <mn>2</mn>
-                                </msup>
-                            </msqrt>
-                        </mfrac>
-                    </math>
-
-                    <ul style="list-style-type: none; opacity: 0.8; font-size: 0.9em;">
-                        <li><b>Sec<sub>i</sub></b> = Security protocol encryption level</li>
-                        <li><b>&alpha;</b> = War economy demand multiplier</li>
-                        <li><b>T</b> = Server processing time</li>
-                        <li><b>D</b> = Nanomachine degradation rate</li>
-                    </ul>
-                </section>
-
-                <br><br>
-                <embed src="./resources/EULA.pdf" type="application/pdf" width="350" height="350"
-                    style="border: 1px solid; border-radius: 8px;">
-                <br><br>
-                <p>
-                    <a href="https://en.wikipedia.org/wiki/Private_military_company" target="_blank"
-                        rel="noopener noreferrer"> A brief paper on our mission</a>.
-                </p>
-
-                <p>
-                    Nerds holding our financial margins back:<br>
-                    <a href="https://en.wikipedia.org/wiki/Private_military_company#UN_mercenary_report">
-                        https://en.wikipedia.org<wbr>/wiki<wbr>/Private_military_company<wbr>#UN_mercenary_report
-                    </a>
-                </p>
-
-                <p>
-
-                    <a href="./resources/images/Patriot.png" download="GotPL.jpg">Download our logo</a>.
-                </p>
+                                    <mo>=</mo>
+                                    <mn>1</mn>
+                                </mrow>
+                                <mi>n</mi>
+                            </munderover>
+                            <mo>(</mo>
+                            <msub>
+                                <mi>Sec</mi>
+                                <mi>i</mi>
+                            </msub>
+                            <mo>×</mo>
+                            <mi>α</mi>
+                            <mo>)</mo>
+                        </mrow>
+                        <msqrt>
+                            <msup>
+                                <mi>T</mi>
+                                <mn>2</mn>
+                            </msup>
+                            <mo>+</mo>
+                            <msup>
+                                <mi>D</mi>
+                                <mn>2</mn>
+                            </msup>
+                        </msqrt>
+                    </mfrac>
+                </math>
+                <ul style="list-style-type: none; opacity: 0.8; font-size: 0.9em; padding:0;">
+                    <li><b>Sec<sub>i</sub></b> = Security protocol encryption level</li>
+                    <li><b>α</b> = War economy demand multiplier</li>
+                    <li><b>T</b> = Server processing time</li>
+                    <li><b>D</b> = Nanomachine degradation rate</li>
+                </ul>
             </section>
+
+            <section id="static-gallery">
+                <h2>Gallery</h2>
+                <div id="gallery-grid">
+                    <figure>
+                        <div><img src="resources/images/Tank.png" alt="Tank" usemap="#tankmap" width="100%"
+                                height="auto"></div>
+                        <figcaption><i>T67</i> sold in a recent auction</figcaption>
+                    </figure>
+                </div>
+            </section>
+
         </div>
     </main>
     <footer>
@@ -378,7 +309,7 @@
         <a href="#" title="Back up" id="top-link">Home</a>
         <address>
             <strong>Phone Number:</strong>
-            <a href="tel:+555-245-245-321">+555 245 245 321</a><br><br>
+            <a href="tel:+555-245-245-321">+55555 245 245 321</a><br><br>
 
             <strong>E-mail:</strong>
             <a href="mailto:evil.corpo@gmail.com">evil.corpo@gmail.com</a><br><br>
@@ -399,7 +330,7 @@
 
             <strong>Chat with an assistant:</strong>
             <a href="https://wa.me/555245245321" target="_blank" rel="noopener noreferrer">
-                <i class="chat with an assistant"></i> chat with an assistant
+                <i class="fa-solid fa-headset"></i> chat with an assistant
             </a>
         </address>
 
