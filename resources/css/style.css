@@ -108,6 +108,21 @@ html {
         "a7 a5 a5 a6";
 }
 
+/*etapa 2 bonus*/
+.math-i {
+    font-style: italic;
+}
+/* .math-b {
+} */
+.math-emph {
+    color: var(--accent-secondary);
+    font-weight: bold;
+
+}
+.math-lrg {
+    font-size: 150%;
+}
+
 @media screen and (max-width: 1024px) {
     html {
         font-size: 16px;
