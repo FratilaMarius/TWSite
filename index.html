@@ -35,16 +35,37 @@
 </head>
 
 <body>
+    <div id="watermark">Fratila Marius</div>
+
     <header>
-        <h1 style="text-align: center;">Guns of the Patriot</h1>
+        <h1>Guns of the Patriot</h1>
         <nav>
             <input type="checkbox" id="ch-menu">
-            <label for="ch-menu" id="hamburger"><i class="fa-solid fa-bars"></i> Menu</label>
+            <label for="ch-menu" id="hamburger">
+                <div class="hamburger-icon">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div> Menu
+            </label>
+
             <ul class="menu">
-                <li><a href="#welcome">Menu</a>
-                    <ul>
+                <li class="main-item">
+                    <a href="#"><i class="fa-solid fa-globe"></i> Catalogue</a>
+                    <ul class="submenu">
+                        <li><a href="browse.html">Browse</a></li>
+                        <li><a href="financing.html">Financing</a></li>
+                        <li><a href="buyback.html">Buyback</a></li>
+                        <li><a href="guidance.html">Guidance</a></li>
+                    </ul>
+                </li>
+
+                <li class="main-item">
+                    <a href="#"><i class="fa-solid fa-crosshairs"></i> See more..</a>
+                    <ul class="submenu">
+                        <li><a href="#welcome">Welcome</a></li>
                         <li><a href="#Sale">On Sale</a></li>
-                        <li> <a href="#merchandise">Merchandise</a></li>
+                        <li><a href="#merchandise">Merchandise</a></li>
                         <li><a href="#events">Events</a></li>
                         <li><a href="#faq">FAQ</a></li>
                         <li><a href="#announcement">Announcements</a></li>
@@ -58,7 +79,9 @@
         <div class="vertical-banner-right">
             <img src="./resources/images/GameLogo.png" alt="banner">
         </div>
-
+        <br>
+        <br>
+        <br>
         <div class="main-wrapper">
 
             <section id="welcome">
@@ -313,6 +336,10 @@
         </div>
     </main>
     <footer>
+
+        <p id="print-banner"><i><b>Acesta este un proiect școlar!</b></i></p>
+        <br><br><br>
+
         <figure>
             <picture>
                 <source media="(max-width: 600px)" srcset="resources/images/GotP_m.png">

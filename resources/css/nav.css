@@ -1,93 +1,227 @@
-nav {
-    --button-width: 150px; 
-    --button-height: 40px;
+nav .menu > li.main-item .submenu li a, nav .menu > li.main-item > a {
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid var(--accent-primary);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  transition: all 0.3s ease;
 }
 
-ul.menu, ul.menu ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+nav #ch-menu,
+nav #hamburger {
+  display: none;
+}
+nav .menu {
+  display: flex;
+  gap: 10px;
+}
+nav .menu > li.main-item {
+  position: relative;
+  width: 200px;
+}
+nav .menu > li.main-item > a {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+nav .menu > li.main-item > a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(to right, var(--bg-main) 50%, var(--accent-secondary) 100%);
+  transition: left 0.5s ease-in-out;
+  z-index: -1;
+}
+nav .menu > li.main-item:hover > a {
+  color: var(--text-main);
+}
+nav .menu > li.main-item:hover > a::before {
+  left: 0;
+}
+nav .menu > li.main-item .submenu {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform 0.3s ease-in-out;
+  z-index: 100;
+}
+nav .menu > li.main-item .submenu li a {
+  border-top: none;
+}
+nav .menu > li.main-item .submenu li a:hover {
+  background-color: var(--accent-primary);
+  color: var(--bg-main);
+}
+nav .menu > li.main-item .submenu li:nth-child(1) {
+  transition-delay: 0.02s;
+}
+nav .menu > li.main-item .submenu li:nth-child(2) {
+  transition-delay: 0.04s;
+}
+nav .menu > li.main-item .submenu li:nth-child(3) {
+  transition-delay: 0.06s;
+}
+nav .menu > li.main-item .submenu li:nth-child(4) {
+  transition-delay: 0.08s;
+}
+nav .menu > li.main-item .submenu li:nth-child(5) {
+  transition-delay: 0.1s;
+}
+nav .menu > li.main-item .submenu li:nth-child(6) {
+  transition-delay: 0.12s;
+}
+nav .menu > li.main-item .submenu li:nth-child(7) {
+  transition-delay: 0.14s;
+}
+nav .menu > li.main-item .submenu li:nth-child(8) {
+  transition-delay: 0.16s;
+}
+nav .menu > li.main-item .submenu li:nth-child(9) {
+  transition-delay: 0.18s;
+}
+nav .menu > li.main-item .submenu li:nth-child(10) {
+  transition-delay: 0.2s;
+}
+nav .menu > li.main-item:hover .submenu {
+  transform: scaleY(1);
 }
 
-#ch-menu, #hamburger {
+@media screen and (max-width: 1024px) {
+  nav .menu > li.main-item {
+    width: 80px;
+  }
+  nav .menu > li.main-item > a span.text {
     display: none;
+  }
+  nav .menu > li.main-item .submenu {
+    width: 200px;
+  }
 }
-
-ul.menu {
-    display: flex;
-    flex-direction: column;
-    width: var(--button-width);
-}
-
-ul.menu ul {
-    display: none;
-    position: absolute; 
-    z-index: 100;
-    top: 0; 
-    left: 100%;
-}
-
-ul.menu li:hover > ul {
-    display: flex;          
-    flex-direction: row;    
-    width: max-content;
-}
-
-ul.menu li {
-    display: block;
-    width: var(--button-width);
-    height: var(--button-height);
-    background-color: var(--bg-main);
-    border: 1px solid var(--accent-primary);
-    color: var(--text-main); 
-    text-align: center;
-    line-height: var(--button-height);
-    transition: all 0.3s linear; 
-    position: relative; 
-}
-
-ul.menu > li:hover, ul.menu ul li:hover {
-    background-color: var(--accent-secondary);
-    color: var(--text-main);
-}
-
-ul.menu a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
 @media screen and (max-width: 700px) {
-    label#hamburger {
-        display: block;
-        background-color: var(--bg-main);
-        border: 1px solid var(--accent-primary);
-        color: var(--text-main);
-        text-align: center;
-        line-height: var(--button-height);
-        width: var(--button-width);
-        cursor: pointer;
+  nav label#hamburger {
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid var(--accent-primary);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    transition: all 0.3s ease;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+  nav label#hamburger .hamburger-icon {
+    position: relative;
+    width: 30px;
+    height: 20px;
+  }
+  nav label#hamburger .hamburger-icon .bar {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    border-radius: 2px;
+    opacity: 0;
+    animation: barEntrance 0.5s ease forwards;
+  }
+  nav label#hamburger .hamburger-icon .bar:nth-child(1) {
+    top: 0;
+  }
+  nav label#hamburger .hamburger-icon .bar:nth-child(2) {
+    top: 8px;
+  }
+  nav label#hamburger .hamburger-icon .bar:nth-child(3) {
+    top: 16px;
+  }
+  nav label#hamburger .hamburger-icon .bar:nth-child(1) {
+    animation-delay: 300ms;
+  }
+  nav label#hamburger .hamburger-icon .bar:nth-child(2) {
+    animation-delay: 600ms;
+  }
+  nav label#hamburger .hamburger-icon .bar:nth-child(3) {
+    animation-delay: 900ms;
+  }
+  nav .menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+  nav .menu > li.main-item {
+    width: 100%;
+  }
+  nav .menu > li.main-item > a span.text {
+    display: inline;
+  }
+  nav .menu > li.main-item > a::before {
+    display: none;
+  }
+  nav .menu > li.main-item > a:hover {
+    background-color: var(--accent-secondary);
+  }
+  nav .menu > li.main-item:first-child:hover > a i::before {
+    content: "\f015";
+  }
+  nav .menu > li.main-item .submenu {
+    position: static;
+    transform: none;
+    display: none;
+    opacity: 0;
+  }
+  nav .menu > li.main-item .submenu li a {
+    border-left: 2px solid var(--accent-secondary);
+  }
+  nav .menu > li.main-item:hover .submenu {
+    display: block;
+    animation: burgerSubmenuAnim 0.5s ease-out forwards;
+  }
+  nav #ch-menu:checked ~ .menu {
+    display: flex;
+  }
+  @keyframes barEntrance {
+    0% {
+      opacity: 0;
+      background-color: var(--accent-primary);
+      transform: translateX(-50px) scale(0.5);
     }
-
-    ul.menu {
-        display: none; 
-        flex-direction: column; 
+    50% {
+      opacity: 0.5;
+      background-color: var(--accent-secondary);
+      transform: translateX(10px) scale(1.2);
     }
-
-    #ch-menu:checked ~ ul.menu {
-        display: flex;
+    100% {
+      opacity: 1;
+      background-color: var(--text-main);
+      transform: translateX(0) scale(1);
     }
-
-    ul.menu ul {
-        position: static; 
-        width: 100%;
-    }
-
-    ul.menu li:hover > ul {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-    }
+  }
 }
+@keyframes burgerSubmenuAnim {
+  0% {
+    opacity: 0;
+    transform: rotateX(90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateX(0deg);
+  }
+}/*# sourceMappingURL=nav.css.map */
