@@ -1,0 +1,24 @@
+{
+  "name": "package",
+  "version": "1.0.0",
+  "description": "Military Org",
+  "homepage": "https://github.com/FratilaMarius/TWSite#readme",
+  "bugs": {
+    "url": "https://github.com/FratilaMarius/TWSite/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FratilaMarius/TWSite.git"
+  },
+  "license": "ISC",
+  "author": "Fratila Marius",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ejs": "^5.0.1",
+    "express": "^5.2.1"
+  }
+}

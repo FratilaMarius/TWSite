@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../fragments/head.ejs') %>
+    <title><%= title %></title>
+</head>
+<body>
+    <!-- <%- include('../fragments/header.ejs') %> -->
+
+    <main style="text-align: center; padding: 50px;">
+        <section class="error-container">
+            <h1 style="color: var(--accent-primary);"><%= title %></h1>
+            <p><%= text %></p>
+            <br>
+            <img src="<%= image %>" alt="Error Graphic" style="max-width: 400px; border: 1px solid var(--accent-primary);">
+            <br><br>
+            <a href="/index" class="btn">Return to Base</a>
+        </section>
+    </main>
+
+    <!-- <%- include('../fragments/footer.ejs') %> -->
+</body>
+</html>
