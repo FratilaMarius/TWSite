@@ -2,9 +2,12 @@
     --margin: 120px;
     --grid-gap: 40px;
     --box-padding: 20px;
-}
 
-body {
+    --link-visited: #8e8e8e;
+    --icon-hover: #ff3333;
+    --glow-color: rgba(255, 0, 0, 0.3);
+    --active-border: #ff0000;
+
     --bg-main: #000000;
     --text-main: #FFFFFF;
     --accent-primary: #FA0B00;
@@ -13,6 +16,10 @@ body {
     --bg-box: rgba(0, 0, 0, 0.85);
     --bg-tint: rgba(250, 11, 0, 0.1);
     --shadow-color: rgba(0, 0, 0, 0.5);
+}
+
+body {
+
 
     background-color: var(--bg-main);
     color: var(--text-main);
@@ -30,9 +37,52 @@ h3 {
     letter-spacing: 2px;
 }
 
-a {
+/* a {
     color: var(--link-color);
+} */
+
+/* links n stuff */
+a {
+    border: 1px solid transparent;
+    text-decoration: none;
+    padding: 2px 4px;
 }
+
+a:visited {
+    color: var(--link-visited);
+}
+/* ext links: */
+a[href^="http"]::before {
+    content: "⮳ ";
+    font-size: 1.5em;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+a[href^="http"]:hover::before {
+    color: var(--icon-hover);
+}
+
+main a {
+    background-image: radial-gradient(circle, var(--glow-color) 0%, var(--glow-color) 40%, transparent 80%, transparent 100%);
+    background-position: center;
+    background-size: 0%;
+    background-repeat: no-repeat;
+
+    transition: background-size 0.4s ease-out;
+}
+
+main a:hover {
+    background-size: 100%;
+}
+
+a:active {
+    border: 1px solid var(--active-border);
+    border-radius: 3px;
+}
+
+/*  */
+
 
 header,
 main,
@@ -110,7 +160,7 @@ html {
 }
 
 .user-info-panel {
-    text-align: right; 
+    text-align: right;
     color: var(--accent-primary);
 }
 
@@ -537,9 +587,10 @@ iframe:not(.exclude-scale) {
         break-after: page !important;
         page-break-after: always !important;
     }
-#print-banner {
+
+    #print-banner {
         position: absolute !important;
-        top: 3cm !important; 
+        top: 3cm !important;
         left: 0 !important;
         right: 0 !important;
         margin: 0 auto !important;
@@ -561,8 +612,8 @@ iframe:not(.exclude-scale) {
         text-align: center !important;
         text-decoration: underline !important;
         font-family: Arial, sans-serif !important;
-        
-        margin-top: 4cm !important; 
+
+        margin-top: 4cm !important;
         padding: 0 !important;
     }
 
