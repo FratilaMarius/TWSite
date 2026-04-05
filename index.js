@@ -9,7 +9,7 @@ const PORT = 8080;
 const foldersArray = ["temp", "logs", "backup", "uploads"];
 for (let folder of foldersArray) {
     let folderPath = path.join(__dirname, folder);
-    
+
     if (!fs.existsSync(folderPath)) {
         fs.mkdirSync(folderPath);
         console.log(`[System Initialization] Created missing directory: ${folder}`);
@@ -24,6 +24,95 @@ console.log("process.cwd():", process.cwd());
 let globalData = {
     errorsObj: null
 };
+
+// ================================================================== for the step 4 bonus task:
+function validateErrorsJson() {
+    const jsonPath = path.join(__dirname, 'errors.json');
+    // check if it exists
+    if (!fs.existsSync(jsonPath)) {
+        console.error("[Bonus Error] Critical: The file errors.json does not exist.");
+        process.exit(1);
+    }
+    // check it as a long string
+    const rawJson = fs.readFileSync(jsonPath, 'utf8');
+    let objectBlocks = rawJson.split(/[{}]/);
+    for (let block of objectBlocks) {
+        let keysMatch = [...block.matchAll(/"([^"]+)"\s*:/g)].map(match => match[1]);
+        let uniqueKeys = new Set();
+
+        for (let key of keysMatch) {
+            if (uniqueKeys.has(key)) {
+                console.error(`[Bonus Error] Duplicate property found in the JSON string: "${key}". Fix it to avoid overwriting data.`);
+            }
+            uniqueKeys.add(key);
+        }
+    }
+
+    // then we parse normally
+    let parsedData;
+    try {
+        parsedData = JSON.parse(rawJson);
+    } catch (err) {
+        console.error("[Bonus Error] Invalid JSON format. Cannot parse the file.");
+        process.exit(1);
+    }
+
+    if (!parsedData.error_info || !parsedData.base_path || !parsedData.default_error) {
+        console.error("[Bonus Error] Missing one of the required root properties: 'error_info', 'base_path', or 'default_error'.");
+    }
+
+    if (parsedData.default_error) {
+        let defErr = parsedData.default_error;
+        if (!defErr.title || !defErr.text || !defErr.image) {
+            console.error("[Bonus Error] The 'default_error' object is missing 'title', 'text', or 'image'.");
+        }
+    }
+
+    let basePathDir = path.join(__dirname, parsedData.base_path || "");
+    if (!fs.existsSync(basePathDir)) {
+        console.error(`[Bonus Error] The base path folder (${parsedData.base_path}) does not exist in the file system.`);
+    }
+
+    if (fs.existsSync(basePathDir)) {
+        let allErrors = [];
+        if (parsedData.default_error) allErrors.push(parsedData.default_error);
+        if (parsedData.error_info) allErrors = allErrors.concat(parsedData.error_info);
+
+        for (let err of allErrors) {
+            if (err.image) {
+                let imgPath = path.join(basePathDir, err.image);
+                if (!fs.existsSync(imgPath)) {
+                    console.error(`[Bonus Error] The image file "${err.image}" associated with an error does not exist on disk.`);
+                }
+            }
+        }
+    }
+
+    //multiple errors with the same identifier
+    if (parsedData.error_info) {
+        let idCounts = {};
+
+        for (let err of parsedData.error_info) {
+            let id = err.identifier;
+            if (!idCounts[id]) idCounts[id] = [];
+            idCounts[id].push(err);
+        }
+
+        for (let id in idCounts) {
+            if (idCounts[id].length > 1) {
+                let duplicateDetails = idCounts[id].map(e => {
+                    let { identifier, ...rest } = e;
+                    return JSON.stringify(rest);
+                }).join("  ||  ");
+
+                console.error(`[Bonus Error] Found multiple errors with the exact same identifier (${id}). 
+                                 Details of duplicates: ${duplicateDetails}`);
+            }
+        }
+    }
+}
+validateErrorsJson();
+
 
 function initErrors() {
     let errorData = JSON.parse(fs.readFileSync(path.join(__dirname, 'errors.json'), 'utf8'));
