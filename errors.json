@@ -19,6 +19,13 @@
       "title": "Access Denied",
       "text": "You do not have the necessary permissions to view this sector.",
       "image": "403.png"
+    },
+    {
+      "identifier": 400,
+      "status": true,
+      "title": "Bad Request",
+      "text": "Direct access to template files is strictly prohibited.",
+      "image": "400.png"
     }
   ]
 }

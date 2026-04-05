@@ -109,6 +109,11 @@ html {
         "a7 a5 a5 a6";
 }
 
+.user-info-panel {
+    text-align: right; 
+    color: var(--accent-primary);
+}
+
 /*etapa 2 bonus*/
 .math-i {
     font-style: italic;
