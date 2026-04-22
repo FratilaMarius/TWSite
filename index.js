@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const sass = require('sass');
 
 const app = express();
 const PORT = 8080;
@@ -22,7 +23,9 @@ console.log("process.cwd():", process.cwd());
 
 // const errorData = JSON.parse(fs.readFileSync(path.join(__dirname, 'errors.json'), 'utf8'));
 let globalData = {
-    errorsObj: null
+    errorsObj: null,
+    folderScss: path.join(__dirname, 'resources', 'scss'),
+    folderCss: path.join(__dirname, 'resources', 'css')
 };
 
 // ================================================================== for the step 4 bonus task:
@@ -30,7 +33,7 @@ function validateErrorsJson() {
     const jsonPath = path.join(__dirname, 'errors.json');
     // check if it exists
     if (!fs.existsSync(jsonPath)) {
-        console.error("[Bonus Error] Critical: The file errors.json does not exist.");
+        console.error("Critical: The file errors.json does not exist.");
         process.exit(1);
     }
     // check it as a long string
@@ -42,7 +45,7 @@ function validateErrorsJson() {
 
         for (let key of keysMatch) {
             if (uniqueKeys.has(key)) {
-                console.error(`[Bonus Error] Duplicate property found in the JSON string: "${key}". Fix it to avoid overwriting data.`);
+                console.error(`Duplicate property found in the JSON string: "${key}". Fix it to avoid overwriting data.`);
             }
             uniqueKeys.add(key);
         }
@@ -53,24 +56,24 @@ function validateErrorsJson() {
     try {
         parsedData = JSON.parse(rawJson);
     } catch (err) {
-        console.error("[Bonus Error] Invalid JSON format. Cannot parse the file.");
+        console.error("Invalid JSON format. Cannot parse the file.");
         process.exit(1);
     }
 
     if (!parsedData.error_info || !parsedData.base_path || !parsedData.default_error) {
-        console.error("[Bonus Error] Missing one of the required root properties: 'error_info', 'base_path', or 'default_error'.");
+        console.error("Missing one of the required root properties: 'error_info', 'base_path', or 'default_error'.");
     }
 
     if (parsedData.default_error) {
         let defErr = parsedData.default_error;
         if (!defErr.title || !defErr.text || !defErr.image) {
-            console.error("[Bonus Error] The 'default_error' object is missing 'title', 'text', or 'image'.");
+            console.error("The 'default_error' object is missing 'title', 'text', or 'image'.");
         }
     }
 
     let basePathDir = path.join(__dirname, parsedData.base_path || "");
     if (!fs.existsSync(basePathDir)) {
-        console.error(`[Bonus Error] The base path folder (${parsedData.base_path}) does not exist in the file system.`);
+        console.error(`The base path folder (${parsedData.base_path}) does not exist in the file system.`);
     }
 
     if (fs.existsSync(basePathDir)) {
@@ -82,7 +85,7 @@ function validateErrorsJson() {
             if (err.image) {
                 let imgPath = path.join(basePathDir, err.image);
                 if (!fs.existsSync(imgPath)) {
-                    console.error(`[Bonus Error] The image file "${err.image}" associated with an error does not exist on disk.`);
+                    console.error(`The image file "${err.image}" associated with an error does not exist on disk.`);
                 }
             }
         }
@@ -105,7 +108,7 @@ function validateErrorsJson() {
                     return JSON.stringify(rest);
                 }).join("  ||  ");
 
-                console.error(`[Bonus Error] Found multiple errors with the exact same identifier (${id}). 
+                console.error(`Found multiple errors with the exact same identifier (${id}). 
                                  Details of duplicates: ${duplicateDetails}`);
             }
         }
@@ -126,6 +129,73 @@ function initErrors() {
     globalData.errorsObj = errorData;
 }
 initErrors();
+
+function ScssComp(pathScss, pathCss) {
+    let absoluteScss = path.isAbsolute(pathScss) ? pathScss : path.join(globalData.folderScss, pathScss);
+    let nameScssFile = path.basename(absoluteScss);
+
+    let absoluteCss;
+    if (!pathCss) {
+        let nameCssFile = nameScssFile.replace('.scss', '.css');
+        absoluteCss = path.join(globalData.folderCss, nameCssFile);
+    } else {
+        absoluteCss = path.isAbsolute(pathCss) ? pathCss : path.join(globalData.folderCss, pathCss);
+    }
+
+    let nameCssFile = path.basename(absoluteCss);
+
+    if (fs.existsSync(absoluteCss)) {
+        const backupPath = path.join(__dirname, 'backup', 'resurse', 'css');
+        
+        if (!fs.existsSync(backupPath)) {
+            fs.mkdirSync(backupPath, { recursive: true });
+        }
+
+        let timestamp = new Date().getTime();
+        let backupFile = path.join(backupPath, `${timestamp}_${nameCssFile}`);
+        
+        try {
+            fs.copyFileSync(absoluteCss, backupFile);
+        } catch(err) {
+            console.error(`Error when trying to backup ${nameCssFile}:`, err);
+        }
+    }
+
+    try {
+        const rez = sass.compile(absoluteScss);
+        fs.writeFileSync(absoluteCss, rez.css);
+        console.log(`[SCSS] Compiled: ${nameScssFile} -> ${nameCssFile}`);
+    } catch (err) {
+        console.error(`[SCSS] Compilation failde ${nameScssFile}:`, err.message);
+    }
+}
+function initScss() {
+    if (!fs.existsSync(globalData.folderScss)) fs.mkdirSync(globalData.folderScss, { recursive: true });
+    if (!fs.existsSync(globalData.folderCss)) fs.mkdirSync(globalData.folderCss, { recursive: true });
+
+    let file_ = fs.readdirSync(globalData.folderScss);
+    for (let _file of file_) {
+        if (_file.endsWith('.scss')) {
+            ScssComp(_file); 
+        }
+    }
+
+    fs.watch(globalData.folderScss, (eventType, filename) => {
+        if (filename && filename.endsWith('.scss')) {
+            let fullPath = path.join(globalData.folderScss, filename);
+            
+            // Verificăm dacă fișierul încă există (ca să nu dea eroare dacă doar am șters un fișier)
+            if (eventType === 'change' || eventType === 'rename') {
+                if (fs.existsSync(fullPath)) {
+                    console.log(`[Watch] Change detected in ${filename}. Recompiled`);
+                    ScssComp(filename);
+                }
+            }
+        }
+    });
+}
+initScss();
+
 // ===================================================================================================================
 
 app.set('view engine', 'ejs');

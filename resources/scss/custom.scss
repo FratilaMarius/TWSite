@@ -1,0 +1,32 @@
+$primary: #8B0000;
+$secondary: #4a4a4a;
+$body-bg: #111;
+$body-color: #f8f9fa;
+
+
+$border-radius: 0px;
+$border-radius-lg: 0px;
+
+$font-family-base: 'Share Tech Mono', monospace;
+$h1-font-size: 3rem;
+$headings-font-family: 'Orbitron', sans-serif;
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 800px,
+  lg: 1100px,
+  xl: 1400px,
+  xxl: 1600px
+);
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+a {
+    text-decoration: none;
+    color: $primary;
+    
+    &:hover {
+        color: lighten($primary, 15%);
+    }
+}

@@ -19,8 +19,6 @@
 }
 
 body {
-
-
     background-color: var(--bg-main);
     color: var(--text-main);
     margin: 0;
@@ -214,12 +212,6 @@ html {
             "a7"
             "a5"
             "a6";
-    }
-
-    *,
-    *::before,
-    *::after {
-        /* animation: none !important; */
     }
 }
 
