@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../fragments/head.ejs') %>
+</head>
+
+<body class="bg-dark text-light"> <%- include('../fragments/header.ejs') %>
+
+        <main class="container mt-5">
+
+            <section class="reflection-wrapper text-center mb-5 pb-5">
+                <h1 class="reflect-title display-1 fw-bold text-uppercase" data-text="A Sea Of Opportunity">
+                    A Sea Of Opportunity
+                </h1>
+            </section>
+
+            <hr class="custom-separator my-5 w-75 mx-auto">
+
+            <section id="static-gallery" class="theme-box mt-5 p-4 border border-danger rounded shadow">
+                <%- include('../fragments/gallery') %>
+            </section>
+
+        </main>
+
+        <%- include('../fragments/footer.ejs') %>
+
+</body>
+
+</html>

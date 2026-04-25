@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const sass = require('sass');
+const sharp = require('sharp');
 
 const app = express();
 const PORT = 8080;
@@ -152,7 +153,7 @@ function ScssComp(pathScss, pathCss) {
         }
 
         let timestamp = new Date().getTime();
-        let backupFile = path.join(backupPath, `${timestamp}_${nameCssFile}`);
+        let backupFile = path.join(backupPath, `${nameCssFile}_${timestamp}`);
         
         try {
             fs.copyFileSync(absoluteCss, backupFile);
@@ -239,16 +240,95 @@ function displayError(res, identifier, title, text, image) {
     });
 }
 
+async function processGalleryData() {
+    let rawdata = fs.readFileSync('gallery.json');
+    let gallery = JSON.parse(rawdata);
 
+    let curTime = new Date().getHours(); 
+    let displTime = 'day';
 
-app.get(['/', '/index', '/home'], (req, res) => {
-    res.render('pages/index', function (error, renderResult) {
-        if (error) {
-            displayError(res, 500);
-        } else {
-            res.send(renderResult);
+    if (curTime >= 5 && curTime < 12) {
+        displTime = 'morning';
+    } else if (curTime >= 12 && curTime < 20) {
+        displTime = 'day';
+    } else {
+        displTime = 'night';
+    }
+
+    let filteredImgs = gallery.images.filter(img => img.time === displTime);
+
+    let rest = filteredImgs.length % 3;
+    if (rest !== 0) {
+        filteredImgs = filteredImgs.slice(0, filteredImgs.length - rest);
+    }
+
+    const galleryAbsPath = path.join(__dirname, 'resources', 'images', 'gallery');
+    
+    if (!fs.existsSync(galleryAbsPath)) {
+        fs.mkdirSync(galleryAbsPath, { recursive: true });
+    }
+
+    for (let img of filteredImgs) {
+        let origPath = path.join(galleryAbsPath, img.relative_path);
+        
+        if (fs.existsSync(origPath)) {
+            let parsedPath = path.parse(img.relative_path);
+            let nameSmall = parsedPath.name + "-small" + parsedPath.ext;
+            let nameMedium = parsedPath.name + "-medium" + parsedPath.ext; 
+            
+            let pathSmall = path.join(galleryAbsPath, nameSmall);
+            let pathMedium = path.join(galleryAbsPath, nameMedium);
+
+            if (!fs.existsSync(pathSmall)) {
+                await sharp(origPath).resize(300).toFile(pathSmall);
+            }
+            if (!fs.existsSync(pathMedium)) {
+                await sharp(origPath).resize(600).toFile(pathMedium);
+            }
         }
-    });
+    }
+
+    return { 
+        images: filteredImgs, 
+        gallery_path: gallery.gallery_path 
+    };
+}
+
+
+app.get(['/', '/index', '/home'], async (req, res) => {
+    try {
+        let galleryData = await processGalleryData();
+        
+        res.render('pages/index', galleryData, function (error, renderResult) {
+            if (error) {
+                console.error("Home Render error:", error);
+                displayError(res, 500);
+            } else {
+                res.send(renderResult);
+            }
+        });
+    } catch (err) {
+        console.error("Server Error in Home Route:", err);
+        displayError(res, 500);
+    }
+});
+
+app.get('/guidance', async (req, res) => {
+    try {
+        let galleryData = await processGalleryData();
+        
+        res.render('pages/guidance', galleryData, function (error, renderResult) {
+            if (error) {
+                console.error("Guidance Render error:", error);
+                displayError(res, 500);
+            } else {
+                res.send(renderResult);
+            }
+        });
+    } catch (err) {
+        console.error("Server Error in Guidance Route:", err);
+        displayError(res, 500);
+    }
 });
 
 app.get(/\.ejs$/, (req, res) => {

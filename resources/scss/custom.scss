@@ -1,32 +1,219 @@
-$primary: #8B0000;
-$secondary: #4a4a4a;
-$body-bg: #111;
-$body-color: #f8f9fa;
+$primary: #FA0B00;
+$secondary: #CC3200;
+$dark: #000000;
+$success: #52C200;
+
+$body-color: #FFFFFF;
+$body-bg: #000000;
+$primary-text-emphasis: #FFFFFF;
 
 
-$border-radius: 0px;
-$border-radius-lg: 0px;
+$border-radius: 12px;
+$border-radius-sm: 8px;
+$border-radius-lg: 16px;
 
 $font-family-base: 'Share Tech Mono', monospace;
-$h1-font-size: 3rem;
 $headings-font-family: 'Orbitron', sans-serif;
+$h1-font-size: 2.5rem;
+$h2-font-size: 2rem;
+$h3-font-size: 1.5rem;
 
 $grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 800px,
-  lg: 1100px,
-  xl: 1400px,
-  xxl: 1600px
+    xs: 0,
+    sm: 576px,
+    md: 700px,
+    lg: 1024px,
+    xl: 1200px,
+    xxl: 1400px
 );
+
+$container-max-widths: (
+    sm: 540px,
+    md: 680px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1320px
+);
+
+$box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+$link-color: $success;
+$link-decoration: none;
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 a {
     text-decoration: none;
     color: $primary;
-    
+
     &:hover {
         color: lighten($primary, 15%);
     }
 }
+
+/* #region reflection*/
+.reflect-title {
+    position: relative;
+    display: inline-block;
+
+    line-height: 1;
+    cursor: default;
+
+    padding-bottom: 100px;
+}
+
+.reflect-title::after {
+    content: attr(data-text);
+
+    position: absolute;
+    left: 0;
+    top: 0%;
+
+    transform-origin: bottom;
+    transform: scaleY(-.5) skewX(-15deg);
+
+    filter: blur(3px);
+
+    -webkit-mask-image: linear-gradient(to bottom, transparent 10%, black 100%);
+    mask-image: linear-gradient(to bottom, transparent 10%, black 100%);
+    opacity: 0.6;
+
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.reflect-title:hover::after {
+
+    transform: scaleY(-1) skewX(-20deg);
+    filter: blur(5px);
+}
+
+/* #endregion*/
+
+/* #region HR*/
+hr.custom-separator {
+    border: none;
+    height: 20px;
+
+    background-image:
+        radial-gradient(circle at center, var(--bg-main) 4px, var(--accent-primary) 5px, var(--accent-primary) 8px, transparent 9px),
+        linear-gradient(to right, transparent 5%, var(--accent-primary) 50%, transparent 95%);
+
+    background-size:
+        20px 20px,
+        100% 2px;
+
+    background-position:
+        center center,
+        center center;
+
+    background-repeat:
+        no-repeat,
+        no-repeat;
+}
+
+/* #endregion*/
+
+/* #region gallery*/
+
+.gallery-grid {
+    counter-reset: gallery-index;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px;
+    width: 100%;
+
+    overflow: hidden;
+    padding-bottom: 150px;
+}
+
+
+.gallery-item {
+    margin: 0;
+    position: relative;
+    padding: 2px;
+    padding-top: 120px;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+
+    transition: transform 0.6s ease-in-out, border-radius 0.6s ease-in-out;
+    position: relative;
+    z-index: 1;
+}
+
+.gallery-item img:hover {
+    transform: rotate(360deg) scale(1.5);
+
+    border-radius: 50%;
+
+    z-index: 10;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.index-litera::before {
+    counter-increment: gallery-index;
+
+    content: counter(gallery-index, upper-alpha) ".";
+
+    font-weight: bold;
+    color: #FA0B00;
+}
+
+.gallery-item figcaption {
+    text-align: center;
+
+    // margin-top: 5%;
+
+    padding-top: 10px;
+    font-size: 0.9rem;
+    background-color: var(--bg-box);
+
+    position: relative;
+    z-index: 2;
+}
+
+
+@media screen and (max-width: 1024px) and (min-width: 701px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-item:nth-child(3n) {
+        grid-column: 1 / -1;
+        width: 50%;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-item {
+        padding-top: 50px;
+        margin-top: 15%;
+    }
+
+    .gallery-item figcaption {
+        // margin-bottom: 8%;
+
+        padding-top: 10px;
+        font-size: 0.9rem;
+        background-color: var(--bg-box);
+
+        position: relative;
+        z-index: 2;
+    }
+
+    .gallery-item:nth-child(3n) {
+        width: 100%;
+    }
+}
+
+/* #endregion*/

@@ -1,0 +1,26 @@
+<section class="container mt-5 mb-5">    
+    <div class="gallery-grid">
+        <% images.forEach(function(img) { %>
+            <figure class="gallery-item">
+                <picture>
+                    <source media="(max-width: 600px)" srcset="<%= gallery_path %><%= img.relative_path.replace('.', '-small.') %>">
+                    <source media="(max-width: 1024px)" srcset="<%= gallery_path %><%= img.relative_path.replace('.', '-medium.') %>">
+                    
+                    <img 
+                        src="<%= gallery_path %><%= img.relative_path %>" 
+                        alt="<%= img.alt ? img.alt : img.name %>" 
+                        title="<%= img.description %>"
+                    >
+                </picture>
+                
+                <figcaption>
+                    <span class="index-litera"></span> <%= img.description %>
+                    
+                    <% if(img.license === 'CC-BY' && img.author) { %>
+                        <br><small>Credit: <a href="<%= img.link_author %>"><%= img.author %></a> (CC-BY)</small>
+                    <% } %>
+                </figcaption>
+            </figure>
+        <% }); %>
+    </div>
+</section>

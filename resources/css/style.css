@@ -3,7 +3,7 @@
     --grid-gap: 40px;
     --box-padding: 20px;
 
-    --link-visited: #8e8e8e;
+    --link-visited: #a3ffc6;
     --icon-hover: #ff3333;
     --glow-color: rgba(255, 0, 0, 0.3);
     --active-border: #ff0000;
@@ -12,7 +12,6 @@
     --text-main: #FFFFFF;
     --accent-primary: #FA0B00;
     --accent-secondary: #CC3200;
-    --link-color: #52C200;
     --bg-box: rgba(0, 0, 0, 0.85);
     --bg-tint: rgba(250, 11, 0, 0.1);
     --shadow-color: rgba(0, 0, 0, 0.5);
@@ -39,7 +38,7 @@ h3 {
     color: var(--link-color);
 } */
 
-/* links n stuff */
+links n stuff
 a {
     border: 1px solid transparent;
     text-decoration: none;
@@ -47,9 +46,10 @@ a {
 }
 
 a:visited {
-    color: var(--link-visited);
+    color: var(--link-visited) !important;
 }
-/* ext links: */
+
+/* 
 a[href^="http"]::before {
     content: "⮳ ";
     font-size: 1.5em;
@@ -78,7 +78,7 @@ a:active {
     border: 1px solid var(--active-border);
     border-radius: 3px;
 }
-
+ */
 /*  */
 
 

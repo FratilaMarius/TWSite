@@ -1,0 +1,167 @@
+{
+  "gallery_path": "/resources/images/gallery/",
+  "images": [
+    {
+      "relative_path": "img1.png",
+      "name": "Standing Guard",
+      "description": "Standing Guard",
+      "time": "day",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img1.png",
+      "name": "Standing Guard",
+      "description": "Standing Guard",
+      "time": "night",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img2.png",
+      "name": "Ethical Warfare",
+      "description": "Ethical Warfare",
+      "time": "day",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img2.png",
+      "name": "Ethical Warfare",
+      "description": "Ethical Warfare",
+      "time": "night",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img3.png",
+      "name": "Global Reach",
+      "description": "Global Reach",
+      "time": "day",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img3.png",
+      "name": "Global Reach",
+      "description": "Global Reach",
+      "time": "night",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img4.png",
+      "name": "Private Policing",
+      "description": "Private Policing",
+      "time": "night",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img4.png",
+      "name": "Private Policing",
+      "description": "Private Policing",
+      "time": "morning",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img5.png",
+      "name": "Armoured Enforcing",
+      "description": "Armoured Enforcing",
+      "time": "night",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img5.png",
+      "name": "Armoured Enforcing",
+      "description": "Armoured Enforcing",
+      "time": "morning",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img6.png",
+      "name": "Engagement",
+      "description": "Engagement",
+      "time": "morning",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img6.png",
+      "name": "Engagement",
+      "description": "Engagement",
+      "time": "night",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img7.png",
+      "name": "Kinetic Contact",
+      "description": "Kinetic Contact",
+      "time": "morning",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img7.png",
+      "name": "Kinetic Contact",
+      "description": "Kinetic Contact",
+      "time": "day",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img8.png",
+      "name": "Outer Heaven",
+      "description": "Outer Heaven",
+      "time": "day",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img8.png",
+      "name": "Outer Heaven",
+      "description": "Outer Heaven",
+      "time": "morning",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img9.png",
+      "name": "Future of War",
+      "description": "Future of War",
+      "time": "morning",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    },
+    {
+      "relative_path": "img9.png",
+      "name": "Future of War",
+      "description": "Future of War",
+      "time": "day",
+      "license": "CC-BY",
+      "author": "Kojima Productions",
+      "link_author": "https://www.kojimaproductions.jp"
+    }
+  ]
+}
