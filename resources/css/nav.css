@@ -134,6 +134,11 @@ nav .menu > li.main-item:hover .submenu {
     width: 30px;
     height: 20px;
   }
+
+  nav label#hamburger p {
+    display: none;
+  }
+
   nav label#hamburger .hamburger-icon .bar {
     position: absolute;
     left: 0;
