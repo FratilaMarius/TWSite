@@ -4,9 +4,26 @@ const fs = require('fs');
 const sass = require('sass');
 const sharp = require('sharp');
 
+const { Pool } = require('pg');
+
+const pool = new Pool({
+    user: 'GotP',
+    host: 'localhost',
+    database: 'GotP stock',
+    password: '123',
+    port: 5432,
+});
+
 const app = express();
 const PORT = 8080;
 
+pool.connect((err, client, release) => {
+    if (err) {
+        return console.error('Could not connect to the database:', err.stack);
+    }
+    console.log('Connected to the database successfully.');
+    release();
+});
 
 const foldersArray = ["temp", "logs", "backup", "uploads"];
 for (let folder of foldersArray) {
