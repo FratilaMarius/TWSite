@@ -41,8 +41,7 @@ $link-decoration: none;
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
-a {
-
+a:not(nav a) {
 
     text-decoration: underline;
 

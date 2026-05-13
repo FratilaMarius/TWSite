@@ -11854,16 +11854,16 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-a {
+a:not(nav a) {
   text-decoration: underline;
   color: #FA0B00;
 }
-a:hover {
+a:not(nav a):hover {
   color: rgb(255, 250.22, 250);
   background-position: center;
   background-size: 100% 100%;
 }
-a {
+a:not(nav a) {
   color: black;
   border-bottom: 1px solid black;
   padding: 4px 8px;

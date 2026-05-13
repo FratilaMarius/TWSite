@@ -13,12 +13,12 @@
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
-            <p> Menu </p>
+            <!-- <p> Menu </p> -->
         </label>
 
         <ul class="menu" style="z-index: 1000;">
             <li class="main-item style=z-index: 1000;">
-                <a href="#"><i class="fa-solid fa-globe"></i> Catalogue</a>
+                <a href="#"><i class="fa-solid fa-globe"></i><span class="text">Catalogue</span></a>
                 <ul class="submenu">
                     <li><a href="/">Home</a></li>
                     <li class="menu-item-dropdown">
@@ -42,8 +42,8 @@
                 </ul>
             </li>
 
-            <li class="main-item">
-                <a href="#"><i class="fa-solid fa-crosshairs"></i> <p style="text-align:center; position:relative; padding-top:15px">See more..</p></a>
+            <li class="main-item" id="SeeMore">
+                <a href="#"><i class="fa-solid fa-crosshairs"></i><span class="text">See more..</span></a>
                 <ul class="submenu">
                     <li><a href="#welcome">Welcome</a></li>
                     <li><a href="#Sale">On Sale</a></li>
@@ -65,4 +65,26 @@
             }
         }
     </script>
+
+    <script>
+        const nav = document.querySelector('nav');
+        const mainLinks = nav?.querySelectorAll('.menu > li.main-item > a');
+
+        function updateNavClickBehavior() {
+            const mediumScreen = window.matchMedia('(max-width: 1024px) and (min-width: 701px)').matches;
+            mainLinks?.forEach(link => {
+                link.onclick = (event) => {
+                    if (!mediumScreen) return;
+                    event.preventDefault();
+                    const item = link.closest('li.main-item');
+                    if (!item) return;
+                    item.classList.toggle('submenu-open');
+                };
+            });
+        }
+
+        window.addEventListener('resize', updateNavClickBehavior);
+        updateNavClickBehavior();
+    </script>
+
 </header>
