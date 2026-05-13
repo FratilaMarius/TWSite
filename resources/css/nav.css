@@ -1,5 +1,5 @@
 nav .menu > li.main-item .submenu li a, nav .menu > li.main-item > a {
-  display: block;
+  display: flex;
   height: 50px;
   line-height: 50px;
   text-align: center;
@@ -8,6 +8,18 @@ nav .menu > li.main-item .submenu li a, nav .menu > li.main-item > a {
   background-color: var(--bg-main);
   color: var(--text-main);
   transition: all 0.3s ease;
+  justify-content: center;
+  align-items: center;
+}
+
+nav .menu > li.main-item > a {
+  gap: 5px;
+}
+
+@media screen and (max-width: 1024px) {
+  nav .menu > li.main-item > a {
+    display: block;
+  }
 }
 
 nav ul {
@@ -20,6 +32,7 @@ nav #hamburger {
   display: none;
 }
 nav .menu {
+  z-index: 10;
   display: flex;
   gap: 10px;
 }
@@ -112,6 +125,11 @@ nav .menu > li.main-item:hover .submenu {
   }
 }
 @media screen and (max-width: 700px) {
+
+  nav .menu > li.main-item:nth-child(2) {
+    display: none;
+  }
+  
   nav label#hamburger {
     display: block;
     height: 50px;
@@ -191,6 +209,7 @@ nav .menu > li.main-item:hover .submenu {
     transform: none;
     display: none;
     opacity: 0;
+    width: auto;
   }
   nav .menu > li.main-item .submenu li a {
     border-left: 2px solid var(--accent-secondary);
@@ -230,3 +249,4 @@ nav .menu > li.main-item:hover .submenu {
     transform: rotateX(0deg);
   }
 }
+

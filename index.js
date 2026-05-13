@@ -24,6 +24,12 @@ pool.connect((err, client, release) => {
     console.log('Connected to the database successfully.');
     release();
 });
+pool.query("SELECT unnest(enum_range(NULL::category)) AS category_name")
+    .then(result => {
+        app.locals.menu_categories = result.rows.map(row => row.category_name);
+        console.log("Categories loaded for menu:", app.locals.menu_categories);
+    })
+    .catch(err => console.error("Error fetching categories for menu:", err));
 
 const foldersArray = ["temp", "logs", "backup", "uploads"];
 for (let folder of foldersArray) {
@@ -164,17 +170,17 @@ function ScssComp(pathScss, pathCss) {
 
     if (fs.existsSync(absoluteCss)) {
         const backupPath = path.join(__dirname, 'backup', 'resurse', 'css');
-        
+
         if (!fs.existsSync(backupPath)) {
             fs.mkdirSync(backupPath, { recursive: true });
         }
 
         let timestamp = new Date().getTime();
         let backupFile = path.join(backupPath, `${nameCssFile}_${timestamp}`);
-        
+
         try {
             fs.copyFileSync(absoluteCss, backupFile);
-        } catch(err) {
+        } catch (err) {
             console.error(`Error when trying to backup ${nameCssFile}:`, err);
         }
     }
@@ -194,15 +200,14 @@ function initScss() {
     let file_ = fs.readdirSync(globalData.folderScss);
     for (let _file of file_) {
         if (_file.endsWith('.scss')) {
-            ScssComp(_file); 
+            ScssComp(_file);
         }
     }
 
     fs.watch(globalData.folderScss, (eventType, filename) => {
         if (filename && filename.endsWith('.scss')) {
             let fullPath = path.join(globalData.folderScss, filename);
-            
-            // Verificăm dacă fișierul încă există (ca să nu dea eroare dacă doar am șters un fișier)
+
             if (eventType === 'change' || eventType === 'rename') {
                 if (fs.existsSync(fullPath)) {
                     console.log(`[Watch] Change detected in ${filename}. Recompiled`);
@@ -235,7 +240,7 @@ app.use('/resources', express.static(path.join(__dirname, 'resources')));
 
 
 function displayError(res, identifier, title, text, image) {
-    let foundError = globalData.errorsObj.error_info.find(e => e.identifier == identifier);
+    let foundError = globalData?.errorsObj?.error_info?.find(e => e.identifier == identifier);
 
     let currentError = foundError || globalData.errorsObj.default_error;
 
@@ -261,7 +266,7 @@ async function processGalleryData() {
     let rawdata = fs.readFileSync('gallery.json');
     let gallery = JSON.parse(rawdata);
 
-    let curTime = new Date().getHours(); 
+    let curTime = new Date().getHours();
     let displTime = 'day';
 
     if (curTime >= 5 && curTime < 12) {
@@ -280,19 +285,19 @@ async function processGalleryData() {
     }
 
     const galleryAbsPath = path.join(__dirname, 'resources', 'images', 'gallery');
-    
+
     if (!fs.existsSync(galleryAbsPath)) {
         fs.mkdirSync(galleryAbsPath, { recursive: true });
     }
 
     for (let img of filteredImgs) {
         let origPath = path.join(galleryAbsPath, img.relative_path);
-        
+
         if (fs.existsSync(origPath)) {
             let parsedPath = path.parse(img.relative_path);
             let nameSmall = parsedPath.name + "-small" + parsedPath.ext;
-            let nameMedium = parsedPath.name + "-medium" + parsedPath.ext; 
-            
+            let nameMedium = parsedPath.name + "-medium" + parsedPath.ext;
+
             let pathSmall = path.join(galleryAbsPath, nameSmall);
             let pathMedium = path.join(galleryAbsPath, nameMedium);
 
@@ -305,9 +310,9 @@ async function processGalleryData() {
         }
     }
 
-    return { 
-        images: filteredImgs, 
-        gallery_path: gallery.gallery_path 
+    return {
+        images: filteredImgs,
+        gallery_path: gallery.gallery_path
     };
 }
 
@@ -315,7 +320,7 @@ async function processGalleryData() {
 app.get(['/', '/index', '/home'], async (req, res) => {
     try {
         let galleryData = await processGalleryData();
-        
+
         res.render('pages/index', galleryData, function (error, renderResult) {
             if (error) {
                 console.error("Home Render error:", error);
@@ -330,10 +335,32 @@ app.get(['/', '/index', '/home'], async (req, res) => {
     }
 });
 
+app.get('/merchandise', async (req, res) => {
+    try {
+        let selectedCategory = req.query.categ;
+        let sqlQuery = 'SELECT * FROM product ORDER BY id ASC';
+        let queryParams = [];
+
+        if (selectedCategory && selectedCategory !== 'all') {
+            sqlQuery = 'SELECT * FROM product WHERE main_category = $1 ORDER BY id ASC';
+            queryParams = [selectedCategory];
+        }
+
+        const result = await pool.query(sqlQuery, queryParams);
+
+        res.render('pages/merchandise', {
+            merchandise: result.rows
+        });
+    } catch (err) {
+        console.error("Error loading merchandise:", err);
+        displayError(res, 500);
+    }
+});
+
 app.get('/guidance', async (req, res) => {
     try {
         let galleryData = await processGalleryData();
-        
+
         res.render('pages/guidance', galleryData, function (error, renderResult) {
             if (error) {
                 console.error("Guidance Render error:", error);

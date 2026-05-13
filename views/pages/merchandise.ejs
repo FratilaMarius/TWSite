@@ -2,16 +2,76 @@
 
 <head>
     <%- include('../fragments/head.ejs') %>
+        <link rel="stylesheet" href="/resources/css/merchandise.css" type="text/css" />
+
         <title>Merchandise</title>
 </head>
 
 <body>
     <%- include('../fragments/header.ejs') %>
 
-        <main>
+        <main class="merchandise">
             <section class="merchandise-section">
                 <h1 style="font-size: 3rem;">MERCHANDISE</h1>
             </section>
+
+            <div class="products-container">
+                <% for(let prod of merchandise) { %>
+                    <article id="ent<%= prod.id %>" class="product <%= prod.main_category %>">
+                        <h3>
+                            <%= prod.name %>
+                        </h3>
+
+                        <div class="product-content">
+                            <img src="<%= prod.image_path %>" alt="<%= prod.name %>" class="product-image">
+
+                            <table class="specs-table">
+                                <tr>
+                                    <th>Price (DP)</th>
+                                    <th>Camouflage</th>
+                                    <th>Attachments</th>
+                                    <th>Manufacturing Date</th>
+                                    <th>Is Lethal?</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <%= prod.price_dp %>
+                                    </td>
+                                    <td>
+                                        <%= prod.camouflage %>
+                                    </td>
+                                    <td>
+                                        <%= prod.compatible_attachments %>
+                                    </td>
+                                    <td>
+                                        <% let d=new Date(prod.manufacturing_date); let days=['Sunday', 'Monday'
+                                            , 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' ]; let
+                                            months=['January', 'February' , 'March' , 'April' , 'May' , 'June' , 'July'
+                                            , 'August' , 'September' , 'October' , 'November' , 'December' ]; let
+                                            date=d.getDate(); let dayOfWeek=days[d.getDay()]; let
+                                            month=months[d.getMonth()]; let year=d.getFullYear(); let
+                                            formattedDate=`${date}(${dayOfWeek})/${month}/${year}`; %>
+                                            <time datetime="<%= d.toISOString() %>">
+                                                <%= formattedDate %>
+                                            </time>
+                                    </td>
+                                    <td>
+                                        <%= prod.is_lethal ? 'Yes' : 'No' %>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <p class="product-description">
+                            <%= prod.description %>
+                        </p>
+                        <p>Category: <span class="category-text">
+                                <%= prod.main_category %>
+                            </span></p>
+                    </article>
+                    <% } %>
+            </div>
+
         </main>
 
         <%- include('../fragments/footer.ejs') %>

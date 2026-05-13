@@ -1,11 +1,11 @@
-<header>
+<header style="z-index: 1000; position: relative;">
     <div class="user-info-panel">
         <p>IP Address: <strong>
                 <%= userIp %>
             </strong></p>
     </div>
     <h1>Guns of the Patriot</h1>
-    <nav>
+    <nav style="z-index: 1000;">
         <input type="checkbox" id="ch-menu">
         <label for="ch-menu" id="hamburger">
             <div class="hamburger-icon">
@@ -16,13 +16,26 @@
             <p> Menu </p>
         </label>
 
-        <ul class="menu">
-            <li class="main-item">
+        <ul class="menu" style="z-index: 1000;">
+            <li class="main-item style=z-index: 1000;">
                 <a href="#"><i class="fa-solid fa-globe"></i> Catalogue</a>
                 <ul class="submenu">
                     <li><a href="/">Home</a></li>
-                    <li><a href="/merchandise">Merchandise</a></li>
-                    <!-- <li><a href="/financing">Financing</a></li> -->
+                    <li class="menu-item-dropdown">
+                        <!-- <a href="/merchandise">Merchandise</a> -->
+                        <a>Merchandise</a>
+                        <ul class="sub-menu">
+                            <li><a href="/merchandise?categ=all">All Products</a></li>
+
+                            <% if (locals.menu_categories) { %>
+                                <% for(let cat of menu_categories) { %>
+                                    <li><a href="/merchandise?categ=<%= cat %>">
+                                            <%= cat %>
+                                        </a></li>
+                                    <% } %>
+                                        <% } %>
+                        </ul>
+                    </li> <!-- <li><a href="/financing">Financing</a></li> -->
                     <li><a href="/guidance">Guidance</a></li>
                     <li><a href="/mission">Our Mission</a></li>
 
@@ -30,7 +43,7 @@
             </li>
 
             <li class="main-item">
-                <a href="#"><i class="fa-solid fa-crosshairs"></i> See more..</a>
+                <a href="#"><i class="fa-solid fa-crosshairs"></i> <p style="text-align:center; position:relative; padding-top:15px">See more..</p></a>
                 <ul class="submenu">
                     <li><a href="#welcome">Welcome</a></li>
                     <li><a href="#Sale">On Sale</a></li>
@@ -45,7 +58,7 @@
 
     <script>
         // if we re on home page only then we show the see more menu item
-        if (!(window.location.pathname === '/' || window.location.pathname=== '/home' || window.location.pathname === '/index')) {
+        if (!(window.location.pathname === '/' || window.location.pathname === '/home' || window.location.pathname === '/index')) {
             const seeMoreItem = document.querySelector('.main-item:nth-child(2)');
             if (seeMoreItem) {
                 seeMoreItem.style.display = 'none';

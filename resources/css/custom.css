@@ -11855,11 +11855,23 @@ textarea.form-control-lg {
   }
 }
 a {
-  text-decoration: none;
+  text-decoration: underline;
   color: #FA0B00;
 }
 a:hover {
-  color: rgb(255, 79.574, 71.5);
+  color: rgb(255, 250.22, 250);
+  background-position: center;
+  background-size: 100% 100%;
+}
+a {
+  color: black;
+  border-bottom: 1px solid black;
+  padding: 4px 8px;
+  background-image: radial-gradient(circle, rgba(255, 114, 114, 0.6) 0%, transparent 70%);
+  background-position: center;
+  background-size: 0% 0%;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease-out;
 }
 
 /* #region reflection*/

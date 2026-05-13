@@ -42,12 +42,34 @@ $link-decoration: none;
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 a {
-    text-decoration: none;
+
+
+    text-decoration: underline;
+
     color: $primary;
 
     &:hover {
-        color: lighten($primary, 15%);
+        color: lighten($primary, 50%);
+        background-position: center;
+        background-size: 100% 100%;
+
     }
+
+    color: black;
+    // text-decoration: none;
+    border-bottom: 1px solid black;
+
+    padding: 4px 8px;
+
+    background-image: radial-gradient(circle, rgba(255, 114, 114, 0.6) 0%, transparent 70%);
+
+    background-position: center;
+
+    background-size: 0% 0%;
+
+    background-repeat: no-repeat;
+
+    transition: background-size 0.3s ease-out;
 }
 
 /* #region reflection*/

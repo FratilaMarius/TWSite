@@ -38,8 +38,7 @@ h3 {
     color: var(--link-color);
 } */
 
-links n stuff
-a {
+links n stuff a {
     border: 1px solid transparent;
     text-decoration: none;
     padding: 2px 4px;
@@ -49,18 +48,20 @@ a:visited {
     color: var(--link-visited) !important;
 }
 
-/* 
+
 a[href^="http"]::before {
     content: "⮳ ";
     font-size: 1.5em;
-    display: inline-block;
-    transition: color 0.3s ease;
+    display: inline;
 }
 
 a[href^="http"]:hover::before {
     color: var(--icon-hover);
+        transition: color 0.5s ease;
+
 }
 
+/*
 main a {
     background-image: radial-gradient(circle, var(--glow-color) 0%, var(--glow-color) 40%, transparent 80%, transparent 100%);
     background-position: center;
@@ -633,4 +634,62 @@ iframe:not(.exclude-scale) {
         break-before: page !important;
         page-break-before: always !important;
     }
+}
+
+/* Submenu container */
+.sub-menu {
+    z-index: 1000;
+    display: none;
+    /* Hidden by default */
+    position: absolute;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    right: -100%;
+    background-color: #1a1a1a;
+    border-left: 3px solid #d32f2f;
+    /* Red tactical accent */
+    z-index: 100;
+    width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+    .sub-menu {
+        top: 100%;
+        left: 0;
+            z-index: 1000;
+    }
+}
+
+.sub-menu li a {
+        z-index: 1000;
+    display: flex;
+    padding: 12px 25px;
+    color: #4CAF50;
+    /* Terminal green */
+    text-decoration: none;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.sub-menu li a:first-of-type {
+    border-top: 1px solid var(--accent-primary);
+}
+
+.sub-menu li a:hover {
+    background-color: #333;
+    color: #ffffff;
+}
+
+/* Show submenu on hover */
+.menu-item-dropdown:hover .sub-menu {
+    display: block;
+}
+
+/* Ensure the parent is positioned for absolute children */
+.menu-item-dropdown {
+    position: relative;
 }
