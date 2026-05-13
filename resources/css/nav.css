@@ -1,3 +1,17 @@
+:root {
+  --link-visited: #a3ffc6;
+  --icon-hover: #ff3333;
+  --glow-color: rgba(255, 0, 0, 0.3);
+  --active-border: #ff0000;
+  --bg-main: #000000;
+  --text-main: #FFFFFF;
+  --accent-primary: #FA0B00;
+  --accent-secondary: #CC3200;
+  --bg-box: rgba(0, 0, 0, 0.85);
+  --bg-tint: rgba(250, 11, 0, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.5);
+}
+
 nav ul {
   list-style: none;
   padding: 0;
@@ -39,7 +53,7 @@ nav .menu > li.main-item > a::before {
   left: -100%;
   width: 200%;
   height: 100%;
-  background: linear-gradient(to right, var(--bg-main) 50%, var(--accent-secondary) 100%);
+  background: linear-gradient(to left, var(--bg-main) 50%, var(--accent-secondary) 100%);
   background-size: 100%;
   transition: left 0.5s ease-in-out;
   z-index: -1;
@@ -200,6 +214,13 @@ nav .menu > li.main-item.submenu-open > a::before {
   nav label#hamburger .hamburger-icon .bar:nth-child(3) {
     animation-delay: 900ms;
   }
+  nav #ch-menu:checked ~ .menu {
+    display: flex;
+  }
+  nav #ch-menu:checked ~ .menu > li.main-item .submenu {
+    display: block;
+    animation: burgerSubmenuAnim 0.5s ease-out forwards;
+  }
   nav .menu {
     display: none;
     flex-direction: column;
@@ -208,24 +229,19 @@ nav .menu > li.main-item.submenu-open > a::before {
   nav .menu > li.main-item {
     width: 100%;
   }
-  nav .menu > li.main-item > a span.text {
-    display: inline;
+  nav .menu > li.main-item > a {
+    display: none !important;
   }
-  nav .menu .main-item {
+  nav .menu > li.main-item .submenu {
     position: static;
     display: none;
     opacity: 0;
+    width: 100%;
     transform-origin: top left;
+    transform: rotateZ(-90deg);
   }
-  nav .menu .main-item li a {
+  nav .menu > li.main-item .submenu li a {
     border-left: 2px solid var(--accent-secondary);
-  }
-  nav .menu:hover .main-item {
-    display: block;
-    animation: burgerSubmenuAnim 0.5s ease-out forwards;
-  }
-  nav #ch-menu:checked ~ .menu {
-    display: flex;
   }
   @keyframes barEntrance {
     0% {
@@ -259,32 +275,21 @@ nav .menu > li.main-item.submenu-open > a::before {
 .sub-menu {
   z-index: 1000;
   display: none;
-  /* Hidden by default */
   position: absolute;
   list-style: none;
   padding: 0;
   margin: 0;
   top: 0;
   right: -100%;
-  background-color: #1a1a1a;
-  border-left: 3px solid #d32f2f;
-  /* Red tactical accent */
-  z-index: 100;
+  background-color: var(--bg-main);
+  border-left: 3px var(--accent-primary);
   width: 100%;
 }
 
-@media screen and (max-width: 700px) {
-  .sub-menu {
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-  }
-}
 .sub-menu li a {
   z-index: 1000;
   display: flex;
   padding: 12px 25px;
-  color: #4CAF50;
   text-decoration: none;
   font-size: 0.9rem;
   white-space: nowrap;
@@ -297,16 +302,26 @@ nav .menu > li.main-item.submenu-open > a::before {
 }
 
 .sub-menu li a:hover {
-  background-color: #333;
-  color: #ffffff;
+  background-color: var(--shadow-color);
+  color: var(--text-main);
 }
 
-/* Show submenu on hover */
-.menu-item-dropdown:hover .sub-menu {
-  display: block;
-}
-
-/* Ensure the parent is positioned for absolute children */
 .menu-item-dropdown {
   position: relative;
+}
+
+@media screen and (min-width: 701px) {
+  .menu-item-dropdown:hover .sub-menu {
+    display: block;
+  }
+}
+@media screen and (max-width: 700px) {
+  .sub-menu {
+    top: 100%;
+    left: 0;
+    display: none;
+  }
+  .menu-item-dropdown.is-open .sub-menu {
+    display: block;
+  }
 }

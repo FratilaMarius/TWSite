@@ -87,4 +87,19 @@
         updateNavClickBehavior();
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const merchLink = document.querySelector('.menu-item-dropdown > a');
+
+            if (merchLink) {
+                merchLink.addEventListener('click', (event) => {
+                    if (window.innerWidth <= 700) {
+                        event.preventDefault();
+                        const parentLi = merchLink.closest('.menu-item-dropdown');
+                        parentLi.classList.toggle('is-open');
+                    }
+                });
+            }
+        });
+    </script>
 </header>

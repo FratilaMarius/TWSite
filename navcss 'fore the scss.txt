@@ -2,20 +2,20 @@ $nav-height: 50px;
 $nav-width: 200px;
 $nav-width-md: 80px;
 
-:root {
-    --link-visited: #a3ffc6;
-    --icon-hover: #ff3333;
-    --glow-color: rgba(255, 0, 0, 0.3);
-    --active-border: #ff0000;
 
-    --bg-main: #000000;
-    --text-main: #FFFFFF;
-    --accent-primary: #FA0B00;
-    --accent-secondary: #CC3200;
-    --bg-box: rgba(0, 0, 0, 0.85);
-    --bg-tint: rgba(250, 11, 0, 0.1);
-    --shadow-color: rgba(0, 0, 0, 0.5);
+%menu-item-base {
+    display: block;
+    height: $nav-height;
+    line-height: $nav-height;
+    text-align: center;
+    text-decoration: none;
+
+    border: 1px solid var(--accent-primary);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    transition: all 0.3s ease;
 }
+
 
 nav {
     ul {
@@ -24,10 +24,12 @@ nav {
         margin: 0;
     }
 
+
     #ch-menu,
     #hamburger {
         display: none;
     }
+
 
     .menu {
         display: flex;
@@ -37,19 +39,9 @@ nav {
             position: relative;
             width: $nav-width;
 
+            // background: linear-gradient(to left, var(--bg-main) 50%, var(--accent-secondary) 100%);
             >a {
-                display: flex;
-                height: $nav-height;
-                line-height: $nav-height;
-                text-align: center;
-                text-decoration: none;
-                border: 1px solid var(--accent-primary);
-                background-color: var(--bg-main);
-                color: var(--text-main);
-                transition: all 0.3s ease;
-                justify-content: center;
-                align-items: center;
-                gap: 5px;
+                @extend %menu-item-base;
                 position: relative;
                 overflow: hidden;
                 z-index: 1;
@@ -62,7 +54,7 @@ nav {
                     width: 200%;
                     height: 100%;
 
-                    background: linear-gradient(to left, var(--bg-main) 50%, var(--accent-secondary) 100%);
+                    background: linear-gradient(to right, var(--bg-main) 50%, var(--accent-secondary) 100%);
                     background-size: 100%;
                     transition: left 0.5s ease-in-out;
                     z-index: -1;
@@ -72,6 +64,7 @@ nav {
                 }
             }
 
+
             &:hover>a {
                 color: var(--text-main);
 
@@ -80,37 +73,28 @@ nav {
                 }
             }
 
+
             .submenu {
                 position: absolute;
                 top: $nav-height;
                 left: 0;
                 width: 100%;
+
                 transform: scaleY(0);
                 transform-origin: center;
                 transition: transform 0.3s ease-in-out;
                 z-index: 100;
 
                 li a {
-                    display: flex;
-                    height: $nav-height;
-                    line-height: $nav-height;
-                    text-align: center;
-                    text-decoration: none;
-                    border: 1px solid var(--accent-primary);
-                    background-color: var(--bg-main);
-                    color: var(--text-main);
-                    transition: all 0.3s ease;
-                    justify-content: center;
-                    align-items: center;
+                    @extend %menu-item-base;
                     border-top: none;
-
-                    transition: background-color 0.55s ease, color 0.3s ease;
 
                     &:hover {
                         background-color: var(--accent-primary);
                         color: var(--bg-main);
                     }
                 }
+
 
                 @for $i from 1 through 10 {
                     li:nth-child(#{$i}) {
@@ -121,14 +105,6 @@ nav {
 
             &:hover .submenu {
                 transform: scaleY(1);
-            }
-
-            &.submenu-open .submenu {
-                transform: scaleY(1);
-            }
-
-            &.submenu-open>a::before {
-                left: 0;
             }
         }
     }
@@ -149,36 +125,26 @@ nav {
             .submenu {
                 width: $nav-width;
             }
-
-            &:hover>a {
-                color: inherit;
-
-                &::before {
-                    left: -100%;
-                }
-            }
-
-            &:hover .submenu {
-                transform: scaleY(0);
-            }
-
-            &.submenu-open .submenu {
-                transform: scaleY(1);
-            }
-
-            &.submenu-open>a::before {
-                left: 0;
-            }
         }
     }
 }
 
 @media screen and (max-width: 700px) {
-    #SeeMore {
-        display: none;
-    }
-
     nav {
+        &::after {
+            animation: entrance 0.5s ease-out forwards;
+        }       
+
+        @keyframes entrance {
+            0% {
+                transform: rotateZ(90deg);
+            }
+
+            100% {
+                transform: rotateZ(0deg);
+            }
+        }
+
         label#hamburger {
             display: block;
             height: $nav-height;
@@ -237,15 +203,6 @@ nav {
             }
         }
 
-        #ch-menu:checked~.menu {
-            display: flex;
-
-            >li.main-item .submenu {
-                display: block;
-                animation: burgerSubmenuAnim 0.5s ease-out forwards;
-            }
-        }
-
         .menu {
             display: none;
             flex-direction: column;
@@ -255,26 +212,48 @@ nav {
                 width: 100%;
 
                 >a {
-                    // hide the catalogue text
-                    display: none !important;
+
+                    span.text {
+                        display: inline;
+                    }
+
+
+                    &::before {
+                        display: none;
+                    }
+
+
+                    &:hover {
+                        background-color: var(--accent-secondary);
+                    }
+                }
+
+
+                &:first-child:hover>a i::before {
+                    content: "\f015";
                 }
 
                 .submenu {
                     position: static;
+                    transform: none;
                     display: none;
                     opacity: 0;
-                    width: 100%;
-
-                    transform-origin: top left;
-                    transform: rotateZ(-90deg);
 
                     li a {
                         border-left: 2px solid var(--accent-secondary);
                     }
                 }
+
+                &:hover .submenu {
+                    display: block;
+                    animation: burgerSubmenuAnim 0.5s ease-out forwards;
+                }
             }
         }
 
+        #ch-menu:checked~.menu {
+            display: flex;
+        }
     }
 
     @keyframes barEntrance {
@@ -294,78 +273,76 @@ nav {
             opacity: 1;
             background-color: var(--text-main);
             transform: translateX(0) scale(1);
-        }
+        } 
     }
 }
 
 @keyframes burgerSubmenuAnim {
     0% {
         opacity: 0;
-        transform: rotateZ(-90deg);
-    }
+        transform: rotateX(90deg);
+     }
 
     100% {
         opacity: 1;
-        transform: rotateZ(0deg);
+        transform: rotateX(0deg);
     }
 }
 
 
 /* Submenu container */
 .sub-menu {
+  z-index: 1000;
+  display: none;
+  /* Hidden by default */
+  position: absolute;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  right: -100%;
+  background-color: #1a1a1a;
+  border-left: 3px solid #d32f2f;
+  /* Red tactical accent */
+  z-index: 100;
+  width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+  .sub-menu {
+    top: 100%;
+    left: 0;
     z-index: 1000;
-    display: none;
-    position: absolute;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    top: 0;
-    right: -100%;
-    background-color: var(--bg-main);
-    border-left: 3px var(--accent-primary);
-    width: 100%;
+  }
 }
 
 .sub-menu li a {
-    z-index: 1000;
-    display: flex;
-    padding: 12px 25px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    white-space: nowrap;
-    justify-content: center;
-    align-items: center;
+  z-index: 1000;
+  display: flex;
+  padding: 12px 25px;
+  color: #4CAF50;
+  text-decoration: none;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .sub-menu li a:first-of-type {
-    border-top: 1px solid var(--accent-primary);
+  border-top: 1px solid var(--accent-primary);
 }
 
 .sub-menu li a:hover {
-    background-color: var(--shadow-color);
-    color: var(--text-main);
+  background-color: #333;
+  color: #ffffff;
 }
 
+/* Show submenu on hover */
+.menu-item-dropdown:hover .sub-menu {
+  display: block;
+}
+
+/* Ensure the parent is positioned for absolute children */
 .menu-item-dropdown {
-    position: relative;
-}
-
-
-@media screen and (min-width: 701px) {
-    .menu-item-dropdown:hover .sub-menu {
-        display: block;
-    }
-}
-
-
-@media screen and (max-width: 700px) {
-    .sub-menu {
-        top: 100%;
-        left: 0;
-        display: none;
-    }
-
-    .menu-item-dropdown.is-open .sub-menu {
-        display: block;
-    }
+  position: relative;
 }
