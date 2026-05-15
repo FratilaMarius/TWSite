@@ -169,7 +169,7 @@ function ScssComp(pathScss, pathCss) {
     let nameCssFile = path.basename(absoluteCss);
 
     if (fs.existsSync(absoluteCss)) {
-        const backupPath = path.join(__dirname, 'backup', 'resurse', 'css');
+        const backupPath = path.join(__dirname, 'backup', 'resources', 'css');
 
         if (!fs.existsSync(backupPath)) {
             fs.mkdirSync(backupPath, { recursive: true });
@@ -190,7 +190,7 @@ function ScssComp(pathScss, pathCss) {
         fs.writeFileSync(absoluteCss, rez.css);
         console.log(`[SCSS] Compiled: ${nameScssFile} -> ${nameCssFile}`);
     } catch (err) {
-        console.error(`[SCSS] Compilation failde ${nameScssFile}:`, err.message);
+        console.error(`[SCSS] Compilation faidled ${nameScssFile}:`, err.message);
     }
 }
 function initScss() {
