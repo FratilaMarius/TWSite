@@ -12,6 +12,8 @@ const pool = new Pool({
     database: 'GotP stock',
     password: '123',
     port: 5432,
+
+    // max: 20,
 });
 
 const app = express();
@@ -22,7 +24,7 @@ pool.connect((err, client, release) => {
         return console.error('Could not connect to the database:', err.stack);
     }
     console.log('Connected to the database successfully.');
-    release();
+    release(); 
 });
 pool.query("SELECT unnest(enum_range(NULL::category)) AS category_name")
     .then(result => {
@@ -30,6 +32,7 @@ pool.query("SELECT unnest(enum_range(NULL::category)) AS category_name")
         console.log("Categories loaded for menu:", app.locals.menu_categories);
     })
     .catch(err => console.error("Error fetching categories for menu:", err));
+
 
 const foldersArray = ["temp", "logs", "backup", "uploads"];
 for (let folder of foldersArray) {

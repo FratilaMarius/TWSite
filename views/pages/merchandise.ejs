@@ -15,16 +15,112 @@
                 <h1 style="font-size: 3rem;">MERCHANDISE</h1>
             </section>
 
+            <section id="product-filters">
+                <h3>Equipment Filters</h3>
+
+                <div style="margin-bottom: 10px;">
+                    <label for="filter_name">Product Name: </label>
+                    <input type="text" id="filter_name" placeholder="E.g., Ration, Stun Grenade...">
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <label for="filter_price">Max Price (DP): </label>
+                    0
+                    <input type="range" id="filter_price" min="0" max="10000" step="50" value="10000"
+                        oninput="document.getElementById('price_value').textContent = this.value">
+                    10000
+                    (Selected: <span id="price_value">10000</span>)
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <label for="filter_manufacturer">Manufacturer: </label>
+                    <input list="manufacturer_list" id="filter_manufacturer" placeholder="Select or type...">
+                    <datalist id="manufacturer_list">
+                        <% for(let prod of new Set(merchandise.map(prod=> prod.manufacturer))) { %>
+                            <option value="<%= prod %>">
+                                <% } %>
+                    </datalist>
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <label>Is Lethal? </label>
+                    <label><input type="radio" name="filter_lethal" value="any" checked> Any</label>
+                    <label><input type="radio" name="filter_lethal" value="yes"> Yes (Lethal)</label>
+                    <label><input type="radio" name="filter_lethal" value="no"> No (Non-Lethal)</label>
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <label for="filter_attachments">Camouflage Options <br> (Ctrl/Cmd + Click for
+                        multiple): </label>
+                    <select id="filter_attachments" multiple size="5">
+                        <option value="Pitch_Black"> Pitch Black</option>
+                        <option value="Night_Camo"> Night Camo</option>
+                        <option value="Desert"> Desert</option>
+                        <option value="Olive_Drab"> Olive Drab</option>
+                        <option value="Urban"> Urban</option>
+                        <option value="Woodland"> Woodland</option>
+                        <option value="N/A"> None (N/A)</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <label for="filter_description" style="display: block;">Keywords in Description: </label>
+                    <textarea id="filter_description" rows="2" cols="40"
+                        placeholder="Describe the product..."></textarea>
+                </div>
+
+                <div style="margin-bottom: 10px;">
+                    <label for="filter_category">Main Category: </label>
+                    <select id="filter_category">
+                        <option value="any" selected>Any category</option>
+                        <% for(let categ of new Set(merchandise.map(prod=> prod.main_category))) { %>
+                            <option value="<%= categ %>">
+                                <%= categ %>
+                            </option>
+                            <% } %>
+                    </select>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <details>
+                        <summary>Attachments: </summary>
+                        <% const attach=merchandise.filter(prod=> prod.compatible_attachments &&
+                            prod.compatible_attachments !== 'N/A')
+                            .flatMap(prod => prod.compatible_attachments.split(', '));
+
+                            const attachUnq = [...new Set(attach)].sort();
+                            %>
+
+                            <% for(let attachment of attachUnq) { %>
+                                <label>
+                                    <input type="checkbox" checked name="filter_attachments" value="<%= attachment %>">
+                                    <%= attachment %>
+                                </label>
+                                <% } %>
+                    </details>
+                </div>
+
+                <div class="filter-actions">
+                    <button id="btn-filter" class="btn-primary">Execute Filter</button>
+
+                    <div class="sort-group">
+                        <button id="btn-sort-asc" class="btn-secondary">Sort ASC (Price/Att.) ▲</button>
+                        <button id="btn-sort-desc" class="btn-secondary">Sort DESC (Price/Att.) ▼</button>
+                    </div>
+
+                    <button id="btn-calculate" class="btn-secondary">Calculate Total Price</button>
+
+                    <button id="btn-reset" class="btn-danger">Reset System</button>
+                </div>
+            </section>
+
             <div class="products-container">
                 <% for(let prod of merchandise) { %>
-                    <article id="ent<%= prod.id %>" class="product <%= prod.main_category %>">
+                    <article id="ent-<%= prod.id %>" class="product <%= prod.main_category %>">
                         <h3>
                             <%= prod.name %>
                         </h3>
 
                         <div class="product-content">
-                            <img src="<%= prod.image_path %>" alt="<%= prod.name %>" class="product-image">
-
                             <table class="specs-table">
                                 <tr>
                                     <th>Price (DP)</th>
@@ -40,26 +136,34 @@
                                     <td>
                                         <%= prod.camouflage %>
                                     </td>
+
+                                    <% let attachmentsArray=prod.compatible_attachments ?
+                                        prod.compatible_attachments.split(' , ') : []; %>
                                     <td>
-                                        <%= prod.compatible_attachments %>
+                                    <%= attachmentsArray.join(' , ') %>
                                     </td>
+
                                     <td>
-                                        <% let d=new Date(prod.manufacturing_date); let days=['Sunday', 'Monday'
-                                            , 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' ]; let
-                                            months=['January', 'February' , 'March' , 'April' , 'May' , 'June' , 'July'
-                                            , 'August' , 'September' , 'October' , 'November' , 'December' ]; let
-                                            date=d.getDate(); let dayOfWeek=days[d.getDay()]; let
-                                            month=months[d.getMonth()]; let year=d.getFullYear(); let
-                                            formattedDate=`${date}(${dayOfWeek})/${month}/${year}`; %>
-                                            <time datetime="<%= d.toISOString() %>">
-                                                <%= formattedDate %>
-                                            </time>
-                                    </td>
-                                    <td>
-                                        <%= prod.is_lethal ? 'Yes' : 'No' %>
-                                    </td>
+                                        <% let d=new Date(prod.manufacturing_date); let days=[' Sunday', 'Monday'
+                                        , 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' ]; let
+                                        months=['January', 'February' , 'March' , 'April' , 'May' , 'June' , 'July'
+                                        , 'August' , 'September' , 'October' , 'November' , 'December' ]; let
+                                        date=d.getDate(); let dayOfWeek=days[d.getDay()]; let
+                                        month=months[d.getMonth()]; let year=d.getFullYear(); let
+                                        formattedDate=`${date}(${dayOfWeek})/${month}/${year}`; %>
+                                        <time datetime="<%= d.toISOString() %>">
+                                            <%= formattedDate %>
+                                        </time>
+                                        </td>
+                                        <td>
+                                            <%= prod.is_lethal ? 'Yes' : 'No' %>
+                                        </td>
                                 </tr>
                             </table>
+
+                            <br>
+                            <img src="<%= prod.image_path %>" alt="<%= prod.name %>" class="product-image">
+
                         </div>
 
                         <p class="product-description">
