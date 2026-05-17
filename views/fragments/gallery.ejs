@@ -11,10 +11,10 @@
                         alt="<%= img.alt ? img.alt : img.name %>" 
                         title="<%= img.description %>"
                     >
-                </picture>
+                </picture>  
                 
                 <figcaption>
-                    <span class="index-litera"></span> <%= img.description %>
+                    <span class="index-letter"></span> <%= img.description %>
                     
                     <% if(img.license === 'CC-BY' && img.author) { %>
                         <br><small>Credit: <a href="<%= img.link_author %>"><%= img.author %></a> (CC-BY)</small>

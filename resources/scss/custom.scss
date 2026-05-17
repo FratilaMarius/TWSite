@@ -156,7 +156,8 @@ hr.custom-separator {
 
 .gallery-item img {
     width: 100%;
-    height: 100%;
+    // height: 100%;
+    height: auto;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     display: block;
@@ -176,7 +177,7 @@ hr.custom-separator {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
 }
 
-.index-litera::before {
+.index-letter::before {
     counter-increment: gallery-index;
 
     content: counter(gallery-index, upper-alpha) ".";
