@@ -50,10 +50,10 @@ nav .menu > li.main-item > a::before {
   content: "";
   position: absolute;
   top: 0;
-  left: -100%;
+  left: 0;
   width: 200%;
   height: 100%;
-  background: linear-gradient(to left, var(--bg-main) 50%, var(--accent-secondary) 100%);
+  background: linear-gradient(to right, var(--bg-main) 50%, var(--accent-secondary) 100%);
   background-size: 100%;
   transition: left 0.5s ease-in-out;
   z-index: -1;
@@ -64,7 +64,7 @@ nav .menu > li.main-item:hover > a {
   color: var(--text-main);
 }
 nav .menu > li.main-item:hover > a::before {
-  left: 0;
+  left: -100%;
 }
 nav .menu > li.main-item .submenu {
   position: absolute;

@@ -39,29 +39,6 @@ h3 {
 } */
 
 /* links n stuff */
-a:not(nav a) {
-    border: 1px solid transparent;
-    text-decoration: none;
-    padding: 2px 4px;
-}
-
-a:not(nav a):visited {
-    color: var(--link-visited) !important;
-}
-
-
-a[href^="http"]::before {
-    content: "⮳ ";
-    font-size: 1.5em;
-    display: inline;
-}
-
-a[href^="http"]:hover::before {
-    color: var(--icon-hover);
-        transition: color 0.5s ease;
-
-}
-
 /*
 main a {
     background-image: radial-gradient(circle, var(--glow-color) 0%, var(--glow-color) 40%, transparent 80%, transparent 100%);

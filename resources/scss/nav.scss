@@ -58,11 +58,11 @@ nav {
                     content: "";
                     position: absolute;
                     top: 0;
-                    left: -100%;
+                    left: 0;
                     width: 200%;
                     height: 100%;
 
-                    background: linear-gradient(to left, var(--bg-main) 50%, var(--accent-secondary) 100%);
+                    background: linear-gradient(to right, var(--bg-main) 50%, var(--accent-secondary) 100%);
                     background-size: 100%;
                     transition: left 0.5s ease-in-out;
                     z-index: -1;
@@ -76,7 +76,7 @@ nav {
                 color: var(--text-main);
 
                 &::before {
-                    left: 0;
+                    left: -100%;
                 }
             }
 

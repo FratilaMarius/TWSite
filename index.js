@@ -24,7 +24,7 @@ pool.connect((err, client, release) => {
         return console.error('Could not connect to the database:', err.stack);
     }
     console.log('Connected to the database successfully.');
-    release(); 
+    release();
 });
 pool.query("SELECT unnest(enum_range(NULL::category)) AS category_name")
     .then(result => {
@@ -356,6 +356,24 @@ app.get('/merchandise', async (req, res) => {
         });
     } catch (err) {
         console.error("Error loading merchandise:", err);
+        displayError(res, 500);
+    }
+});
+app.get('/product/:id', async (req, res) => {
+    try {
+        const productId = req.params.id;
+
+        const result = await pool.query('SELECT * FROM product WHERE id = $1', [productId]);
+
+        if (result.rows.length > 0) {
+            res.render('pages/product', {
+                prod: result.rows[0]
+            });
+        } else {
+            displayError(res, 404);
+        }
+    } catch (err) {
+        console.error("Could not fetch product details:", err);
         displayError(res, 500);
     }
 });

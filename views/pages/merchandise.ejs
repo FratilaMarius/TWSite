@@ -117,7 +117,9 @@
                 <% for(let prod of merchandise) { %>
                     <article id="ent-<%= prod.id %>" class="product <%= prod.main_category %>">
                         <h3>
-                            <%= prod.name %>
+                            <a class="product-title-link" href="/product/<%= prod.id %>">
+                                <%= prod.name %>
+                            </a>
                         </h3>
 
                         <div class="product-content">
@@ -179,7 +181,98 @@
         </main>
 
         <%- include('../fragments/footer.ejs') %>
+            <script>
 
+                const productData = <%- JSON.stringify(merchandise) %>;
+                document.getElementById('btn-filter').addEventListener('click', function () {
+
+                    let textName = document.getElementById('filter_name').value.toLowerCase().trim();
+                    let priceMax = parseFloat(document.getElementById('filter_price').value);
+                    let manufacturerText = document.getElementById('filter_manufacturer').value.toLowerCase().trim();
+                    let lethality = document.querySelector('input[name="filter_lethal"]:checked').value;
+                    let categ = document.getElementById('filter_category').value;
+                    let description = document.getElementById('filter_description').value.toLowerCase().trim();
+
+                    let selectCamo = document.getElementById('filter_attachments');
+                    let camoSelect = Array.from(selectCamo.selectedOptions).map(opt => opt.value);
+
+                    productData.forEach(prod => {
+                        let show = true;
+                        if (textName && !prod.name.toLowerCase().includes(textName)) show = false;
+
+                        if (parseFloat(prod.price_dp) > priceMax) show = false;
+
+                        if (manufacturerText && (!prod.manufacturer || !prod.manufacturer.toLowerCase().includes(manufacturerText))) show = false;
+
+                        if (lethality === 'yes' && prod.is_lethal !== true) show = false;
+                        if (lethality === 'no' && prod.is_lethal !== false) show = false;
+
+                        if (categ !== 'any' && prod.main_category !== categ) show = false;
+
+                        if (description && (!prod.description || !prod.description.toLowerCase().includes(description))) show = false;
+
+                        if (camoSelect.length > 0 && camoSelect[0] !== 'N/A') {
+                            if (!camoSelect.includes(prod.camouflage)) show = false;
+                        }
+
+                        let cardElement = document.getElementById('ent-' + prod.id);
+                        if (cardElement) {
+                            cardElement.style.display = show ? '' : 'none';
+                        }
+                    });
+                });
+
+                document.getElementById('btn-calculate').addEventListener('click', function () {
+                    let sumTotal = 0;
+
+                    productData.forEach(prod => {
+                        let cardElement = document.getElementById('ent-' + prod.id);
+                        if (cardElement && cardElement.style.display !== 'none') {
+                            sumTotal += parseFloat(prod.price_dp);
+                        }
+                    });
+
+                    alert("Total price for all stock displayed: " + sumTotal.toFixed(2) + " DP");
+                });
+
+                document.getElementById('btn-reset').addEventListener('click', function () {
+                    document.getElementById('filter_name').value = '';
+                    document.getElementById('filter_price').value = 10000;
+                    document.getElementById('price_value').textContent = 10000;
+                    document.getElementById('filter_manufacturer').value = '';
+                    document.querySelector('input[name="filter_lethal"][value="any"]').checked = true;
+                    document.getElementById('filter_category').value = 'any';
+                    document.getElementById('filter_description').value = '';
+
+                    Array.from(document.getElementById('filter_attachments').options).forEach(opt => opt.selected = false);
+
+                    productData.forEach(prod => {
+                        let cardElement = document.getElementById('ent-' + prod.id);
+                        if (cardElement) cardElement.style.display = '';
+                    });
+                });
+
+                function sortProduct(ascendent = true) {
+                    let container = document.querySelector('.products-container');
+                    let cards = Array.from(container.querySelectorAll('.product'));
+
+                    cards.sort((a, b) => {
+                        let idA = parseInt(a.id.split('-')[1]);
+                        let idB = parseInt(b.id.split('-')[1]);
+
+                        let prodA = productData.find(p => p.id === idA);
+                        let prodB = productData.find(p => p.id === idB);
+
+                        return ascendent ? prodA.price_dp - prodB.price_dp : prodB.price_dp - prodA.price_dp;
+                    });
+
+                    cards.forEach(card => container.appendChild(card));
+                }
+
+                document.getElementById('btn-sort-asc').addEventListener('click', () => sortProduct(true));
+                document.getElementById('btn-sort-desc').addEventListener('click', () => sortProduct(false));
+
+            </script>
 </body>
 
 </html>

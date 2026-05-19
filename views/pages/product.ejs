@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../fragments/head.ejs') %>
+        <link rel="stylesheet" href="/resources/css/merchandise.css" type="text/css" />
+
+        <title>
+            <%= prod.name %>
+        </title>
+</head>
+
+<body>
+    <%- include('../fragments/header.ejs') %>
+
+        <main class="single-product-page">
+            <section class="navigation-bar">
+                <a href="/merchandise" class="btn-back">◄ Back to Catalog</a>
+            </section>
+
+            <article class="product-details-container">
+                <h1>
+                    <%= prod.name %>
+                </h1>
+
+                <div class="product-layout">
+                    <div class="image-section">
+                        <img src="<%= prod.image_path %>" alt="<%= prod.name %>">
+                    </div>
+
+                    <div class="specs-section">
+                        <p><strong>Manufacturer:</strong>
+                            <%= prod.manufacturer %>
+                        </p>
+                        <p><strong>Category:</strong>
+                            <%= prod.main_category %>
+                        </p>
+
+                        <table class="specs-table">
+                            <tr>
+                                <th>Price (DP)</th>
+                                <td>
+                                    <%= prod.price_dp %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Weight</th>
+                                <td>
+                                    <%= prod.weight_kg %> kg
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Camouflage</th>
+                                <td>
+                                    <%= prod.camouflage %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Attachments</th>
+                                <td>
+                                    <%= prod.compatible_attachments || 'None' %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Lethal</th>
+                                <td>
+                                    <%= prod.is_lethal ? 'Yes' : 'No' %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Manufacturing Date</th>
+                                <td>
+                                    <% if(prod.manufacturing_date) { let d=new Date(prod.manufacturing_date); let
+                                        formattedDate=d.toLocaleDateString('en-GB');%>
+                                        <time datetime="<%= d.toISOString() %>">
+                                            <%= formattedDate %>
+                                        </time>
+                                        <% } else { %>
+                                            N/A
+                                            <% } %>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="description-section">
+                    <h2>Product Description</h2>
+                    <p>
+                        <%= prod.description %>
+                    </p>
+                </div>
+            </article>
+        </main>
+
+        <%- include('../fragments/footer.ejs') %>
+</body>
+
+</html>
