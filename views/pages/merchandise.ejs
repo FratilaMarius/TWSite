@@ -26,7 +26,7 @@
                 <div style="margin-bottom: 10px;">
                     <label for="filter_price">Max Price (DP): </label>
                     0
-                    <input type="range" id="filter_price" min="0" max="10000" step="50" value="10000"
+                    <input type="range" autocomplete="off" id="filter_price" min="0" max="10000" step="50" value="10000"
                         oninput="document.getElementById('price_value').textContent = this.value">
                     10000
                     (Selected: <span id="price_value">10000</span>)
@@ -184,15 +184,57 @@
             <script>
 
                 const productData = <%- JSON.stringify(merchandise) %>;
+
+                function validate() {
+                    let manufacturer = document.getElementById('filter_manufacturer').value.trim();
+                    if (manufacturer.length > 0) {
+                        if (manufacturer.trim() === '') {
+                            alert("Invalid input: Manufacturer cannot contain only spaces!");
+                            return false;
+                        }
+
+                        if (/\d/.test(manufacturer)) {
+                            alert("Invalid input: Manufacturer name cannot contain numbers!");
+                            return false;
+                        }
+
+                        let validManufacturers = [...new Set(productData.map(p => p.manufacturer.toLowerCase()))];
+                        let inputLower = manufacturer.trim().toLowerCase();
+
+                        if (!validManufacturers.includes(inputLower)) {
+                            alert("Invalid input: The selected manufacturer does not exist in our catalog!");
+                            return false;
+                        }
+                    }
+
+                    let priceInput = parseFloat(document.getElementById('filter_price').value);
+                    if (isNaN(priceInput) || priceInput < 0 || priceInput > 10000) {
+                        alert("Invalid input: Price must be a numeric value between 0 and 10000 DP!");
+                        return false;
+                    }
+
+                    let description = document.getElementById('filter_description').value;
+                    if (description.length > 0 && description.trim() === '') {
+                        alert("Invalid input: Description cannot contain only spaces!");
+                        return false;
+                    }
+                    return true;
+                }
+
+
                 document.getElementById('btn-filter').addEventListener('click', function () {
+
+                    if (!validate()) return;
 
                     let textName = document.getElementById('filter_name').value.toLowerCase().trim();
                     let priceMax = parseFloat(document.getElementById('filter_price').value);
                     let manufacturerText = document.getElementById('filter_manufacturer').value.toLowerCase().trim();
                     let lethality = document.querySelector('input[name="filter_lethal"]:checked').value;
                     let categ = document.getElementById('filter_category').value;
-                    let description = document.getElementById('filter_description').value.toLowerCase().trim();
 
+                    let descriptionInput = document.getElementById('filter_description').value.toLowerCase();
+                    let descKeywords = descriptionInput.split(',').map(kw => kw.trim()).filter(kw => kw.length > 0);
+                    
                     let selectCamo = document.getElementById('filter_attachments');
                     let camoSelect = Array.from(selectCamo.selectedOptions).map(opt => opt.value);
 
@@ -209,8 +251,18 @@
 
                         if (categ !== 'any' && prod.main_category !== categ) show = false;
 
-                        if (description && (!prod.description || !prod.description.toLowerCase().includes(description))) show = false;
-
+                        if (descKeywords.length > 0) {
+                            if (!prod.description) {
+                                show = false; 
+                            } else {
+                                let prodDescLower = prod.description.toLowerCase();
+                                let hasAllKeywords = descKeywords.every(keyword => prodDescLower.includes(keyword));
+                                
+                                if (!hasAllKeywords) {
+                                    show = false;
+                                }
+                            }
+                        }
                         if (camoSelect.length > 0 && camoSelect[0] !== 'N/A') {
                             if (!camoSelect.includes(prod.camouflage)) show = false;
                         }
@@ -223,6 +275,9 @@
                 });
 
                 document.getElementById('btn-calculate').addEventListener('click', function () {
+
+                    if (!validate()) return;
+
                     let sumTotal = 0;
 
                     productData.forEach(prod => {
@@ -231,11 +286,25 @@
                             sumTotal += parseFloat(prod.price_dp);
                         }
                     });
+                        let toastDiv = document.createElement('div');
+                            toastDiv.className = 'calculation-toast';
+                        
+                        toastDiv.textContent = "Total price: " + sumTotal.toFixed(2) + " DP";
+                        
+                        document.body.appendChild(toastDiv);
 
-                    alert("Total price for all stock displayed: " + sumTotal.toFixed(2) + " DP");
+                        setTimeout(() => {
+                            if (toastDiv.parentElement) {
+                                toastDiv.remove();
+                            }
+                        }, 2000);
                 });
 
                 document.getElementById('btn-reset').addEventListener('click', function () {
+                    let conf = confirm("Do you really want to reset all filters?");
+                    if (!conf) {
+                        return;
+                    }
                     document.getElementById('filter_name').value = '';
                     document.getElementById('filter_price').value = 10000;
                     document.getElementById('price_value').textContent = 10000;
@@ -246,9 +315,14 @@
 
                     Array.from(document.getElementById('filter_attachments').options).forEach(opt => opt.selected = false);
 
+                    let container = document.querySelector('.products-container');
+
                     productData.forEach(prod => {
                         let cardElement = document.getElementById('ent-' + prod.id);
-                        if (cardElement) cardElement.style.display = '';
+                        if (cardElement) {
+                            cardElement.style.display = '';
+                            container.appendChild(cardElement);
+                        }
                     });
                 });
 
@@ -263,14 +337,34 @@
                         let prodA = productData.find(p => p.id === idA);
                         let prodB = productData.find(p => p.id === idB);
 
-                        return ascendent ? prodA.price_dp - prodB.price_dp : prodB.price_dp - prodA.price_dp;
+                        let priceDiff = prodA.price_dp - prodB.price_dp;
+
+                        if (priceDiff === 0) {
+                            let countA = (prodA.compatible_attachments && prodA.compatible_attachments !== 'N/A')
+                                ? prodA.compatible_attachments.split(',').length
+                                : 0;
+
+                            let countB = (prodB.compatible_attachments && prodB.compatible_attachments !== 'N/A')
+                                ? prodB.compatible_attachments.split(',').length
+                                : 0;
+
+                            return ascendent ? countA - countB : countB - countA;
+                        }
+
+                        return ascendent ? priceDiff : -priceDiff;
                     });
 
                     cards.forEach(card => container.appendChild(card));
                 }
 
-                document.getElementById('btn-sort-asc').addEventListener('click', () => sortProduct(true));
-                document.getElementById('btn-sort-desc').addEventListener('click', () => sortProduct(false));
+                document.getElementById('btn-sort-asc').addEventListener('click', () => {
+                    if (!validate()) return;
+                    sortProduct(true);
+                });
+                document.getElementById('btn-sort-desc').addEventListener('click', () => {
+                    if (!validate()) return;
+                    sortProduct(false);
+                });
 
             </script>
 </body>

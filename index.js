@@ -33,6 +33,9 @@ pool.query("SELECT unnest(enum_range(NULL::category)) AS category_name")
     })
     .catch(err => console.error("Error fetching categories for menu:", err));
 
+// db.query('SELECT * FROM product').then(result => {
+//     app.locals.merchandise = result.rows;
+// });
 
 const foldersArray = ["temp", "logs", "backup", "uploads"];
 for (let folder of foldersArray) {
@@ -351,9 +354,8 @@ app.get('/merchandise', async (req, res) => {
 
         const result = await pool.query(sqlQuery, queryParams);
 
-        res.render('pages/merchandise', {
-            merchandise: result.rows
-        });
+        res.locals.merchandise = result.rows;
+        res.render('pages/merchandise');
     } catch (err) {
         console.error("Error loading merchandise:", err);
         displayError(res, 500);
@@ -366,9 +368,8 @@ app.get('/product/:id', async (req, res) => {
         const result = await pool.query('SELECT * FROM product WHERE id = $1', [productId]);
 
         if (result.rows.length > 0) {
-            res.render('pages/product', {
-                prod: result.rows[0]
-            });
+            res.locals.prod = result.rows[0];
+            res.render('pages/product');
         } else {
             displayError(res, 404);
         }
@@ -407,6 +408,12 @@ app.get('/favicon.ico', (req, res) => {
 });
 
 app.get(/.*/, (req, res) => {
+
+    console.log("⚠️ Request for a file ended up in catch-all:", req.path);
+    if (/\.[a-zA-Z0-9]+$/.test(req.path)) {
+        return res.status(404).send("File not found.");
+    }
+
     let page = req.path.substring(1);
     res.render('pages/' + page, function (error, renderResult) {
         if (error) {
