@@ -260,6 +260,11 @@ iframe:not(.exclude-scale) {
     z-index: 9999;
     background-color: transparent;
 }
+@media screen and (max-width: 1024px) {
+    .vertical-banner-right {
+        display: none;
+    }
+}
 
 .vertical-banner-right img {
     min-width: 0;
