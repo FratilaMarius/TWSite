@@ -55,7 +55,9 @@
             </li>
         </ul>
     </nav>
-
+    <button id="theme-toggle" aria-label="Change theme">
+        <i class="fas fa-moon" id="theme-icon"></i>
+    </button>
     <script>
         // if we re on home page only then we show the see more menu item
         if (!(window.location.pathname === '/' || window.location.pathname === '/home' || window.location.pathname === '/index')) {
@@ -100,6 +102,33 @@
                     }
                 });
             }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const body = document.body;
+
+            const savedTheme = localStorage.getItem('theme');
+
+            if (savedTheme === 'dark') {
+                body.classList.add('light-theme');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            }
+
+            themeToggleBtn.addEventListener('click', () => {
+                body.classList.toggle('light-theme');
+
+                if (body.classList.contains('light-theme')) {
+                    localStorage.setItem('theme', 'dark');
+                    themeIcon.classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    themeIcon.classList.replace('fa-sun', 'fa-moon');
+                }
+            });
         });
     </script>
 </header>

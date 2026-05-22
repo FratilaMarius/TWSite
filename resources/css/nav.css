@@ -1,17 +1,3 @@
-:root {
-  --link-visited: #a3ffc6;
-  --icon-hover: #ff3333;
-  --glow-color: rgba(255, 0, 0, 0.3);
-  --active-border: #ff0000;
-  --bg-main: #000000;
-  --text-main: #FFFFFF;
-  --accent-primary: #FA0B00;
-  --accent-secondary: #CC3200;
-  --bg-box: rgba(0, 0, 0, 0.85);
-  --bg-tint: rgba(250, 11, 0, 0.1);
-  --shadow-color: rgba(0, 0, 0, 0.5);
-}
-
 nav ul {
   list-style: none;
   padding: 0;

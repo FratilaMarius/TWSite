@@ -7,9 +7,9 @@
     }
 
     .product {
-        border: 2px solid #2a2a2a;
-        background-color: #f4f4f4;
-        box-shadow: 4px 4px 0px #2a2a2a;
+        border: 2px solid var(--product-border);
+        background-color: var(--product-bg);
+        box-shadow: 4px 4px 0px var(--shadow-color);
         display: grid;
         grid-template-rows: auto 1fr auto;
         /* name | content+desc | category */
@@ -20,8 +20,8 @@
     .product>h3 {
         margin: 0;
         padding: 12px 16px;
-        background-color: #2a2a2a;
-        color: #fff;
+        background-color: var(--product-header);
+        color: var(--text-main);
         font-size: 1rem;
         text-transform: uppercase;
         letter-spacing: 0.08em;
@@ -64,7 +64,7 @@
         width: 300px;
         height: 300px;
         object-fit: cover;
-        border: 1px solid #555;
+        border: 1px solid var(--border-dark);
         border-radius: 4px;
         flex-shrink: 0;
 
@@ -82,15 +82,15 @@
 
     .specs-table th,
     .specs-table td {
-        border: 1px solid #bbb;
+        border: 1px solid var(--border-light);
         padding: 5px 7px;
         text-align: center;
         vertical-align: middle;
     }
 
     .specs-table th {
-        background-color: #333;
-        color: #fff;
+        background-color: var(--product-header);
+        color: var(--text-main);
         text-transform: uppercase;
         letter-spacing: 0.04em;
         font-size: 0.7rem;
@@ -98,17 +98,17 @@
     }
 
     .specs-table td {
-        background-color: #fff;
-        color: #222;
+        background-color: var(--product-bg);
+        color: var(--product-text-black);
     }
 
     /* Separator line between specs and description */
     .product-description {
-        border-top: 1px dashed #999;
+        border-top: 1px dashed var(--border-light);
         margin: 0 16px;
         padding: 10px 0;
         font-style: italic;
-        color: #444;
+        color: var(--product-text-black);
         font-size: 0.85rem;
         line-height: 1.5;
     }
@@ -118,36 +118,36 @@
         margin: 0;
         padding: 8px 16px;
         font-size: 0.8rem;
-        color: #555;
-        border-top: 1px solid #ddd;
-        background-color: #ececec;
+        color: var(--accent-secondary);
+        border-top: 1px solid var(--product-border);
+        background-color: var(--product-bg);
     }
 
     .category-text {
         font-weight: bold;
         text-transform: uppercase;
-        color: #d32f2f;
+        color: var(--accent-secondary);
     }
 }
 
 /* #region filters */
 
 #product-filters {
-    background-color: #1a1a1a;
-    color: #e0e0e0;
-    border: 2px solid #333;
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    border: 2px solid var(--product-border);
     padding: 25px;
     margin-bottom: 30px;
     font-family: inherit;
-    box-shadow: 4px 4px 0px #000;
+    box-shadow: 4px 4px 0px var(--shadow-color);
 }
 
 #product-filters h3 {
-    color: #fff;
+    color: var(--text-main);
     margin-top: 0;
     margin-bottom: 25px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #d32f2f;
+    border-bottom: 2px solid var(--accent-secondary);
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
@@ -162,7 +162,7 @@
 #product-filters>div>label:first-child {
     width: 250px;
     font-weight: bold;
-    color: #aaa;
+    color: var(--text-muted);
     text-transform: uppercase;
     font-size: 0.85rem;
     flex-shrink: 0;
@@ -172,9 +172,9 @@
 #product-filters input[list],
 #product-filters select,
 #product-filters textarea {
-    background-color: #2a2a2a;
-    color: #fff;
-    border: 1px solid #555;
+    background-color: var(--filter-bg);
+    color: var(--text-main);
+    border: 1px solid var(--text-muted);
     padding: 8px 12px;
     font-family: inherit;
     border-radius: 2px;
@@ -188,7 +188,7 @@
 #product-filters input[list]:focus,
 #product-filters select:focus,
 #product-filters textarea:focus {
-    border-color: #d32f2f;
+    border-color: var(--accent-alert);
     outline: none;
 }
 
@@ -199,7 +199,7 @@
 
 #product-filters label:not(:first-child) {
     margin-right: 20px;
-    color: #ccc;
+    color: var(--text-muted);
     cursor: pointer;
     display: inline-flex;
     align-items: center;
@@ -210,17 +210,17 @@
 #product-filters input[type="checkbox"] {
     margin-right: 8px;
     cursor: pointer;
-    accent-color: #d32f2f;
+    accent-color: var(--accent-alert);
 }
 
 #product-filters input[type="range"] {
     margin: 0 15px;
-    accent-color: #d32f2f;
+    accent-color: var(--accent-alert);
 }
 
 #product-filters #price_value {
     font-weight: bold;
-    color: #d32f2f;
+    color: var(--accent-alert);
     margin-left: 5px;
 }
 
@@ -230,7 +230,7 @@
     gap: 15px;
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 1px dashed #555;
+    border-top: 1px dashed var(--border-dark);
     align-items: center;
 }
 
@@ -253,44 +253,44 @@
 
 #product-filters button:active {
     transform: translate(2px, 2px);
-    box-shadow: 0px 0px 0px #000 !important;
+    box-shadow: 0px 0px 0px var(--bg-main) !important;
 }
 
 .btn-primary {
-    background-color: #d32f2f;
-    color: #fff;
-    border: 2px solid #b71c1c;
-    box-shadow: 3px 3px 0px #000;
+    background-color: var(--accent-alert);
+    color: var(--text-main);
+    border: 2px solid var(--accent-alert);
+    box-shadow: 3px 3px 0px var(--bg-main);
 }
 
 .btn-primary:hover {
-    background-color: #f44336;
-    border-color: #d32f2f;
+    background-color: var(--accent-alert-hover);
+    border-color: var(--accent-alert);
 }
 
 .btn-secondary {
-    background-color: #2a2a2a;
-    color: #ccc;
-    border: 2px solid #555;
-    box-shadow: 3px 3px 0px #000;
+    background-color: var(--bg-surface-alt);
+    color: var(--text-muted);
+    border: 2px solid var(--border-dark);
+    box-shadow: 3px 3px 0px var(--bg-main);
 }
 
 .btn-secondary:hover {
-    background-color: #444;
-    color: #fff;
-    border-color: #888;
+    background-color: var(--border-dark);
+    color: var(--text-main);
+    border-color: var(--border-light);
 }
 
 .btn-danger {
     background-color: transparent;
-    color: #d32f2f;
-    border: 2px solid #d32f2f;
+    color: var(--accent-alert);
+    border: 2px solid var(--accent-alert);
     margin-left: auto;
 }
 
 .btn-danger:hover {
-    background-color: #d32f2f;
-    color: #fff;
+    background-color: var(--accent-alert);
+    color: var(--text-main);
 }
 
 
@@ -298,11 +298,11 @@
     position: fixed;
     bottom: 30px;
     right: 30px;
-    background-color: #1a1a1a;
-    color: #fff;
+    background-color: var(--bg-surface);
+    color: var(--text-main);
     padding: 15px 25px;
-    border: 2px solid #d32f2f;
-    box-shadow: 5px 5px 0px #000;
+    border: 2px solid var(--accent-alert);
+    box-shadow: 5px 5px 0px var(--bg-main);
     font-family: inherit;
     font-weight: bold;
     text-transform: uppercase;
@@ -330,7 +330,7 @@
     max-width: 1100px;
     margin: 2rem auto;
     padding: 0 1rem;
-    color: #e0e0e0;
+    color: var(--text-muted);
 }
 
 .single-product-page .navigation-bar {
@@ -340,26 +340,26 @@
 .single-product-page .navigation-bar .btn-back {
     display: inline-block;
     padding: 0.5rem 1rem;
-    background-color: #222;
-    color: #ccc;
+    background-color: var(--bg-surface-alt);
+    color: var(--text-muted);
     text-decoration: none;
     text-transform: uppercase;
     font-size: 0.9rem;
-    border: 1px solid #444;
+    border: 1px solid var(--border-dark);
     transition: all 0.2s ease-in-out;
 }
 
 .single-product-page .navigation-bar .btn-back:hover {
-    background-color: #333;
-    color: #fff;
-    border-color: #666;
+    background-color: var(--border-dark);
+    color: var(--text-main);
+    border-color: var(--border-light);
 }
 
 .single-product-page .product-details-container {
-    background-color: #1a1a1a; 
-    border: 1px solid #333;
+    background-color: var(--bg-surface); 
+    border: 1px solid var(--border-dark);
     padding: 2rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px var(--shadow-color);
 }
 
 .single-product-page .product-details-container h1 {
@@ -368,8 +368,8 @@
     margin-top: 0;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #333;
-    color: #fff;
+    border-bottom: 2px solid var(--border-dark);
+    color: var(--text-main);
 }
 
 .single-product-page .product-details-container .product-layout {
@@ -381,8 +381,8 @@
 
 .single-product-page .product-details-container .product-layout .image-section {
     flex: 1;
-    background-color: #111;
-    border: 1px solid #2a2a2a;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--bg-surface-alt);
     padding: 1rem;
     display: flex;
     justify-content: center;
@@ -405,7 +405,7 @@
 }
 
 .single-product-page .product-details-container .product-layout .specs-section p strong {
-    color: #aaa;
+    color: var(--text-dim);
     margin-right: 0.5rem;
 }
 
@@ -418,40 +418,40 @@
 .single-product-page .product-details-container .product-layout .specs-section .specs-table th,
 .single-product-page .product-details-container .product-layout .specs-section .specs-table td {
     padding: 0.75rem 1rem;
-    border: 1px solid #333;
+    border: 1px solid var(--border-dark);
     text-align: left;
     font-size: 1rem;
 }
 
 .single-product-page .product-details-container .product-layout .specs-section .specs-table th {
-    background-color: #222;
-    color: #bbb;
+    background-color: var(--bg-surface-alt);
+    color: var(--text-dim);
     font-weight: normal;
     text-transform: uppercase;
     width: 40%;
 }
 
 .single-product-page .product-details-container .product-layout .specs-section .specs-table td {
-    background-color: #171717;
+    background-color: var(--bg-surface);
 }
 
 .single-product-page .product-details-container .description-section {
     margin-top: 3rem;
     padding-top: 2rem;
-    border-top: 1px dotted #444;
+    border-top: 1px dotted var(--border-dark);
 }
 
 .single-product-page .product-details-container .description-section h2 {
     font-size: 1.5rem;
     text-transform: uppercase;
     margin-bottom: 1rem;
-    color: #ddd;
+    color: var(--text-main);
 }
 
 .single-product-page .product-details-container .description-section p {
     line-height: 1.6;
     font-size: 1.05rem;
-    color: #bbb;
+    color: var(--text-main);
     text-align: justify;
     white-space: pre-line;
 }

@@ -1,28 +1,26 @@
-$primary: #FA0B00;
-$secondary: #CC3200;
-$dark: #000000;
+$primary: var(--accent-primary);
 $success: #52C200;
 
-$body-color: #FFFFFF;
-$body-bg: #000000;
-$primary-text-emphasis: #FFFFFF;
-$link-visited: #a3ffc6;
-$icon-hover: #ff3333;
-$glow-color: rgba(255, 0, 0, 0.3);
-$active-border: #ff0000;
+$body-color: var(--text-main);
+$body-bg: var(--bg-main);
+$primary-text-emphasis: var(--text-main);
+$link-visited: var(--link-visited);
+$icon-hover: var(--icon-hover);
+$glow-color: var(--glow-color);
+$active-border: var(--active-border);
 
-$bg-main: #000000;
-$text-main: #FFFFFF;
-$accent-primary: #FA0B00;
-$accent-secondary: #CC3200;
-$bg-box: rgba(0, 0, 0, 0.85);
-$bg-tint: rgba(250, 11, 0, 0.1);
-$shadow-color: rgba(0, 0, 0, 0.5);
+$bg-main: var(--bg-main);
+$text-main: var(--text-main);
+$accent-primary: var(--accent-primary);
+$accent-secondary: var(--accent-secondary);
+$bg-box: var(--bg-box);
+$bg-tint: var(--bg-tint);
+$shadow-color: var(--shadow-color);
 
 $border-radius: 12px;
 $border-radius-sm: 8px;
 $border-radius-lg: 16px;
-
+ 
 $font-family-base: 'Share Tech Mono', monospace;
 $headings-font-family: 'Orbitron', sans-serif;
 $h1-font-size: 2.5rem;
@@ -46,11 +44,16 @@ $container-max-widths: (
     xxl: 1320px
 );
 
-$box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+$box-shadow: 0 8px 16px var(--shadow-color); 
 $link-color: $success;
 $link-decoration: none;
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
+
+body {
+    --bs-body-color: var(--text-main);
+    --bs-body-bg: var(--bg-main);
+}
 
 a[href^="http"]::before {
     content: "⮳ ";
@@ -61,12 +64,10 @@ a[href^="http"]::before {
 a[href^="http"]:hover::before {
     color: var(--icon-hover);
     transition: color 0.5s ease;
-
 }
 
 a:not(nav a, [class^="product-title-link"]) {
     text-decoration: underline;
-
     color: $primary;
 
     &:visited {
@@ -74,24 +75,20 @@ a:not(nav a, [class^="product-title-link"]) {
     }
 
     &:hover {
-        color: lighten($primary, 50%);
+        color: color-mix(in srgb, var(--accent-primary) 50%, white);
         background-position: center;
         background-size: 100% 100%;
-
     }
 
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--text-main);
 
     padding: 4px 8px;
 
-    background-image: radial-gradient(circle, rgba(255, 114, 114, 0.6) 0%, transparent 70%);
+    background-image: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
 
     background-position: center;
-
     background-size: 0% 0%;
-
     background-repeat: no-repeat;
-
     transition: background-size 0.3s ease-out;
 }
 
@@ -118,15 +115,14 @@ a:not(nav a, [class^="product-title-link"]) {
 
     filter: blur(3px);
 
-    -webkit-mask-image: linear-gradient(to bottom, transparent 10%, black 100%);
-    mask-image: linear-gradient(to bottom, transparent 10%, black 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 10%, var(--bg-main) 100%);
+    mask-image: linear-gradient(to bottom, transparent 10%, var(--bg-main) 100%);
     opacity: 0.6;
 
     transition: transform 0.4s ease, filter 0.4s ease;
 }
 
 .reflect-title:hover::after {
-
     transform: scaleY(-1) skewX(-20deg);
     filter: blur(5px);
 }
@@ -193,32 +189,24 @@ hr.custom-separator {
 
 .gallery-item img:hover {
     transform: rotate(360deg) scale(1.5);
-
     border-radius: 50%;
-
     z-index: 10;
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    
+    box-shadow: 0 10px 30px var(--shadow-color);
 }
 
 .index-letter::before {
     counter-increment: gallery-index;
-
     content: counter(gallery-index, upper-alpha) ".";
-
     font-weight: bold;
-    color: #FA0B00;
+    color: var(--accent-primary);
 }
 
 .gallery-item figcaption {
     text-align: center;
-
-    // margin-top: 5%;
-
     padding-top: 10px;
     font-size: 0.9rem;
     background-color: var(--bg-box);
-
     position: relative;
     z-index: 2;
 }
@@ -247,8 +235,6 @@ hr.custom-separator {
     }
 
     .gallery-item figcaption {
-        // margin-bottom: 8%;
-
         padding-top: 10px;
         font-size: 0.9rem;
         background-color: var(--bg-box);
