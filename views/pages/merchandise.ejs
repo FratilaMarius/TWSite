@@ -15,102 +15,172 @@
                 <h1 style="font-size: 3rem;">MERCHANDISE</h1>
             </section>
 
-            <section id="product-filters">
+            <section id="product-filters" class="container-fluid">
                 <h3>Equipment Filters</h3>
 
-                <div style="margin-bottom: 10px;">
-                    <label for="filter_name">Product Name: </label>
-                    <input type="text" id="filter_name" placeholder="E.g., Ration, Stun Grenade...">
-                </div>
+                <div class="row mb-3 align-items-center">
+                    <label for="filter_name" class="col-12 col-md-3 col-lg-2 fw-bold">Product Name:</label>
+                    <% let totalProducts=merchandise.length; %>
+                        <div class="col-12 col-md-9 col-lg-10">
+                            <input type="text" id="filter_name" class="form-control"
+                                placeholder="Find one of our <%= totalProducts %> articles..." </div>
+                        </div>
 
-                <div style="margin-bottom: 10px;">
-                    <label for="filter_price">Max Price (DP): </label>
-                    0
-                    <input type="range" autocomplete="off" id="filter_price" min="0" max="10000" step="50" value="10000"
-                        oninput="document.getElementById('price_value').textContent = this.value">
-                    10000
-                    (Selected: <span id="price_value">10000</span>)
-                </div>
+                        <div class="row mb-3 align-items-center">
+                            <% let minPrice=Math.min(...merchandise.map(p=> p.price_dp));
+                                let maxPrice = Math.max(...merchandise.map(p => p.price_dp));
+                                %>
+                                <label for="filter_price" class="col-12 col-md-3 col-lg-2 fw-bold">Max Price
+                                    (DP):</label>
+                                <div class="col-12 col-md-9 col-lg-10 d-flex align-items-center gap-2">
+                                    <span>
+                                        <%= minPrice%>
+                                    </span>
+                                    <input type="range" class="form-range flex-grow-1" autocomplete="off"
+                                        id="filter_price" min="<%= minPrice%>" max="<%= maxPrice%>" step="50"
+                                        value="<%= maxPrice%>"
+                                        oninput="document.getElementById('price_value').textContent = this.value">
+                                    <span>
+                                        <%= maxPrice%>
+                                    </span>
+                                    <span class="ms-3 text-nowrap">(Selected: <span id="price_value"
+                                            class="text-danger fw-bold">
+                                            <%= maxPrice%>
+                                        </span>)</span>
+                                </div>
+                        </div>
 
-                <div style="margin-bottom: 10px;">
-                    <label for="filter_manufacturer">Manufacturer: </label>
-                    <input list="manufacturer_list" id="filter_manufacturer" placeholder="Select or type...">
-                    <datalist id="manufacturer_list">
-                        <% for(let prod of new Set(merchandise.map(prod=> prod.manufacturer))) { %>
-                            <option value="<%= prod %>">
-                                <% } %>
-                    </datalist>
-                </div>
+                        <div class="row mb-3 align-items-center">
+                            <label for="filter_manufacturer"
+                                class="col-12 col-md-3 col-lg-2 fw-bold">Manufacturer:</label>
+                            <div class="col-12 col-md-9 col-lg-10">
+                                <input list="manufacturer_list" id="filter_manufacturer" class="form-control"
+                                    placeholder="Select or type...">
+                                <datalist id="manufacturer_list">
+                                    <% for(let prod of new Set(merchandise.map(prod=> prod.manufacturer))) { %>
+                                        <option value="<%= prod %>">
+                                            <% } %>
+                                </datalist>
+                            </div>
+                        </div>
 
-                <div style="margin-bottom: 10px;">
-                    <label>Is Lethal? </label>
-                    <label><input type="radio" name="filter_lethal" value="any" checked> Any</label>
-                    <label><input type="radio" name="filter_lethal" value="yes"> Yes (Lethal)</label>
-                    <label><input type="radio" name="filter_lethal" value="no"> No (Non-Lethal)</label>
-                </div>
+                        <div class="row mb-3 align-items-center">
+                            <label class="col-12 col-md-3 col-lg-2 fw-bold">Is Lethal?</label>
+                            <div class="col-12 col-md-9 col-lg-10 d-flex flex-wrap gap-2">
+                                <% let hasLethal=merchandise.some(p=> p.is_lethal === true);
+                                    let hasNonLethal = merchandise.some(p => p.is_lethal === false);
+                                    %>
+                                    <input type="radio" class="btn-check" name="filter_lethal" id="lethal_any"
+                                        value="any" checked autocomplete="off">
+                                    <label class="btn btn-outline-danger" for="lethal_any">Any</label>
+                                    <% if(hasLethal) { %>
+                                        <input type="radio" class="btn-check" name="filter_lethal" id="lethal_yes"
+                                            value="yes" autocomplete="off">
 
-                <div style="margin-bottom: 10px;">
-                    <label for="filter_attachments">Camouflage Options <br> (Ctrl/Cmd + Click for
-                        multiple): </label>
-                    <select id="filter_attachments" multiple size="5">
-                        <option value="Pitch_Black"> Pitch Black</option>
-                        <option value="Night_Camo"> Night Camo</option>
-                        <option value="Desert"> Desert</option>
-                        <option value="Olive_Drab"> Olive Drab</option>
-                        <option value="Urban"> Urban</option>
-                        <option value="Woodland"> Woodland</option>
-                        <option value="N/A"> None (N/A)</option>
-                    </select>
-                </div>
+                                        <label class="btn btn-outline-danger" for="lethal_yes">Yes (Lethal)</label>
+                                        <% } %>
+                                            <% if(hasNonLethal) { %>
+                                                <input type="radio" class="btn-check" name="filter_lethal"
+                                                    id="lethal_no" value="no" autocomplete="off">
+                                                <label class="btn btn-outline-danger" for="lethal_no">No
+                                                    (Non-Lethal)</label>
+                                                <% } %>
+                            </div>
+                        </div>
 
-                <div style="margin-bottom: 10px;">
-                    <label for="filter_description" style="display: block;">Keywords in Description: </label>
-                    <textarea id="filter_description" rows="2" cols="40"
-                        placeholder="Describe the product..."></textarea>
-                </div>
+                        <div class="row mb-3 align-items-center">
+                            <label for="filter_attachments" class="col-12 col-md-3 col-lg-2 fw-bold">Camouflage
+                                Options<br><small class="text-muted fw-normal">(Ctrl/Cmd + Click)</small>:</label>
+                            <div class="col-12 col-md-9 col-lg-10">
+                                <% let allCamos=merchandise.map(p=> p.camouflage);
+                                    let uniqueCamos = [...new Set(allCamos)].filter(c => c && c !== 'N/A').sort();
+                                    %>
+                                    <select id="filter_attachments" class="form-select" multiple size="5">
+                                        <% for(let camo of uniqueCamos) { %>
+                                            <option value="<%= camo %>">
+                                                <%= camo %>
+                                            </option>
+                                            <% } %>
+                                                <option value="N/A">None (N/A)</option>
+                                    </select>
+                            </div>
+                        </div>
 
-                <div style="margin-bottom: 10px;">
-                    <label for="filter_category">Main Category: </label>
-                    <select id="filter_category">
-                        <option value="any" selected>Any category</option>
-                        <% for(let categ of new Set(merchandise.map(prod=> prod.main_category))) { %>
-                            <option value="<%= categ %>">
-                                <%= categ %>
-                            </option>
-                            <% } %>
-                    </select>
-                </div>
-                <div style="margin-bottom: 10px;">
-                    <details>
-                        <summary>Attachments: </summary>
-                        <% const attach=merchandise.filter(prod=> prod.compatible_attachments &&
-                            prod.compatible_attachments !== 'N/A')
-                            .flatMap(prod => prod.compatible_attachments.split(', '));
+                        <div class="row mb-3 align-items-center">
+                            <% let exampleName=merchandise.length> 0 ? merchandise[0].name : "..."; %>
+                                <label for="filter_description" class="col-12 col-md-3 col-lg-2 fw-bold">Keywords in
+                                    Description:</label>
+                                <div class="col-12 col-md-9 col-lg-10">
+                                    <textarea id="filter_description" class="form-control" rows="2"
+                                        placeholder="Describe the <%= exampleName %>..."></textarea>
+                                </div>
+                        </div>
 
-                            const attachUnq = [...new Set(attach)].sort();
-                            %>
+                        <div class="row mb-3 align-items-center">
+                            <label for="filter_category" class="col-12 col-md-3 col-lg-2 fw-bold">Main Category:</label>
+                            <div class="col-12 col-md-9 col-lg-10">
+                                <select id="filter_category" class="form-select">
+                                    <option value="any" selected>Any category</option>
+                                    <% for(let categ of new Set(merchandise.map(prod=> prod.main_category))) { %>
+                                        <option value="<%= categ %>">
+                                            <%= categ %>
+                                        </option>
+                                        <% } %>
+                                </select>
+                            </div>
+                        </div>
 
-                            <% for(let attachment of attachUnq) { %>
-                                <label>
-                                    <input type="checkbox" checked name="filter_attachments" value="<%= attachment %>">
-                                    <%= attachment %>
-                                </label>
-                                <% } %>
-                    </details>
-                </div>
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <details class="p-2 border rounded" style="background-color: var(--filter-bg);">
+                                    <summary class="fw-bold cursor-pointer">Attachments Options:</summary>
+                                    <div class="d-flex flex-wrap gap-3 mt-3">
+                                        <% const attach=merchandise.filter(prod=> prod.compatible_attachments &&
+                                            prod.compatible_attachments !== 'N/A')
+                                            .flatMap(prod => prod.compatible_attachments.split(', '));
+                                            const attachUnq = [...new Set(attach)].sort();
+                                            %>
+                                            <% for(let attachment of attachUnq) { %>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        name="filter_attachments_check" value="<%= attachment %>"
+                                                        id="check_<%= attachment.replace(/\s+/g, '_') %>" checked>
+                                                    <label class="form-check-label"
+                                                        for="check_<%= attachment.replace(/\s+/g, '_') %>">
+                                                        <%= attachment %>
+                                                    </label>
+                                                </div>
+                                                <% } %>
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
 
-                <div class="filter-actions">
-                    <button id="btn-filter" class="btn-primary">Execute Filter</button>
+                        <div class="row pt-3 border-top filter-actions">
+                            <div class="col-12 d-flex flex-wrap gap-2 justify-content-between align-items-center">
 
-                    <div class="sort-group">
-                        <button id="btn-sort-asc" class="btn-secondary">Sort ASC (Price/Att.) ▲</button>
-                        <button id="btn-sort-desc" class="btn-secondary">Sort DESC (Price/Att.) ▼</button>
-                    </div>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button id="btn-filter" class="btn btn-danger text-uppercase fw-bold">Execute
+                                        Filter</button>
+                                    <button id="btn-calculate"
+                                        class="btn btn-secondary text-uppercase fw-bold">Calculate
+                                        Total</button>
+                                </div>
 
-                    <button id="btn-calculate" class="btn-secondary">Calculate Total Price</button>
+                                <div class="d-flex flex-wrap gap-2 sort-group">
+                                    <button id="btn-sort-asc"
+                                        class="btn btn-outline-secondary text-uppercase fw-bold">ASC
+                                        (Price, attachments) ▲</button>
+                                    <button id="btn-sort-desc"
+                                        class="btn btn-outline-secondary text-uppercase fw-bold">DESC
+                                        (Price, attachments) ▼</button>
+                                </div>
 
-                    <button id="btn-reset" class="btn-danger">Reset System</button>
-                </div>
+                                <button id="btn-reset"
+                                    class="btn btn-outline-danger text-uppercase fw-bold ms-md-auto">Reset
+                                    System</button>
+                            </div>
+                        </div>
             </section>
 
             <div class="products-container">
@@ -185,6 +255,8 @@
 
                 const productData = <%- JSON.stringify(merchandise) %>;
 
+                const minDbPrice = Math.min(...productData.map(p => p.price_dp));
+                const maxDbPrice = Math.max(...productData.map(p => p.price_dp));
                 function validate() {
                     let manufacturer = document.getElementById('filter_manufacturer').value.trim();
                     if (manufacturer.length > 0) {
@@ -208,8 +280,8 @@
                     }
 
                     let priceInput = parseFloat(document.getElementById('filter_price').value);
-                    if (isNaN(priceInput) || priceInput < 0 || priceInput > 10000) {
-                        alert("Invalid input: Price must be a numeric value between 0 and 10000 DP!");
+                    if (isNaN(priceInput) || priceInput < minDbPrice || priceInput > maxDbPrice) {
+                        alert(`Invalid input: Price must be a numeric value between ${minDbPrice} and ${maxDbPrice} DP!`);
                         return false;
                     }
 
@@ -234,7 +306,7 @@
 
                     let descriptionInput = document.getElementById('filter_description').value.toLowerCase();
                     let descKeywords = descriptionInput.split(',').map(kw => kw.trim()).filter(kw => kw.length > 0);
-                    
+
                     let selectCamo = document.getElementById('filter_attachments');
                     let camoSelect = Array.from(selectCamo.selectedOptions).map(opt => opt.value);
 
@@ -253,11 +325,11 @@
 
                         if (descKeywords.length > 0) {
                             if (!prod.description) {
-                                show = false; 
+                                show = false;
                             } else {
                                 let prodDescLower = prod.description.toLowerCase();
                                 let hasAllKeywords = descKeywords.every(keyword => prodDescLower.includes(keyword));
-                                
+
                                 if (!hasAllKeywords) {
                                     show = false;
                                 }
@@ -286,18 +358,18 @@
                             sumTotal += parseFloat(prod.price_dp);
                         }
                     });
-                        let toastDiv = document.createElement('div');
-                            toastDiv.className = 'calculation-toast';
-                        
-                        toastDiv.textContent = "Total price: " + sumTotal.toFixed(2) + " DP";
-                        
-                        document.body.appendChild(toastDiv);
+                    let toastDiv = document.createElement('div');
+                    toastDiv.className = 'calculation-toast';
 
-                        setTimeout(() => {
-                            if (toastDiv.parentElement) {
-                                toastDiv.remove();
-                            }
-                        }, 2000);
+                    toastDiv.textContent = "Total price: " + sumTotal.toFixed(2) + " DP";
+
+                    document.body.appendChild(toastDiv);
+
+                    setTimeout(() => {
+                        if (toastDiv.parentElement) {
+                            toastDiv.remove();
+                        }
+                    }, 2000);
                 });
 
                 document.getElementById('btn-reset').addEventListener('click', function () {
@@ -306,8 +378,8 @@
                         return;
                     }
                     document.getElementById('filter_name').value = '';
-                    document.getElementById('filter_price').value = 10000;
-                    document.getElementById('price_value').textContent = 10000;
+                    document.getElementById('filter_price').value = maxDbPrice;
+                    document.getElementById('price_value').textContent = maxDbPrice;
                     document.getElementById('filter_manufacturer').value = '';
                     document.querySelector('input[name="filter_lethal"][value="any"]').checked = true;
                     document.getElementById('filter_category').value = 'any';

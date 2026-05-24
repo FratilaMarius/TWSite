@@ -260,6 +260,7 @@ iframe:not(.exclude-scale) {
     z-index: 9999;
     background-color: transparent;
 }
+
 @media screen and (max-width: 1024px) {
     .vertical-banner-right {
         display: none;
@@ -606,27 +607,34 @@ iframe:not(.exclude-scale) {
     }
 }
 
-#theme-toggle {
+#theme-switch-wrapper {
     position: absolute;
     bottom: 20px;
     right: 20px;
-    background: transparent;
-    border: none;
-    color: var(--text-main);
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 10px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    justify-content: center;
-    transition: color 0.3s ease, transform 0.3s ease;
+    gap: 10px;
+    z-index: 1001;
 }
 
-#theme-toggle:hover {
+#theme-switch-wrapper .form-check-input,
+#theme-switch-wrapper .form-check-label {
+    cursor: pointer;
+}
+
+#theme-switch-wrapper #theme-icon {
+    color: var(--text-main);
+    font-size: 1.3rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
+}
+
+#theme-switch-wrapper:hover #theme-icon {
     color: var(--accent-primary);
     transform: scale(1.15);
 }
 
-#theme-toggle:active {
-    transform: scale(0.95);
+#theme-switch-wrapper .form-check-input:checked {
+    background-color: var(--accent-primary);
+    border-color: var(--accent-primary);
 }
