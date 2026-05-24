@@ -1,444 +1,559 @@
-<html>
+    <html>
 
-<head>
-    <%- include('../fragments/head.ejs') %>
-        <link rel="stylesheet" href="/resources/css/merchandise.css" type="text/css" />
+    <head>
+        <%- include('../fragments/head.ejs') %>
+            <link rel="stylesheet" href="/resources/css/merchandise.css" type="text/css" />
 
-        <title>Merchandise</title>
-</head>
+            <title>Merchandise</title>
+    </head>
 
-<body>
-    <%- include('../fragments/header.ejs') %>
+    <body>
+        <%- include('../fragments/header.ejs') %>
 
-        <main class="merchandise">
-            <section class="merchandise-section">
-                <h1 style="font-size: 3rem;">MERCHANDISE</h1>
-            </section>
+            <main class="merchandise">
+                <section class="merchandise-section">
+                    <h1 style="font-size: 3rem;">MERCHANDISE</h1>
+                </section>
 
-            <section id="product-filters" class="container-fluid">
-                <h3>Equipment Filters</h3>
+                <section id="product-filters" class="container-fluid">
+                    <h3>Equipment Filters</h3>
 
-                <div class="row mb-3 align-items-center">
-                    <label for="filter_name" class="col-12 col-md-3 col-lg-2 fw-bold">Product Name:</label>
-                    <% let totalProducts=merchandise.length; %>
-                        <div class="col-12 col-md-9 col-lg-10">
-                            <input type="text" id="filter_name" class="form-control"
-                                placeholder="Find one of our <%= totalProducts %> articles..." </div>
-                        </div>
+                    <div class="row mb-3 align-items-center">
+                        <label for="filter_name" class="col-12 col-md-3 col-lg-2 fw-bold">Product Name:</label>
+                        <% let totalProducts=merchandise.length; %>
+                            <div class="col-12 col-md-9 col-lg-10">
+                                <input type="text" id="filter_name" class="form-control"
+                                    placeholder="Find one of our <%= totalProducts %> articles...">
+                            </div>
 
-                        <div class="row mb-3 align-items-center">
-                            <% let minPrice=Math.min(...merchandise.map(p=> p.price_dp));
-                                let maxPrice = Math.max(...merchandise.map(p => p.price_dp));
-                                %>
-                                <label for="filter_price" class="col-12 col-md-3 col-lg-2 fw-bold">Max Price
-                                    (DP):</label>
-                                <div class="col-12 col-md-9 col-lg-10 d-flex align-items-center gap-2">
-                                    <span>
-                                        <%= minPrice%>
-                                    </span>
-                                    <input type="range" class="form-range flex-grow-1" autocomplete="off"
-                                        id="filter_price" min="<%= minPrice%>" max="<%= maxPrice%>" step="50"
-                                        value="<%= maxPrice%>"
-                                        oninput="document.getElementById('price_value').textContent = this.value">
-                                    <span>
-                                        <%= maxPrice%>
-                                    </span>
-                                    <span class="ms-3 text-nowrap">(Selected: <span id="price_value"
-                                            class="text-danger fw-bold">
+                            <div class="row mb-3 align-items-center">
+                                <% let minPrice=Math.min(...merchandise.map(p=> p.price_dp));
+                                    let maxPrice = Math.max(...merchandise.map(p => p.price_dp));
+                                    %>
+                                    <label for="filter_price" class="col-12 col-md-3 col-lg-2 fw-bold">Max Price
+                                        (DP):</label>
+                                    <div class="col-12 col-md-9 col-lg-10 d-flex align-items-center gap-2">
+                                        <span>
+                                            <%= minPrice%>
+                                        </span>
+                                        <input type="range" class="form-range flex-grow-1" autocomplete="off"
+                                            id="filter_price" min="<%= minPrice%>" max="<%= maxPrice%>" step="50"
+                                            value="<%= maxPrice%>"
+                                            oninput="document.getElementById('price_value').textContent = this.value">
+                                        <span>
                                             <%= maxPrice%>
-                                        </span>)</span>
-                                </div>
-                        </div>
-
-                        <div class="row mb-3 align-items-center">
-                            <label for="filter_manufacturer"
-                                class="col-12 col-md-3 col-lg-2 fw-bold">Manufacturer:</label>
-                            <div class="col-12 col-md-9 col-lg-10">
-                                <input list="manufacturer_list" id="filter_manufacturer" class="form-control"
-                                    placeholder="Select or type...">
-                                <datalist id="manufacturer_list">
-                                    <% for(let prod of new Set(merchandise.map(prod=> prod.manufacturer))) { %>
-                                        <option value="<%= prod %>">
-                                            <% } %>
-                                </datalist>
+                                        </span>
+                                        <span class="ms-3 text-nowrap">(Selected: <span id="price_value"
+                                                class="text-danger fw-bold">
+                                                <%= maxPrice%>
+                                            </span>)</span>
+                                    </div>
                             </div>
-                        </div>
 
-                        <div class="row mb-3 align-items-center">
-                            <label class="col-12 col-md-3 col-lg-2 fw-bold">Is Lethal?</label>
-                            <div class="col-12 col-md-9 col-lg-10 d-flex flex-wrap gap-2">
-                                <% let hasLethal=merchandise.some(p=> p.is_lethal === true);
-                                    let hasNonLethal = merchandise.some(p => p.is_lethal === false);
-                                    %>
-                                    <input type="radio" class="btn-check" name="filter_lethal" id="lethal_any"
-                                        value="any" checked autocomplete="off">
-                                    <label class="btn btn-outline-danger" for="lethal_any">Any</label>
-                                    <% if(hasLethal) { %>
-                                        <input type="radio" class="btn-check" name="filter_lethal" id="lethal_yes"
-                                            value="yes" autocomplete="off">
-
-                                        <label class="btn btn-outline-danger" for="lethal_yes">Yes (Lethal)</label>
-                                        <% } %>
-                                            <% if(hasNonLethal) { %>
-                                                <input type="radio" class="btn-check" name="filter_lethal"
-                                                    id="lethal_no" value="no" autocomplete="off">
-                                                <label class="btn btn-outline-danger" for="lethal_no">No
-                                                    (Non-Lethal)</label>
+                            <div class="row mb-3 align-items-center">
+                                <label for="filter_manufacturer"
+                                    class="col-12 col-md-3 col-lg-2 fw-bold">Manufacturer:</label>
+                                <div class="col-12 col-md-9 col-lg-10">
+                                    <input list="manufacturer_list" id="filter_manufacturer" class="form-control"
+                                        placeholder="Select or type...">
+                                    <datalist id="manufacturer_list">
+                                        <% for(let prod of new Set(merchandise.map(prod=> prod.manufacturer))) { %>
+                                            <option value="<%= prod %>">
                                                 <% } %>
+                                    </datalist>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row mb-3 align-items-center">
-                            <label for="filter_attachments" class="col-12 col-md-3 col-lg-2 fw-bold">Camouflage
-                                Options<br><small class="text-muted fw-normal">(Ctrl/Cmd + Click)</small>:</label>
-                            <div class="col-12 col-md-9 col-lg-10">
-                                <% let allCamos=merchandise.map(p=> p.camouflage);
-                                    let uniqueCamos = [...new Set(allCamos)].filter(c => c && c !== 'N/A').sort();
-                                    %>
-                                    <select id="filter_attachments" class="form-select" multiple size="5">
-                                        <% for(let camo of uniqueCamos) { %>
-                                            <option value="<%= camo %>">
-                                                <%= camo %>
+                            <div class="row mb-3 align-items-center">
+                                <label class="col-12 col-md-3 col-lg-2 fw-bold">Is Lethal?</label>
+                                <div class="col-12 col-md-9 col-lg-10 d-flex flex-wrap gap-2">
+                                    <% let hasLethal=merchandise.some(p=> p.is_lethal === true);
+                                        let hasNonLethal = merchandise.some(p => p.is_lethal === false);
+                                        %>
+                                        <input type="radio" class="btn-check" name="filter_lethal" id="lethal_any"
+                                            value="any" checked autocomplete="off">
+                                        <label class="btn btn-outline-danger" for="lethal_any">Any</label>
+                                        <% if(hasLethal) { %>
+                                            <input type="radio" class="btn-check" name="filter_lethal" id="lethal_yes"
+                                                value="yes" autocomplete="off">
+
+                                            <label class="btn btn-outline-danger" for="lethal_yes">Yes (Lethal)</label>
+                                            <% } %>
+                                                <% if(hasNonLethal) { %>
+                                                    <input type="radio" class="btn-check" name="filter_lethal"
+                                                        id="lethal_no" value="no" autocomplete="off">
+                                                    <label class="btn btn-outline-danger" for="lethal_no">No
+                                                        (Non-Lethal)</label>
+                                                    <% } %>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3 align-items-center">
+                                <label for="filter_attachments" class="col-12 col-md-3 col-lg-2 fw-bold">Camouflage
+                                    Options<br><small class="text-muted fw-normal">(Ctrl/Cmd + Click)</small>:</label>
+                                <div class="col-12 col-md-9 col-lg-10">
+                                    <% let allCamos=merchandise.map(p=> p.camouflage);
+                                        let uniqueCamos = [...new Set(allCamos)].filter(c => c && c !== 'N/A').sort();
+                                        %>
+                                        <select id="filter_attachments" class="form-select" multiple size="5">
+                                            <% for(let camo of uniqueCamos) { %>
+                                                <option value="<%= camo %>">
+                                                    <%= camo %>
+                                                </option>
+                                                <% } %>
+                                                    <option value="N/A">None (N/A)</option>
+                                        </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3 align-items-center">
+                                <% let exampleName=merchandise.length> 0 ? merchandise[0].name : "..."; %>
+                                    <label for="filter_description" class="col-12 col-md-3 col-lg-2 fw-bold">Keywords in
+                                        Description:</label>
+                                    <div class="col-12 col-md-9 col-lg-10">
+                                        <textarea id="filter_description" class="form-control" rows="2"
+                                            placeholder="Describe the <%= exampleName %>..."></textarea>
+                                    </div>
+                            </div>
+
+                            <div class="row mb-3 align-items-center">
+                                <label for="filter_category" class="col-12 col-md-3 col-lg-2 fw-bold">Main Category:</label>
+                                <div class="col-12 col-md-9 col-lg-10">
+                                    <select id="filter_category" class="form-select">
+                                        <option value="any" selected>Any category</option>
+                                        <% for(let categ of new Set(merchandise.map(prod=> prod.main_category))) { %>
+                                            <option value="<%= categ %>">
+                                                <%= categ %>
                                             </option>
                                             <% } %>
-                                                <option value="N/A">None (N/A)</option>
                                     </select>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3 align-items-center">
-                            <% let exampleName=merchandise.length> 0 ? merchandise[0].name : "..."; %>
-                                <label for="filter_description" class="col-12 col-md-3 col-lg-2 fw-bold">Keywords in
-                                    Description:</label>
-                                <div class="col-12 col-md-9 col-lg-10">
-                                    <textarea id="filter_description" class="form-control" rows="2"
-                                        placeholder="Describe the <%= exampleName %>..."></textarea>
                                 </div>
-                        </div>
-
-                        <div class="row mb-3 align-items-center">
-                            <label for="filter_category" class="col-12 col-md-3 col-lg-2 fw-bold">Main Category:</label>
-                            <div class="col-12 col-md-9 col-lg-10">
-                                <select id="filter_category" class="form-select">
-                                    <option value="any" selected>Any category</option>
-                                    <% for(let categ of new Set(merchandise.map(prod=> prod.main_category))) { %>
-                                        <option value="<%= categ %>">
-                                            <%= categ %>
-                                        </option>
-                                        <% } %>
-                                </select>
                             </div>
-                        </div>
 
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <details class="p-2 border rounded" style="background-color: var(--filter-bg);">
-                                    <summary class="fw-bold cursor-pointer">Attachments Options:</summary>
-                                    <div class="d-flex flex-wrap gap-3 mt-3">
-                                        <% const attach=merchandise.filter(prod=> prod.compatible_attachments &&
-                                            prod.compatible_attachments !== 'N/A')
-                                            .flatMap(prod => prod.compatible_attachments.split(', '));
-                                            const attachUnq = [...new Set(attach)].sort();
-                                            %>
-                                            <% for(let attachment of attachUnq) { %>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox"
-                                                        name="filter_attachments_check" value="<%= attachment %>"
-                                                        id="check_<%= attachment.replace(/\s+/g, '_') %>" checked>
-                                                    <label class="form-check-label"
-                                                        for="check_<%= attachment.replace(/\s+/g, '_') %>">
-                                                        <%= attachment %>
-                                                    </label>
-                                                </div>
-                                                <% } %>
+                            <div class="row mb-4">
+                                <div class="col-12">
+                                    <details class="p-2 border rounded" style="background-color: var(--filter-bg);">
+                                        <summary class="fw-bold cursor-pointer">Attachments Options:</summary>
+                                        <div class="d-flex flex-wrap gap-3 mt-3">
+                                            <% const attach=merchandise.filter(prod=> prod.compatible_attachments &&
+                                                prod.compatible_attachments !== 'N/A')
+                                                .flatMap(prod => prod.compatible_attachments.split(', '));
+                                                const attachUnq = [...new Set(attach)].sort();
+                                                %>
+                                                <% for(let attachment of attachUnq) { %>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            name="filter_attachments_check" value="<%= attachment %>"
+                                                            id="check_<%= attachment.replace(/\s+/g, '_') %>" checked>
+                                                        <label class="form-check-label"
+                                                            for="check_<%= attachment.replace(/\s+/g, '_') %>">
+                                                            <%= attachment %>
+                                                        </label>
+                                                    </div>
+                                                    <% } %>
+                                        </div>
+                                    </details>
+                                </div>
+                            </div>
+
+                            <div class="row pt-3 border-top filter-actions">
+                                <div class="col-12 d-flex flex-wrap gap-2 justify-content-between align-items-center">
+
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <button id="btn-filter" class="btn btn-danger text-uppercase fw-bold" style="display: none;">Execute
+                                            Filter</button>
+                                        <button id="btn-calculate"
+                                            class="btn btn-secondary text-uppercase fw-bold">Calculate
+                                            Total</button>
                                     </div>
-                                </details>
-                            </div>
-                        </div>
 
-                        <div class="row pt-3 border-top filter-actions">
-                            <div class="col-12 d-flex flex-wrap gap-2 justify-content-between align-items-center">
+                                    <div class="d-flex flex-wrap gap-2 sort-group">
+                                        <button id="btn-sort-asc"
+                                            class="btn btn-outline-secondary text-uppercase fw-bold">ASC
+                                            (Price, attachments) ▲</button>
+                                        <button id="btn-sort-desc"
+                                            class="btn btn-outline-secondary text-uppercase fw-bold">DESC
+                                            (Price, attachments) ▼</button>
+                                    </div>
 
-                                <div class="d-flex flex-wrap gap-2">
-                                    <button id="btn-filter" class="btn btn-danger text-uppercase fw-bold">Execute
-                                        Filter</button>
-                                    <button id="btn-calculate"
-                                        class="btn btn-secondary text-uppercase fw-bold">Calculate
-                                        Total</button>
+                                    <button id="btn-reset"
+                                        class="btn btn-outline-danger text-uppercase fw-bold ms-md-auto">Reset
+                                        System</button>
                                 </div>
-
-                                <div class="d-flex flex-wrap gap-2 sort-group">
-                                    <button id="btn-sort-asc"
-                                        class="btn btn-outline-secondary text-uppercase fw-bold">ASC
-                                        (Price, attachments) ▲</button>
-                                    <button id="btn-sort-desc"
-                                        class="btn btn-outline-secondary text-uppercase fw-bold">DESC
-                                        (Price, attachments) ▼</button>
-                                </div>
-
-                                <button id="btn-reset"
-                                    class="btn btn-outline-danger text-uppercase fw-bold ms-md-auto">Reset
-                                    System</button>
                             </div>
-                        </div>
-            </section>
+                </section>
 
-            <div class="products-container">
-                <% for(let prod of merchandise) { %>
-                    <article id="ent-<%= prod.id %>" class="product <%= prod.main_category %>">
-                        <h3>
-                            <a class="product-title-link" href="/product/<%= prod.id %>">
-                                <%= prod.name %>
-                            </a>
-                        </h3>
+                <div class="d-flex justify-content-between align-items-center mb-2 px-3">
+                    <h5 class="m-0">Articles in stock: <span id="displayed-count" class="text-danger fw-bold"><%= merchandise.length %></span></h5>
+                </div>
 
-                        <div class="product-content">
-                            <table class="specs-table">
-                                <tr>
-                                    <th>Price (DP)</th>
-                                    <th>Camouflage</th>
-                                    <th>Attachments</th>
-                                    <th>Manufacturing Date</th>
-                                    <th>Is Lethal?</th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <%= prod.price_dp %>
-                                    </td>
-                                    <td>
-                                        <%= prod.camouflage %>
-                                    </td>
+                <div id="pagination-controls" class="d-flex flex-wrap justify-content-center gap-2 mb-4 mt-3"></div>
+                
+                <% 
+                    let cheapestPerCategory = {};
 
-                                    <% let attachmentsArray=prod.compatible_attachments ?
-                                        prod.compatible_attachments.split(' , ') : []; %>
-                                    <td>
-                                    <%= attachmentsArray.join(' , ') %>
-                                    </td>
+                    merchandise.forEach(product => {
+                        let categoryName = product.main_category;
+                        let currentPrice = parseFloat(product.price_dp);
 
-                                    <td>
-                                        <% let d=new Date(prod.manufacturing_date); let days=[' Sunday', 'Monday'
-                                        , 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' ]; let
-                                        months=['January', 'February' , 'March' , 'April' , 'May' , 'June' , 'July'
-                                        , 'August' , 'September' , 'October' , 'November' , 'December' ]; let
-                                        date=d.getDate(); let dayOfWeek=days[d.getDay()]; let
-                                        month=months[d.getMonth()]; let year=d.getFullYear(); let
-                                        formattedDate=`${date}(${dayOfWeek})/${month}/${year}`; %>
-                                        <time datetime="<%= d.toISOString() %>">
-                                            <%= formattedDate %>
-                                        </time>
+                        if (cheapestPerCategory[categoryName] === undefined || currentPrice < cheapestPerCategory[categoryName]) {
+                            cheapestPerCategory[categoryName] = currentPrice;
+                        }
+                    });
+                %>
+
+                <div class="products-container">
+                    <div id="no-products-msg" class="alert alert-warning text-center fw-bold fs-5"
+                        style="display: none; grid-column: 1 / -1;">
+                        Nothing to display...
+                    </div>
+                    <% for(let prod of merchandise) { %>
+                        <article id="ent-<%= prod.id %>" class="product <%= prod.main_category %>">
+
+                            <%
+                                let manfDate = new Date(prod.manufacturing_date);
+                                let curDate = new Date();
+                                let daysPast = Math.floor((curDate - manfDate) / (1000 * 60 * 60 * 24));
+                                let isNew = daysPast <= 365; // T = 365 days
+                            %>
+
+                            <% if(isNew) { %>
+                                <span class="badge bg-danger position-absolute" style="top: 10px; right: 10px; z-index: 10; font-size: 1.1rem; box-shadow: 2px 2px 5px var(--shadow-color); border: 1px solid white;">
+                                    NEW
+                                </span> 
+                            <% } %>
+                            <% 
+                                let isCheapest = parseFloat(prod.price_dp) === cheapestPerCategory[prod.main_category];
+                            %>
+
+                            <% if(isCheapest) { %>
+                                <div class="alert alert-success py-1 px-2 mx-3 mt-2 mb-0 text-center fw-bold text-uppercase d-block" 
+                                    style="font-size: 0.8rem; letter-spacing: 0.05em; border-radius: 4px; border: 1px solid rgba(25, 135, 84, 0.3);">
+                                    <i class="fa-solid fa-tag me-1"></i> Cheapest in Class
+                                </div>
+                            <% } %>
+                            <h3>
+                                <a class="product-title-link" href="/product/<%= prod.id %>">
+                                    <%= prod.name %>
+                                </a>
+                            </h3>
+
+                            <div class="product-content">
+                                <table class="specs-table">
+                                    <tr>
+                                        <th>Price (DP)</th>
+                                        <th>Camouflage</th>
+                                        <th>Attachments</th>
+                                        <th>Manufacturing Date</th>
+                                        <th>Is Lethal?</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <%= prod.price_dp %>
                                         </td>
                                         <td>
-                                            <%= prod.is_lethal ? 'Yes' : 'No' %>
+                                            <%= prod.camouflage %>
                                         </td>
-                                </tr>
-                            </table>
 
-                            <br>
-                            <img src="<%= prod.image_path %>" alt="<%= prod.name %>" class="product-image">
+                                        <% let attachmentsArray=prod.compatible_attachments ?
+                                            prod.compatible_attachments.split(' , ') : []; %>
+                                        <td>
+                                        <%= attachmentsArray.join(' , ') %>
+                                        </td>
 
-                        </div>
+                                        <td>
+                                            <% let d=new Date(prod.manufacturing_date); let days=[' Sunday', 'Monday'
+                                            , 'Tuesday' , 'Wednesday' , 'Thursday' , 'Friday' , 'Saturday' ]; let
+                                            months=['January', 'February' , 'March' , 'April' , 'May' , 'June' , 'July'
+                                            , 'August' , 'September' , 'October' , 'November' , 'December' ]; let
+                                            date=d.getDate(); let dayOfWeek=days[d.getDay()]; let
+                                            month=months[d.getMonth()]; let year=d.getFullYear(); let
+                                            formattedDate=`${date}(${dayOfWeek})/${month}/${year}`; %>
+                                            <time datetime="<%= d.toISOString() %>">
+                                                <%= formattedDate %>
+                                            </time>
+                                            </td>
+                                            <td>
+                                                <%= prod.is_lethal ? 'Yes' : 'No' %>
+                                            </td>
+                                    </tr>
+                                </table>
 
-                        <p class="product-description">
-                            <%= prod.description %>
-                        </p>
-                        <p>Category: <span class="category-text">
-                                <%= prod.main_category %>
-                            </span></p>
-                    </article>
-                    <% } %>
-            </div>
+                                <br>
+                                <img src="<%= prod.image_path %>" alt="<%= prod.name %>" class="product-image">
 
-        </main>
+                            </div>
 
-        <%- include('../fragments/footer.ejs') %>
-            <script>
+                            <p class="product-description">
+                                <%= prod.description %>
+                            </p>
+                            <p>Category: <span class="category-text">
+                                    <%= prod.main_category %>
+                                </span></p>
+                        </article>
+                        <% } %>
+                </div>
 
-                const productData = <%- JSON.stringify(merchandise) %>;
+            </main>
 
-                const minDbPrice = Math.min(...productData.map(p => p.price_dp));
-                const maxDbPrice = Math.max(...productData.map(p => p.price_dp));
-                function validate() {
-                    let manufacturer = document.getElementById('filter_manufacturer').value.trim();
-                    if (manufacturer.length > 0) {
-                        if (manufacturer.trim() === '') {
-                            alert("Invalid input: Manufacturer cannot contain only spaces!");
-                            return false;
-                        }
+            <%- include('../fragments/footer.ejs') %>
+                <script>
 
-                        if (/\d/.test(manufacturer)) {
-                            alert("Invalid input: Manufacturer name cannot contain numbers!");
-                            return false;
-                        }
+                    const itemsPerPage = 4;
+                    let currentPage = 1;
 
-                        let validManufacturers = [...new Set(productData.map(p => p.manufacturer.toLowerCase()))];
-                        let inputLower = manufacturer.trim().toLowerCase();
+                    function renderPagination() {
+                        let matchedProducts = Array.from(document.querySelectorAll('.product[data-match="true"]'));
+                        let visibleCount = matchedProducts.length;
 
-                        if (!validManufacturers.includes(inputLower)) {
-                            alert("Invalid input: The selected manufacturer does not exist in our catalog!");
-                            return false;
-                        }
-                    }
+                        document.getElementById('displayed-count').textContent = visibleCount;
+                        let noProductsMessage = document.getElementById('no-products-msg');
+                        noProductsMessage.style.display = visibleCount === 0 ? '' : 'none';
 
-                    let priceInput = parseFloat(document.getElementById('filter_price').value);
-                    if (isNaN(priceInput) || priceInput < minDbPrice || priceInput > maxDbPrice) {
-                        alert(`Invalid input: Price must be a numeric value between ${minDbPrice} and ${maxDbPrice} DP!`);
-                        return false;
-                    }
+                        let totalPages = Math.ceil(visibleCount / itemsPerPage);
+                        let paginationControls = document.getElementById('pagination-controls');
+                        paginationControls.innerHTML = '';
 
-                    let description = document.getElementById('filter_description').value;
-                    if (description.length > 0 && description.trim() === '') {
-                        alert("Invalid input: Description cannot contain only spaces!");
-                        return false;
-                    }
-                    return true;
-                }
-
-
-                document.getElementById('btn-filter').addEventListener('click', function () {
-
-                    if (!validate()) return;
-
-                    let textName = document.getElementById('filter_name').value.toLowerCase().trim();
-                    let priceMax = parseFloat(document.getElementById('filter_price').value);
-                    let manufacturerText = document.getElementById('filter_manufacturer').value.toLowerCase().trim();
-                    let lethality = document.querySelector('input[name="filter_lethal"]:checked').value;
-                    let categ = document.getElementById('filter_category').value;
-
-                    let descriptionInput = document.getElementById('filter_description').value.toLowerCase();
-                    let descKeywords = descriptionInput.split(',').map(kw => kw.trim()).filter(kw => kw.length > 0);
-
-                    let selectCamo = document.getElementById('filter_attachments');
-                    let camoSelect = Array.from(selectCamo.selectedOptions).map(opt => opt.value);
-
-                    productData.forEach(prod => {
-                        let show = true;
-                        if (textName && !prod.name.toLowerCase().includes(textName)) show = false;
-
-                        if (parseFloat(prod.price_dp) > priceMax) show = false;
-
-                        if (manufacturerText && (!prod.manufacturer || !prod.manufacturer.toLowerCase().includes(manufacturerText))) show = false;
-
-                        if (lethality === 'yes' && prod.is_lethal !== true) show = false;
-                        if (lethality === 'no' && prod.is_lethal !== false) show = false;
-
-                        if (categ !== 'any' && prod.main_category !== categ) show = false;
-
-                        if (descKeywords.length > 0) {
-                            if (!prod.description) {
-                                show = false;
-                            } else {
-                                let prodDescLower = prod.description.toLowerCase();
-                                let hasAllKeywords = descKeywords.every(keyword => prodDescLower.includes(keyword));
-
-                                if (!hasAllKeywords) {
-                                    show = false;
-                                }
+                        if (totalPages > 1) {
+                            for (let i = 1; i <= totalPages; i++) {
+                                let pageButton = document.createElement('button');
+                                pageButton.className = `btn fw-bold ${i === currentPage ? 'btn-danger' : 'btn-outline-danger'}`;
+                                pageButton.textContent = i;
+                                pageButton.onclick = () => {
+                                    currentPage = i;
+                                    renderPagination();
+                                };
+                                paginationControls.appendChild(pageButton);
                             }
                         }
-                        if (camoSelect.length > 0 && camoSelect[0] !== 'N/A') {
-                            if (!camoSelect.includes(prod.camouflage)) show = false;
-                        }
-
-                        let cardElement = document.getElementById('ent-' + prod.id);
-                        if (cardElement) {
-                            cardElement.style.display = show ? '' : 'none';
-                        }
-                    });
-                });
-
-                document.getElementById('btn-calculate').addEventListener('click', function () {
-
-                    if (!validate()) return;
-
-                    let sumTotal = 0;
-
-                    productData.forEach(prod => {
-                        let cardElement = document.getElementById('ent-' + prod.id);
-                        if (cardElement && cardElement.style.display !== 'none') {
-                            sumTotal += parseFloat(prod.price_dp);
-                        }
-                    });
-                    let toastDiv = document.createElement('div');
-                    toastDiv.className = 'calculation-toast';
-
-                    toastDiv.textContent = "Total price: " + sumTotal.toFixed(2) + " DP";
-
-                    document.body.appendChild(toastDiv);
-
-                    setTimeout(() => {
-                        if (toastDiv.parentElement) {
-                            toastDiv.remove();
-                        }
-                    }, 2000);
-                });
-
-                document.getElementById('btn-reset').addEventListener('click', function () {
-                    let conf = confirm("Do you really want to reset all filters?");
-                    if (!conf) {
-                        return;
+                        showCurrentPage(matchedProducts);
                     }
-                    document.getElementById('filter_name').value = '';
-                    document.getElementById('filter_price').value = maxDbPrice;
-                    document.getElementById('price_value').textContent = maxDbPrice;
-                    document.getElementById('filter_manufacturer').value = '';
-                    document.querySelector('input[name="filter_lethal"][value="any"]').checked = true;
-                    document.getElementById('filter_category').value = 'any';
-                    document.getElementById('filter_description').value = '';
 
-                    Array.from(document.getElementById('filter_attachments').options).forEach(opt => opt.selected = false);
+                    function showCurrentPage(matchedProducts) {
+                        document.querySelectorAll('.product').forEach(card => card.style.display = 'none');
 
-                    let container = document.querySelector('.products-container');
+                        let startIndex = (currentPage - 1) * itemsPerPage;
+                        let endIndex = currentPage * itemsPerPage;
 
-                    productData.forEach(prod => {
-                        let cardElement = document.getElementById('ent-' + prod.id);
-                        if (cardElement) {
-                            cardElement.style.display = '';
-                            container.appendChild(cardElement);
+                        for (let i = startIndex; i < endIndex && i < matchedProducts.length; i++) {
+                            matchedProducts[i].style.display = '';
                         }
-                    });
-                });
+                    }
 
-                function sortProduct(ascendent = true) {
-                    let container = document.querySelector('.products-container');
-                    let cards = Array.from(container.querySelectorAll('.product'));
+                    function removeDiacritics(str) {
+                        if (!str) return "";
+                        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    }
 
-                    cards.sort((a, b) => {
-                        let idA = parseInt(a.id.split('-')[1]);
-                        let idB = parseInt(b.id.split('-')[1]);
+                    const productData = <%- JSON.stringify(merchandise) %>;
 
-                        let prodA = productData.find(p => p.id === idA);
-                        let prodB = productData.find(p => p.id === idB);
+                    const minDbPrice = Math.min(...productData.map(p => p.price_dp));
+                    const maxDbPrice = Math.max(...productData.map(p => p.price_dp));
+                    function validate() {
+                        let manufacturer = document.getElementById('filter_manufacturer').value.trim();
+                        if (manufacturer.length > 0) {
+                            if (manufacturer.trim() === '') {
+                                alert("Invalid input: Manufacturer cannot contain only spaces!");
+                                return false;
+                            }
 
-                        let priceDiff = prodA.price_dp - prodB.price_dp;
+                            if (/\d/.test(manufacturer)) {
+                                alert("Invalid input: Manufacturer name cannot contain numbers!");
+                                return false;
+                            }
 
-                        if (priceDiff === 0) {
-                            let countA = (prodA.compatible_attachments && prodA.compatible_attachments !== 'N/A')
-                                ? prodA.compatible_attachments.split(',').length
-                                : 0;
+                            let validManufacturers = [...new Set(productData.map(p => p.manufacturer.toLowerCase()))];
+                            let inputLower = manufacturer.trim().toLowerCase();
 
-                            let countB = (prodB.compatible_attachments && prodB.compatible_attachments !== 'N/A')
-                                ? prodB.compatible_attachments.split(',').length
-                                : 0;
-
-                            return ascendent ? countA - countB : countB - countA;
+                            if (!validManufacturers.includes(inputLower)) {
+                                alert("Invalid input: The selected manufacturer does not exist in our catalog!");
+                                return false;
+                            }
                         }
 
-                        return ascendent ? priceDiff : -priceDiff;
+                        let priceInput = parseFloat(document.getElementById('filter_price').value);
+                        if (isNaN(priceInput) || priceInput < minDbPrice || priceInput > maxDbPrice) {
+                            alert(`Invalid input: Price must be a numeric value between ${minDbPrice} and ${maxDbPrice} DP!`);
+                            return false;
+                        }
+
+                        let description = document.getElementById('filter_description').value;
+                        if (description.length > 0 && description.trim() === '') {
+                            alert("Invalid input: Description cannot contain only spaces!");
+                            return false;
+                        }
+                        return true;
+                    }
+
+
+                    // document.getElementById('btn-filter').addEventListener('click', function () {
+                    function applyFilter() {
+                        if (!validate()) return;
+
+                        let shown = 0;
+
+                        let textName = removeDiacritics(document.getElementById('filter_name').value).toLowerCase().trim();
+                        let priceMax = parseFloat(document.getElementById('filter_price').value);
+                        let manufacturerText = removeDiacritics(document.getElementById('filter_manufacturer').value).toLowerCase().trim();
+                        let lethality = document.querySelector('input[name="filter_lethal"]:checked').value;
+                        let categ = document.getElementById('filter_category').value;
+
+                        let descriptionInput = removeDiacritics(document.getElementById('filter_description').value).toLowerCase();
+                        let descKeywords = descriptionInput.split(',').map(kw => kw.trim()).filter(kw => kw.length > 0);
+
+                        let selectCamo = document.getElementById('filter_attachments');
+                        let camoSelect = Array.from(selectCamo.selectedOptions).map(opt => opt.value);
+
+                        productData.forEach(prod => {
+                            let show = true;
+                            if (textName && !removeDiacritics(prod.name).toLowerCase().includes(textName)) show = false;
+
+                            if (parseFloat(prod.price_dp) > priceMax) show = false;
+
+                            if (manufacturerText && (!prod.manufacturer || !removeDiacritics(prod.manufacturer).toLowerCase().includes(manufacturerText))) show = false;
+
+                            if (lethality === 'yes' && prod.is_lethal !== true) show = false;
+                            if (lethality === 'no' && prod.is_lethal !== false) show = false;
+
+                            if (categ !== 'any' && prod.main_category !== categ) show = false;
+
+                            if (descKeywords.length > 0) {
+                                if (!prod.description) {
+                                    show = false;
+                                } else {
+                                    let prodDescLower = removeDiacritics(prod.description.toLowerCase());
+                                    let hasAllKeywords = descKeywords.every(keyword => prodDescLower.includes(keyword));
+
+                                    if (!hasAllKeywords) {
+                                        show = false;
+                                    }
+                                }
+                            }
+                            if (camoSelect.length > 0 && camoSelect[0] !== 'N/A') {
+                                if (!camoSelect.includes(prod.camouflage)) show = false;
+                            }
+
+                            let cardElement = document.getElementById('ent-' + prod.id);
+                            if (cardElement) {
+                                cardElement.dataset.match = show ? "true" : "false";
+                            }
+
+                        });
+                        currentPage = 1;
+                        renderPagination();
+                    };
+                    const filterInputs = [
+                        'filter_name', 
+                        'filter_price', 
+                        'filter_manufacturer', 
+                        'filter_category', 
+                        'filter_description', 
+                        'filter_attachments'
+                    ];
+                    filterInputs.forEach(id => {
+                        let el = document.getElementById(id);
+                        if (el) {
+                            el.addEventListener('input', applyFilter);
+                            el.addEventListener('change', applyFilter); 
+                        }
                     });
 
-                    cards.forEach(card => container.appendChild(card));
-                }
+                    document.querySelectorAll('input[name="filter_lethal"]').forEach(radio => {
+                        radio.addEventListener('change', applyFilter);
+                    });
 
-                document.getElementById('btn-sort-asc').addEventListener('click', () => {
-                    if (!validate()) return;
-                    sortProduct(true);
-                });
-                document.getElementById('btn-sort-desc').addEventListener('click', () => {
-                    if (!validate()) return;
-                    sortProduct(false);
-                });
+                    document.getElementById('btn-calculate').addEventListener('click', function () {
 
-            </script>
-</body>
+                        if (!validate()) return;
 
-</html>
+                        let sumTotal = 0;
+
+                        productData.forEach(prod => {
+                            let cardElement = document.getElementById('ent-' + prod.id);
+                            if (cardElement && cardElement.dataset.match === "true") {
+                                sumTotal += parseFloat(prod.price_dp);
+                            }
+                        });
+                        let toastDiv = document.createElement('div');
+                        toastDiv.className = 'calculation-toast';
+
+                        toastDiv.textContent = "Total price: " + sumTotal.toFixed(2) + " DP";
+
+                        document.body.appendChild(toastDiv);
+
+                        setTimeout(() => {
+                            if (toastDiv.parentElement) {
+                                toastDiv.remove();
+                            }
+                        }, 2000);
+                    });
+
+                    document.getElementById('btn-reset').addEventListener('click', function () {
+                        document.getElementById('no-products-msg').style.display = 'none';
+                        let conf = confirm("Do you really want to reset all filters?");
+                        if (!conf) {
+                            return;
+                        }
+                        document.getElementById('filter_name').value = '';
+                        document.getElementById('filter_price').value = maxDbPrice;
+                        document.getElementById('price_value').textContent = maxDbPrice;
+                        document.getElementById('filter_manufacturer').value = '';
+                        document.querySelector('input[name="filter_lethal"][value="any"]').checked = true;
+                        document.getElementById('filter_category').value = 'any';
+                        document.getElementById('filter_description').value = '';
+
+                        Array.from(document.getElementById('filter_attachments').options).forEach(opt => opt.selected = false);
+
+                        applyFilter();
+                        document.getElementById('displayed-count').textContent = productData.length;
+                    });
+
+                    function sortProduct(ascendent = true) {
+                        let container = document.querySelector('.products-container');
+                        let cards = Array.from(container.querySelectorAll('.product'));
+
+                        cards.sort((a, b) => {
+                            let idA = parseInt(a.id.split('-')[1]);
+                            let idB = parseInt(b.id.split('-')[1]);
+
+                            let prodA = productData.find(p => p.id === idA);
+                            let prodB = productData.find(p => p.id === idB);
+
+                            let priceDiff = prodA.price_dp - prodB.price_dp;
+
+                            if (priceDiff === 0) {
+                                let countA = (prodA.compatible_attachments && prodA.compatible_attachments !== 'N/A')
+                                    ? prodA.compatible_attachments.split(',').length
+                                    : 0;
+
+                                let countB = (prodB.compatible_attachments && prodB.compatible_attachments !== 'N/A')
+                                    ? prodB.compatible_attachments.split(',').length
+                                    : 0;
+
+                                return ascendent ? countA - countB : countB - countA;
+                            }
+
+                            return ascendent ? priceDiff : -priceDiff;
+                        });
+
+                        cards.forEach(card => container.appendChild(card));
+                        currentPage = 1;
+                        renderPagination(); 
+                    }
+
+                    document.getElementById('btn-sort-asc').addEventListener('click', () => {
+                        if (!validate()) return;
+                        sortProduct(true);
+                    });
+                    document.getElementById('btn-sort-desc').addEventListener('click', () => {
+                        if (!validate()) return;
+                        sortProduct(false);
+                    });
+
+
+
+                    applyFilter();
+                </script>
+    </body>
+
+    </html>

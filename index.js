@@ -224,7 +224,36 @@ function initScss() {
     });
 }
 initScss();
+function cleanOldBackups() {
+    const T_MINUTE = 5;
+    const backupDir = path.join(__dirname, 'backup', 'resources', 'css');
 
+    if (!fs.existsSync(backupDir)) return;
+
+    fs.readdir(backupDir, (err, files) => {
+        if (err) return console.error("[Cleanup] Cannot read backups folder:", err);
+
+        const rn = Date.now();
+
+        files.forEach(file => {
+            const filePath = path.join(backupDir, file);
+
+            fs.stat(filePath, (err, stats) => {
+                if (err) return;
+
+                const ageMinT = (rn - stats.mtimeMs) / (1000 * 60);
+
+                if (ageMinT > T_MINUTE) {
+                    fs.unlink(filePath, err => {
+                        if (!err) console.log(`[Backup Cleanup] Deleted old backup: ${file}`);
+                    });
+                }
+            });
+        });
+    });
+}
+
+setInterval(cleanOldBackups, 60 * 1000);
 // ===================================================================================================================
 
 app.set('view engine', 'ejs');
@@ -326,6 +355,9 @@ async function processGalleryData() {
 app.get(['/', '/index', '/home'], async (req, res) => {
     try {
         let galleryData = await processGalleryData();
+
+        const resultNew = await pool.query('SELECT * FROM product ORDER BY manufacturing_date DESC LIMIT 3');
+        galleryData.newMerch = resultNew.rows;
 
         res.render('pages/index', galleryData, function (error, renderResult) {
             if (error) {

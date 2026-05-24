@@ -37,6 +37,24 @@
                         <div>Buyback programs</div>
                         <div>Investing</div>
                     </div>
+
+                    <section id="new-arrivals" class="mt-5 p-4 border rounded" style="background-color: var(--bg-surface);">
+                        <h2 class="text-danger border-bottom border-danger pb-2 mb-4">Newest on the Market</h2>
+                        
+                        <div class="d-flex flex-wrap gap-4 justify-content-center">
+                            <% for(let newProd of newMerch) { %>
+                                <div class="card" style="width: 18rem; background-color: var(--bg-box); border: 1px solid var(--accent-primary);">
+                                    <img src="<%= newProd.image_path %>" class="card-img-top p-2" alt="<%= newProd.name %>" style="height: 200px; object-fit: contain;">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title" style="color: var(--text-main);"><%= newProd.name %></h5>
+                                        <p class="card-text text-danger fw-bold"><%= newProd.price_dp %> DP</p>
+                                        <a href="/product/<%= newProd.id %>" class="btn btn-outline-danger w-100">Details</a>
+                                    </div>
+                                </div>
+                            <% } %>
+                        </div>
+                    </section>
+
                     <p class="intro quip">Remote regime change is now just a click away</p>
                     <div id="dv-presentation-1">
                         <div id="dv-presentation">

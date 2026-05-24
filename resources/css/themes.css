@@ -62,3 +62,40 @@
         display: none;
     }
 }
+
+.retro-theme {
+    --link-visited: #27ae60;
+    --icon-hover: #d35400;
+    --glow-color: rgba(192, 57, 43, 0.3);
+    --active-border: #e67e22;
+    --bg-main: #f4ecd8; 
+    --bg-secondary-transparent: rgba(210, 180, 140, 0.2);
+    --text-main: #3e332a;
+    --text-muted: #6e5f52;
+    --accent-primary: #c0392b;
+    --accent-secondary: #922b21;
+    --bg-box: rgba(235, 219, 185, 0.95);
+    --bg-tint: rgba(192, 57, 43, 0.1);
+    --shadow-color: rgba(100, 80, 60, 0.3);
+
+    --product-bg: #ece0c8;
+    --product-border: #6e5f52;
+    --product-header: rgba(192, 57, 43, 0.75);
+    --product-text-black: #2c221a;
+    --filter-bg: #dfceb1;
+
+    --bg-surface: #ebd9b4;
+    --bg-surface-alt: #dfceb1;
+    --border-dark: #a8947a;
+    --border-light: #c2b29a;
+    --text-dim: #7a6b5c;
+    --accent-alert: #b03a2e;
+    --accent-alert-hover: #cb4335;
+
+    --main-BG: rgba(192, 57, 43, 0.3);
+
+    .blurred-background {
+        display: none;
+    }
+}
+
